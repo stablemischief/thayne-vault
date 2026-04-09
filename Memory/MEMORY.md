@@ -8,7 +8,7 @@ _Keep this concise — it loads into every session. Max ~300 lines. No transcrip
 # 🌐 GLOBAL — People, Rules, Tooling
 
 ## Key Contacts & Emails
-- **Jessie Whitfield** (wife) — jessfogg@gmail.com
+- **Jessie Whitfield** (wife; DOB 27Oct1986) — jessfogg@gmail.com
 - **Kaya Laine Whitfield** (oldest daughter; DOB 26May2004) — kayalaine@gmail.com
 - **Mitch Dornich** (business partner) — mitch@stablemischief.ai
 - **Tristan Cuevas** (pro bono dev/learner) — tristan.cuevas.development@gmail.com
@@ -118,13 +118,6 @@ Scale: 1,395 fields, 9 doc types, 6-phase pipeline, 91 tests. Built in <120 days
 - LM dry/irr acres: Farm Plan (applicant-entered) is authoritative source per V5, not FSA doc extraction.
 - GridView Design Standard: #2c4a3e header, #c05c00 amber values, 2-column card grid, no zebra striping.
 
-## Open PRs / Issues (as of 2026-04-06)
-- Mitch completed most issues and all open PRs from the week of 2026-03-30 are merged/closed ✅
-- Issue #331 — REC-02: Module 8 four-block architecture rebuild (status: confirm with Mitch)
-- Issue #382 — Balance sheet total validation indicator (POST-REC feature)
-- Issue #384 — Replace fixed BS field schema with relational extraction model (POST-REC arch)
-- Issue #385 — Financial document analyst agent (depends on #384)
-- **Status:** REC remediation ongoing, product ~2 weeks behind. Mitch driving. James focused on AgFin above all else.
 
 ---
 
