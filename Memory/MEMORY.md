@@ -236,7 +236,7 @@ Thane's skills (reference, not Thayne's): `~/Developer/Apps/thane/skills/`
 # 🧠 THAYNE SYSTEM
 
 ## What Thayne Is
-Thayne is a parallel second brain to Thane (OpenClaw). Both run Claude Agent SDK / Claude Code. Built April 2026 using Cole Medin's framework. Seeded from Thane's 6+ months of context.
+Thayne is the PRIMARY 2nd brain agent. Runs on Claude Agent SDK / Claude Code. Built April 2026 using Cole Medin's framework.
 
 ## Key Differences from Thane
 - **Primary interface: Slack** (transitioning from Discord as of 2026-04-06 — James confirmed)
