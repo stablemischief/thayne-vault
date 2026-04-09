@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Affirm — "Morning Light"</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400;1,500&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #E8E0D4;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      padding: 40px 20px 60px;
+      font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
+    }
+
+    .concept-label {
+      color: #8A7B6B;
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+
+    .phone {
+      width: 375px;
+      background: #FAF7F2;
+      border-radius: 44px;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(80,60,40,0.2), 0 0 0 1px rgba(80,60,40,0.08);
+    }
+
+    .screen { display: none; flex-direction: column; min-height: 812px; }
+    .screen.active { display: flex; }
+
+    .safe-top { height: 44px; flex-shrink: 0; display: flex; align-items: center; justify-content: flex-end; padding: 0 24px; }
+    .safe-bottom { height: 34px; flex-shrink: 0; }
+    .status-bar { font-size: 12px; color: #A89884; font-weight: 500; }
+
+    /* ===== HOME SCREEN ===== */
+    #screen-home { background: #FAF7F2; }
+
+    .home-header {
+      padding: 4px 24px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .greeting {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .greeting-sub {
+      font-size: 12px;
+      color: #A89884;
+      font-weight: 400;
+      letter-spacing: 0.04em;
+    }
+
+    .greeting-main {
+      font-family: 'Lora', serif;
+      font-size: 22px;
+      font-weight: 400;
+      color: #2D2420;
+    }
+
+    .settings-btn {
+      width: 40px; height: 40px;
+      border: 1.5px solid #E0D8CE;
+      background: white;
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      color: #A89884;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .settings-btn:active { background: #F0EBE3; }
+
+    .affirmation-card {
+      margin: 20px 20px 0;
+      background: white;
+      border-radius: 24px;
+      padding: 28px 24px 24px;
+      box-shadow: 0 2px 20px rgba(80,60,40,0.07), 0 0 0 1px rgba(80,60,40,0.04);
+    }
+
+    .affirmation-card-label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #7A8C5C;
+      margin-bottom: 16px;
+    }
+
+    .affirmation-card-text {
+      font-family: 'Lora', serif;
+      font-size: 21px;
+      font-weight: 400;
+      line-height: 1.55;
+      color: #2D2420;
+    }
+
+    .affirmation-card-text em {
+      color: #7A8C5C;
+      font-style: italic;
+    }
+
+    .affirmation-divider {
+      height: 1px;
+      background: #F0EBE3;
+      margin: 20px 0 16px;
+    }
+
+    .affirmation-card-meta {
+      font-size: 12px;
+      color: #C4B8A8;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .refresh-btn {
+      background: none;
+      border: none;
+      color: #A89884;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      padding: 4px 8px;
+    }
+
+    .checkin-row {
+      margin: 16px 20px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: white;
+      border-radius: 16px;
+      padding: 14px 18px;
+      box-shadow: 0 1px 8px rgba(80,60,40,0.05), 0 0 0 1px rgba(80,60,40,0.04);
+    }
+
+    .checkin-text {
+      font-size: 13px;
+      color: #7A6E64;
+      line-height: 1.4;
+      flex: 1;
+      padding-right: 12px;
+    }
+
+    .checkin-cta {
+      background: none;
+      border: 1.5px solid #D4A853;
+      color: #B8892A;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      transition: background 0.15s;
+    }
+    .checkin-cta:active { background: #FFF8E8; }
+
+    .actions-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #C4B8A8;
+      padding: 20px 24px 12px;
+    }
+
+    .actions-grid {
+      padding: 0 20px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .action-tile {
+      background: white;
+      border-radius: 18px;
+      padding: 18px 16px;
+      box-shadow: 0 1px 8px rgba(80,60,40,0.05), 0 0 0 1px rgba(80,60,40,0.04);
+      cursor: pointer;
+      transition: transform 0.1s, box-shadow 0.1s;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      min-height: 90px;
+    }
+    .action-tile:active { transform: scale(0.97); box-shadow: 0 1px 4px rgba(80,60,40,0.05); }
+
+    .action-tile.featured {
+      background: #F5F0E8;
+      border: 1.5px solid #D4A853;
+    }
+
+    .tile-icon {
+      width: 32px; height: 32px;
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 15px;
+    }
+
+    .tile-icon.green { background: #EDF3E8; }
+    .tile-icon.amber { background: #FFF3CD; }
+    .tile-icon.sage { background: #E8F0E8; }
+    .tile-icon.blue { background: #E8F4F8; }
+
+    .tile-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: #2D2420;
+      line-height: 1.3;
+    }
+
+    /* ===== RESULT / JOE SCREEN ===== */
+    #screen-joe { background: #FAF7F2; }
+
+    .screen-header {
+      padding: 8px 20px 0;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .back-btn {
+      width: 44px; height: 44px;
+      background: none;
+      border: none;
+      color: #A89884;
+      font-size: 20px;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    .screen-header-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: #2D2420;
+      letter-spacing: 0.02em;
+    }
+
+    .joe-content {
+      flex: 1;
+      padding: 24px 24px 0;
+    }
+
+    .joe-source-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #EDF3E8;
+      border-radius: 20px;
+      padding: 6px 12px;
+      font-size: 11px;
+      font-weight: 600;
+      color: #5C7A5C;
+      letter-spacing: 0.06em;
+      margin-bottom: 20px;
+    }
+
+    .joe-pull-quote {
+      font-family: 'Lora', serif;
+      font-size: 22px;
+      font-weight: 400;
+      line-height: 1.55;
+      color: #2D2420;
+      margin-bottom: 24px;
+    }
+
+    .joe-pull-quote em { color: #5C7A5C; }
+
+    .joe-context {
+      background: white;
+      border-radius: 16px;
+      padding: 18px;
+      box-shadow: 0 1px 8px rgba(80,60,40,0.05);
+    }
+
+    .joe-context-label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #A89884;
+      margin-bottom: 10px;
+    }
+
+    .joe-context-text {
+      font-size: 14px;
+      line-height: 1.6;
+      color: #6B5F54;
+    }
+
+    .result-footer {
+      padding: 20px 20px;
+      display: flex;
+      gap: 10px;
+    }
+
+    .btn-outline {
+      flex: 1;
+      padding: 14px;
+      border-radius: 14px;
+      border: 1.5px solid #E0D8CE;
+      background: white;
+      color: #8A7B6B;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      transition: transform 0.1s;
+    }
+    .btn-outline:active { transform: scale(0.97); }
+
+    .btn-filled {
+      flex: 2;
+      padding: 14px;
+      border-radius: 14px;
+      border: none;
+      background: #5C7A5C;
+      color: white;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      transition: transform 0.1s, opacity 0.1s;
+    }
+    .btn-filled:active { transform: scale(0.97); opacity: 0.9; }
+
+    /* ===== STRUGGLE SCREEN ===== */
+    #screen-struggle { background: #FAF7F2; }
+
+    .struggle-content {
+      flex: 1;
+      padding: 16px 24px 0;
+    }
+
+    .struggle-intro {
+      font-family: 'Lora', serif;
+      font-size: 20px;
+      font-weight: 400;
+      color: #2D2420;
+      line-height: 1.5;
+      margin-bottom: 6px;
+    }
+
+    .struggle-sub {
+      font-size: 14px;
+      color: #A89884;
+      line-height: 1.5;
+      margin-bottom: 20px;
+    }
+
+    .struggle-input-area {
+      background: white;
+      border: 1.5px solid #E0D8CE;
+      border-radius: 16px;
+      padding: 16px;
+      min-height: 100px;
+      font-size: 15px;
+      color: #6B5F54;
+      line-height: 1.6;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      margin-bottom: 16px;
+    }
+
+    .energy-center-hint {
+      background: #F5F0E8;
+      border: 1px solid #D4C4A8;
+      border-radius: 14px;
+      padding: 14px 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .energy-dot {
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #D4A853, #F0C86A);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      font-size: 14px;
+    }
+
+    .energy-info { flex: 1; }
+
+    .energy-name {
+      font-size: 13px;
+      font-weight: 600;
+      color: #2D2420;
+    }
+
+    .energy-desc {
+      font-size: 12px;
+      color: #A89884;
+      line-height: 1.4;
+      margin-top: 2px;
+    }
+  </style>
+</head>
+<body>
+  <div class="concept-label">Concept B — "Morning Light" &nbsp;·&nbsp; Warm / Grounded / Daily Ritual</div>
+
+  <div class="phone">
+
+    <!-- HOME SCREEN -->
+    <div class="screen active" id="screen-home">
+      <div class="safe-top"><span class="status-bar">9:41</span></div>
+
+      <div class="home-header">
+        <div class="greeting">
+          <span class="greeting-sub">Good morning, James</span>
+          <span class="greeting-main">Your Alignment</span>
+        </div>
+        <button class="settings-btn" onclick="showScreen('screen-settings')">⚙</button>
+      </div>
+
+      <div class="affirmation-card">
+        <div class="affirmation-card-label">Today's Blueprint</div>
+        <div class="affirmation-card-text">
+          The blueprint for <em>abundant wealth</em> already exists in the field. You are not waiting — you are receiving what is already yours.
+        </div>
+        <div class="affirmation-divider"></div>
+        <div class="affirmation-card-meta">
+          <span>FSS · The Decree</span>
+          <button class="refresh-btn">New ↻</button>
+        </div>
+      </div>
+
+      <div class="checkin-row">
+        <div class="checkin-text">Is something pulling you out of alignment right now?</div>
+        <button class="checkin-cta" onclick="showScreen('screen-struggle')">Yes, help</button>
+      </div>
+
+      <div class="actions-label">What do you need?</div>
+
+      <div class="actions-grid">
+        <button class="action-tile" onclick="showScreen('screen-affirmation')">
+          <div class="tile-icon green">✦</div>
+          <div class="tile-title">Positive Affirmation</div>
+        </button>
+        <button class="action-tile" onclick="showScreen('screen-joe')">
+          <div class="tile-icon sage">◈</div>
+          <div class="tile-title">Daily Dose of Joe</div>
+        </button>
+        <button class="action-tile featured" onclick="showScreen('screen-future')">
+          <div class="tile-icon amber">◉</div>
+          <div class="tile-title">Remember My Future</div>
+        </button>
+        <button class="action-tile" onclick="showScreen('screen-struggle')">
+          <div class="tile-icon blue">♡</div>
+          <div class="tile-title">I'm Struggling</div>
+        </button>
+      </div>
+
+      <div class="safe-bottom"></div>
+    </div>
+
+    <!-- DAILY DOSE OF JOE -->
+    <div class="screen" id="screen-joe">
+      <div class="safe-top"><span class="status-bar">9:41</span></div>
+      <div class="screen-header">
+        <button class="back-btn" onclick="showScreen('screen-home')">←</button>
+        <span class="screen-header-title">Daily Dose of Joe</span>
+      </div>
+
+      <div class="joe-content">
+        <div class="joe-source-badge">📖 Dr. Joe · Becoming Supernatural</div>
+        <div class="joe-pull-quote">
+          When you can <em>feel the emotion of your future</em> before it happens, you stop looking for it.<br><br>How could you look for something you already feel you have?
+        </div>
+
+        <div class="joe-context">
+          <div class="joe-context-label">Why this matters for your work</div>
+          <div class="joe-context-text">
+            Your blueprint for abundance is already in the field. The shift isn't in trying harder — it's in feeling the reality of it now, before your outer world confirms it.
+          </div>
+        </div>
+      </div>
+
+      <div class="result-footer">
+        <button class="btn-outline">Save</button>
+        <button class="btn-filled" onclick="showScreen('screen-home')">I receive this</button>
+      </div>
+      <div class="safe-bottom"></div>
+    </div>
+
+    <!-- AFFIRMATION RESULT (stub) -->
+    <div class="screen" id="screen-affirmation">
+      <div class="safe-top"><span class="status-bar">9:41</span></div>
+      <div class="screen-header">
+        <button class="back-btn" onclick="showScreen('screen-home')">←</button>
+        <span class="screen-header-title">Affirmation</span>
+      </div>
+      <div style="flex:1; padding:24px;">
+        <div class="joe-source-badge" style="background:#FFF3CD; color:#B8892A;">✦ The Gratitude Treatment</div>
+        <div class="joe-pull-quote">
+          I give infinite thanks that <em>right abundance</em> is mine now — flowing freely, in expected and unexpected ways.
+        </div>
+        <div class="joe-context">
+          <div class="joe-context-label">From Florence Scovel Shinn</div>
+          <div class="joe-context-text">"The Game of Life" — Gratitude is the great multiplier. When you are grateful in advance, the body believes the future has already arrived.</div>
+        </div>
+      </div>
+      <div class="result-footer">
+        <button class="btn-outline">Again ↻</button>
+        <button class="btn-filled" onclick="showScreen('screen-home')">I receive this</button>
+      </div>
+      <div class="safe-bottom"></div>
+    </div>
+
+    <!-- REMEMBER MY FUTURE -->
+    <div class="screen" id="screen-future">
+      <div class="safe-top"><span class="status-bar">9:41</span></div>
+      <div class="screen-header">
+        <button class="back-btn" onclick="showScreen('screen-home')">←</button>
+        <span class="screen-header-title">Remembering Your Future</span>
+      </div>
+      <div style="flex:1; padding: 24px;">
+        <div style="font-size:11px; font-weight:600; letter-spacing:0.16em; text-transform:uppercase; color:#A89884; margin-bottom:8px;">Future Memory</div>
+        <div style="font-family:'Lora',serif; font-size:15px; color:#A89884; font-style:italic; margin-bottom:20px;">The Investment Close</div>
+        <div style="font-family:'Lora',serif; font-size:19px; font-weight:400; color:#2D2420; line-height:1.65;">
+          I remember the warmth that moved through my chest the moment I heard those words.<br><br>
+          <span style="color:#5C7A5C;">The certainty — not surprise, but recognition.</span><br><br>
+          Some deeper part of me had always known this was already done. I sat in the quiet after the call, grateful, knowing.
+        </div>
+        <div style="display:flex; flex-wrap:wrap; gap:8px; margin-top:24px;">
+          <span style="padding:6px 14px; background:#EDF3E8; border-radius:20px; color:#5C7A5C; font-size:12px; font-weight:500;">Gratitude</span>
+          <span style="padding:6px 14px; background:#EDF3E8; border-radius:20px; color:#5C7A5C; font-size:12px; font-weight:500;">Certainty</span>
+          <span style="padding:6px 14px; background:#EDF3E8; border-radius:20px; color:#5C7A5C; font-size:12px; font-weight:500;">Deep knowing</span>
+        </div>
+      </div>
+      <div style="padding: 0 20px 20px;">
+        <button class="btn-filled" style="width:100%; padding:16px;" onclick="showScreen('screen-home')">I remember this</button>
+      </div>
+      <div class="safe-bottom"></div>
+    </div>
+
+    <!-- STRUGGLE SCREEN -->
+    <div class="screen" id="screen-struggle">
+      <div class="safe-top"><span class="status-bar">9:41</span></div>
+      <div class="screen-header">
+        <button class="back-btn" onclick="showScreen('screen-home')">←</button>
+        <span class="screen-header-title">Coming Back to Alignment</span>
+      </div>
+      <div class="struggle-content">
+        <div class="struggle-intro">What's pulling you out?</div>
+        <div class="struggle-sub">Name it honestly. This is how we find the way back.</div>
+        <div class="struggle-input-area">
+          I keep feeling like I'm not worthy of the success I'm working toward...
+        </div>
+        <div class="energy-center-hint">
+          <div class="energy-dot">2</div>
+          <div class="energy-info">
+            <div class="energy-name">Center 2 · Sacral — Worthiness</div>
+            <div class="energy-desc">Guilt, shame, and victim mentality patterns. Energy stored here blocks the flow upward.</div>
+          </div>
+        </div>
+      </div>
+      <div class="result-footer">
+        <button class="btn-outline">Different</button>
+        <button class="btn-filled" onclick="showScreen('screen-home')">Show me the way back</button>
+      </div>
+      <div class="safe-bottom"></div>
+    </div>
+
+    <!-- SETTINGS -->
+    <div class="screen" id="screen-settings">
+      <div class="safe-top"><span class="status-bar">9:41</span></div>
+      <div class="screen-header">
+        <button class="back-btn" onclick="showScreen('screen-home')">←</button>
+        <span class="screen-header-title">Your Blueprint</span>
+      </div>
+      <div style="flex:1; padding:20px; overflow-y:auto;">
+        <div style="background:white; border-radius:20px; padding:20px; margin-bottom:16px; box-shadow:0 1px 8px rgba(80,60,40,0.05);">
+          <div style="font-size:10px; font-weight:600; letter-spacing:0.14em; text-transform:uppercase; color:#A89884; margin-bottom:14px;">Work Areas</div>
+          <div style="display:flex; flex-wrap:wrap; gap:8px;">
+            <span style="padding:8px 14px; background:#EDF3E8; border-radius:20px; color:#5C7A5C; font-size:13px; font-weight:500;">Business Abundance</span>
+            <span style="padding:8px 14px; background:#EDF3E8; border-radius:20px; color:#5C7A5C; font-size:13px; font-weight:500;">Energy Centers</span>
+            <span style="padding:8px 14px; background:#EDF3E8; border-radius:20px; color:#5C7A5C; font-size:13px; font-weight:500;">Mystical Experiences</span>
+          </div>
+        </div>
+        <div style="background:white; border-radius:20px; padding:20px; margin-bottom:16px; box-shadow:0 1px 8px rgba(80,60,40,0.05);">
+          <div style="font-size:10px; font-weight:600; letter-spacing:0.14em; text-transform:uppercase; color:#A89884; margin-bottom:14px;">Blueprint to Rewire</div>
+          <div style="font-size:14px; color:#6B5F54; font-family:'Lora',serif; font-style:italic;">"Unworthy of abundance"</div>
+        </div>
+        <div style="background:white; border-radius:20px; padding:20px; box-shadow:0 1px 8px rgba(80,60,40,0.05);">
+          <div style="font-size:10px; font-weight:600; letter-spacing:0.14em; text-transform:uppercase; color:#A89884; margin-bottom:14px;">Future Memories (1)</div>
+          <div style="padding:12px 14px; background:#F5F0E8; border-radius:12px;">
+            <div style="font-size:14px; font-weight:500; color:#2D2420;">The Investment Close</div>
+            <div style="font-size:12px; color:#A89884; margin-top:4px;">Gratitude · Certainty · Deep knowing</div>
+          </div>
+        </div>
+      </div>
+      <div style="padding:0 20px 20px;">
+        <button class="btn-filled" style="width:100%; padding:16px;" onclick="showScreen('screen-home')">Save Blueprint</button>
+      </div>
+      <div class="safe-bottom"></div>
+    </div>
+
+  </div>
+
+  <div style="margin-top:28px; color:#8A7B6B; font-size:11px; font-family:'Plus Jakarta Sans',sans-serif; text-align:center; line-height:1.8;">
+    Concept B · "Morning Light" · Warm / Grounded / Daily Ritual<br>
+    Font: Lora + Plus Jakarta Sans<br>
+    Palette: Warm cream · Sage green · Amber gold
+  </div>
+
+  <script>
+    function showScreen(id) {
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agrellus – Current Year Crop Plan (Step 3 Mockup)</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green-dark:    #1B3A1F;
+      --green-primary: #2D5A27;
+      --green-mid:     #3A7A30;
+      --green-light:   #D1E8CC;
+      --green-pale:    #F0F7EE;
+      --green-text:    #3A7A30;
+      --gray-border:   #E2E8F0;
+      --gray-light:    #F8F9FA;
+      --gray-mid:      #94A3B8;
+      --gray-dark:     #64748B;
+      --text-primary:  #0F172A;
+      --text-secondary:#475569;
+      --red:           #EF4444;
+      --white:         #FFFFFF;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #F1F5F0;
+      color: var(--text-primary);
+      font-size: 14px;
+      min-height: 100vh;
+    }
+
+    /* ── Top Nav Bar ───────────────────────────────── */
+    .top-nav {
+      background: var(--white);
+      border-bottom: 1px solid var(--gray-border);
+      padding: 0 24px;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 700;
+      font-size: 16px;
+      color: var(--green-dark);
+      text-decoration: none;
+      margin-right: 4px;
+    }
+    .logo svg { width: 24px; height: 24px; }
+    .nav-divider { color: var(--gray-border); font-size: 18px; }
+    .nav-label { color: var(--gray-dark); font-size: 13px; font-weight: 500; }
+    .nav-search {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--gray-light);
+      border: 1px solid var(--gray-border);
+      border-radius: 8px;
+      padding: 6px 12px;
+      color: var(--gray-mid);
+      font-size: 13px;
+      width: 220px;
+    }
+    .nav-icons {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-left: 12px;
+    }
+    .nav-icon {
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--gray-dark);
+      cursor: pointer;
+    }
+    .avatar {
+      width: 32px; height: 32px;
+      background: var(--green-primary);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: white;
+      font-weight: 600;
+      font-size: 13px;
+    }
+    .notif-dot {
+      position: relative;
+    }
+    .notif-dot::after {
+      content: '';
+      width: 8px; height: 8px;
+      background: var(--red);
+      border-radius: 50%;
+      position: absolute;
+      top: 0; right: 0;
+      border: 1.5px solid white;
+    }
+
+    /* ── Context Bar ───────────────────────────────── */
+    .context-bar {
+      background: #F0F4EE;
+      border-bottom: 1px solid #DDE8D9;
+      padding: 8px 24px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+    .context-bar strong { color: var(--text-primary); font-weight: 600; }
+    .context-sep { color: var(--gray-border); }
+    .badge {
+      background: var(--white);
+      border: 1px solid var(--gray-border);
+      border-radius: 4px;
+      padding: 2px 8px;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--gray-dark);
+      letter-spacing: 0.03em;
+    }
+
+    /* ── Main Tabs ─────────────────────────────────── */
+    .main-tabs {
+      background: var(--white);
+      border-bottom: 1px solid var(--gray-border);
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      gap: 0;
+    }
+    .tab {
+      padding: 14px 16px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--gray-dark);
+      border-bottom: 2px solid transparent;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
+    }
+    .tab.active {
+      color: var(--green-primary);
+      border-bottom-color: var(--green-primary);
+    }
+    .tab .tab-num {
+      font-size: 12px;
+      color: var(--gray-mid);
+      font-weight: 400;
+    }
+    .tab-dot {
+      width: 7px; height: 7px;
+      background: var(--green-primary);
+      border-radius: 50%;
+    }
+    .main-tabs .audit-log {
+      margin-left: auto;
+      font-size: 12px;
+      color: var(--gray-dark);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      cursor: pointer;
+    }
+
+    /* ── Page Content ──────────────────────────────── */
+    .page {
+      max-width: 960px;
+      margin: 32px auto;
+      padding: 0 24px;
+    }
+
+    /* ── Step Wizard ───────────────────────────────── */
+    .wizard {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      margin-bottom: 28px;
+    }
+    .wizard-step {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--gray-mid);
+    }
+    .wizard-step.complete { color: var(--text-primary); }
+    .wizard-step.active   { color: var(--text-primary); }
+    .step-circle {
+      width: 30px; height: 30px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 13px;
+      font-weight: 600;
+      background: #E2EAE0;
+      color: var(--gray-mid);
+      flex-shrink: 0;
+    }
+    .step-circle.complete {
+      background: var(--green-primary);
+      color: white;
+    }
+    .step-circle.active {
+      background: var(--green-dark);
+      color: white;
+    }
+    .wizard-connector {
+      flex: 1;
+      height: 3px;
+      background: var(--green-light);
+      margin: 0 8px;
+      min-width: 60px;
+    }
+    .wizard-connector.complete {
+      background: var(--green-primary);
+    }
+    /* Progress bar below wizard */
+    .wizard-bar {
+      height: 4px;
+      background: var(--green-light);
+      border-radius: 2px;
+      margin-bottom: 28px;
+      overflow: hidden;
+    }
+    .wizard-bar-fill {
+      height: 100%;
+      background: var(--green-primary);
+      border-radius: 2px;
+      width: 60%; /* step 3 of 4 */
+      transition: width 0.3s ease;
+    }
+
+    /* ── Card ──────────────────────────────────────── */
+    .card {
+      background: var(--white);
+      border-radius: 12px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.06), 0 0 0 1px rgba(0,0,0,0.04);
+      padding: 32px;
+    }
+    .card-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 4px;
+    }
+    .card-section-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 4px;
+      margin-top: 24px;
+    }
+    .card-subtitle {
+      font-size: 13px;
+      color: var(--text-secondary);
+      margin-bottom: 24px;
+      line-height: 1.5;
+    }
+
+    /* ── Crop Grid ─────────────────────────────────── */
+    .crop-grid {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .crop-grid thead tr {
+      background: var(--green-pale);
+      border-bottom: 1px solid var(--green-light);
+    }
+    .crop-grid th {
+      padding: 10px 12px;
+      text-align: left;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--green-primary);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      white-space: nowrap;
+    }
+    .crop-grid th .required {
+      color: var(--red);
+      margin-left: 2px;
+    }
+    .crop-grid td {
+      padding: 8px 8px;
+      vertical-align: middle;
+      border-bottom: 1px solid var(--gray-border);
+    }
+    .crop-grid tbody tr:last-child td {
+      border-bottom: none;
+    }
+    .crop-grid tbody tr:hover td {
+      background: #FAFCFA;
+    }
+    .row-num {
+      font-size: 12px;
+      color: var(--gray-mid);
+      font-weight: 500;
+      text-align: center;
+      padding: 8px 4px;
+      width: 32px;
+    }
+    /* Inputs inside grid */
+    .grid-select,
+    .grid-input {
+      width: 100%;
+      border: 1px solid var(--gray-border);
+      border-radius: 6px;
+      padding: 8px 10px;
+      font-size: 13px;
+      font-family: inherit;
+      color: var(--text-primary);
+      background: var(--white);
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .grid-select:focus,
+    .grid-input:focus {
+      border-color: var(--green-mid);
+      box-shadow: 0 0 0 3px rgba(45,90,39,0.10);
+    }
+    .grid-select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2394A3B8' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 8px center; padding-right: 28px; }
+    .grid-input[type="number"] { -moz-appearance: textfield; }
+    .grid-input[type="number"]::-webkit-inner-spin-button,
+    .grid-input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; }
+    .grid-input::placeholder { color: var(--gray-mid); }
+    .grid-select option[value=""] { color: var(--gray-mid); }
+
+    /* Delete row button */
+    .btn-delete-row {
+      width: 28px; height: 28px;
+      border: none;
+      background: none;
+      border-radius: 6px;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--gray-mid);
+      transition: background 0.15s, color 0.15s;
+    }
+    .btn-delete-row:hover {
+      background: #FEE2E2;
+      color: #EF4444;
+    }
+
+    /* Empty row placeholder */
+    .empty-cell { width: 32px; }
+
+    /* ── Add Row Button ─────────────────────────────── */
+    .add-row-wrap {
+      margin-top: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .btn-add-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: none;
+      border: 1.5px dashed var(--green-mid);
+      border-radius: 8px;
+      padding: 9px 16px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--green-primary);
+      cursor: pointer;
+      transition: background 0.15s, border-color 0.15s;
+      font-family: inherit;
+    }
+    .btn-add-row:hover {
+      background: var(--green-pale);
+      border-color: var(--green-primary);
+    }
+    .btn-add-row svg {
+      width: 14px; height: 14px;
+      stroke: var(--green-primary);
+    }
+    .row-count-note {
+      font-size: 12px;
+      color: var(--gray-mid);
+    }
+
+    /* ── Info Banner ───────────────────────────────── */
+    .info-banner {
+      background: var(--green-pale);
+      border: 1px solid var(--green-light);
+      border-radius: 8px;
+      padding: 12px 16px;
+      font-size: 13px;
+      color: var(--green-primary);
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 20px;
+      line-height: 1.5;
+    }
+    .info-banner svg {
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    /* ── Navigation Buttons ─────────────────────────── */
+    .nav-buttons {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 28px;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 0.15s;
+    }
+    .btn-back {
+      background: var(--white);
+      border: 1px solid var(--gray-border);
+      color: var(--text-secondary);
+    }
+    .btn-back:hover { background: var(--gray-light); }
+    .btn-next {
+      background: var(--green-dark);
+      border: none;
+      color: white;
+      padding: 10px 24px;
+    }
+    .btn-next:hover { background: var(--green-primary); }
+
+    /* Other crop text input (hidden by default) */
+    .crop-other-wrap { position: relative; display: none; }
+    .crop-other-wrap.visible { display: flex; align-items: center; gap: 4px; }
+    .btn-crop-back {
+      flex-shrink: 0;
+      width: 22px; height: 22px;
+      border: none; background: none; cursor: pointer;
+      color: var(--gray-mid); padding: 0;
+      display: flex; align-items: center; justify-content: center;
+      border-radius: 4px;
+    }
+    .btn-crop-back:hover { background: var(--gray-border); color: var(--text-secondary); }
+
+    /* column widths */
+    .col-county  { width: 18%; }
+    .col-farm    { width: 14%; }
+    .col-crop    { width: 24%; }
+    .col-dry     { width: 14%; }
+    .col-irr     { width: 14%; }
+    .col-del     { width: 40px; }
+  </style>
+</head>
+<body>
+
+<!-- ── Top Navigation ────────────────────────────── -->
+<nav class="top-nav">
+  <a href="#" class="logo">
+    <!-- Leaf icon -->
+    <svg viewBox="0 0 24 24" fill="none" stroke="none">
+      <path d="M12 2C6 2 3 7 3 12c0 3 1.5 5.5 4 7l1-3c1 1.5 2.5 2.5 4 3 4-1 7-5 7-10C19 4 16 2 12 2z" fill="#F5A623" opacity="0.9"/>
+      <path d="M12 2C8 2 5 6 5 10c0 2.5 1 4.5 3 6" stroke="#E08B10" stroke-width="1" fill="none"/>
+    </svg>
+    AGRELLUS
+  </a>
+  <span class="nav-divider">|</span>
+  <span class="nav-label">Crop Finance Platform</span>
+  <div class="nav-search">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    Search applications...
+  </div>
+  <div class="nav-icons">
+    <!-- sun/moon toggle placeholder -->
+    <div class="nav-icon" style="gap:2px;display:flex;align-items:center;">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+    </div>
+    <div class="nav-icon notif-dot">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+    </div>
+    <div class="nav-icon">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+    </div>
+    <div class="avatar">J</div>
+  </div>
+</nav>
+
+<!-- ── Context Bar ────────────────────────────────── -->
+<div class="context-bar">
+  <span><strong>Farmer:</strong> James Robert Thornton Sr.</span>
+  <span class="context-sep">·</span>
+  <span><strong>Farms:</strong> 4 Sunflower, 4 Humphreys, 4 Washington</span>
+  <span class="context-sep">·</span>
+  <span><strong>App:</strong> APP-A1FAC1B9</span>
+  <span class="badge">DRAFT_ANALYST_ENTRY</span>
+</div>
+
+<!-- ── Main Tabs ──────────────────────────────────── -->
+<div class="main-tabs">
+  <div class="tab active"><span class="tab-dot"></span> Create</div>
+  <div class="tab"><span class="tab-num">2</span> Collect</div>
+  <div class="tab"><span class="tab-num">3</span> Review</div>
+  <div class="tab"><span class="tab-num">4</span> Modules</div>
+  <div class="tab"><span class="tab-num">5</span> AI Audit</div>
+  <div class="tab"><span class="tab-num">6</span> Audit</div>
+  <div class="tab"><span class="tab-num">7</span> Certify</div>
+  <div class="audit-log">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+    Audit Log
+  </div>
+</div>
+
+<!-- ── Page Body ──────────────────────────────────── -->
+<div class="page">
+
+  <!-- Step Wizard -->
+  <div class="wizard">
+    <!-- Step 1: complete -->
+    <div class="wizard-step complete">
+      <div class="step-circle complete">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+      </div>
+      Applicant Identity
+    </div>
+
+    <div class="wizard-connector complete"></div>
+
+    <!-- Step 2: complete -->
+    <div class="wizard-step complete">
+      <div class="step-circle complete">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+      </div>
+      Organization Structure
+    </div>
+
+    <div class="wizard-connector complete"></div>
+
+    <!-- Step 3: active (NEW) -->
+    <div class="wizard-step active">
+      <div class="step-circle active">3</div>
+      Current Year Crop Plan
+    </div>
+
+    <div class="wizard-connector"></div>
+
+    <!-- Step 4: inactive -->
+    <div class="wizard-step">
+      <div class="step-circle">4</div>
+      Attestation
+    </div>
+  </div>
+
+  <!-- Progress Bar -->
+  <div class="wizard-bar">
+    <div class="wizard-bar-fill"></div>
+  </div>
+
+  <!-- Card -->
+  <div class="card">
+    <div class="card-title">Current Year Crop Plan</div>
+
+    <div class="card-subtitle" style="margin-top:12px;">
+      Please provide your current year crop plan. Enter each farm number, the crop you intend to plant, and the planned acreage by practice. This information is required to calculate your projected income.
+    </div>
+
+    <!-- Info banner -->
+    <div class="info-banner">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      <span>Based on your organization structure, you are farming in <strong>3 counties</strong> across <strong>12 farms</strong>. Add one row for each crop you plan to grow on each farm this year.</span>
+    </div>
+
+    <!-- Crop grid -->
+    <table class="crop-grid">
+      <thead>
+        <tr>
+          <th style="width:32px;"></th>
+          <th class="col-county">County <span class="required">*</span></th>
+          <th class="col-farm">Farm Number <span class="required">*</span></th>
+          <th class="col-crop">Crop <span class="required">*</span></th>
+          <th class="col-dry">Dry Acres <span class="required">*</span></th>
+          <th class="col-irr">Irrigated Acres</th>
+          <th class="col-del"></th>
+        </tr>
+      </thead>
+      <tbody id="crop-rows">
+        <!-- Row 1 (blank) -->
+        <tr>
+          <td class="row-num">1</td>
+          <td>
+            <select class="grid-select">
+              <option value="">Select county...</option>
+              <option>Sunflower</option>
+              <option>Humphreys</option>
+              <option>Washington</option>
+            </select>
+          </td>
+          <td>
+            <input class="grid-input" type="text" placeholder="e.g. 1201">
+          </td>
+          <td>
+            <select class="grid-select" onchange="handleCropChange(this)">
+              <option value="">Select crop...</option>
+              <option>Corn</option>
+              <option>Cotton</option>
+              <option>Grain Sorghum</option>
+              <option>Milo</option>
+              <option>Rice</option>
+              <option>Soybeans</option>
+              <option>Wheat</option>
+              <option value="__other__">Other</option>
+            </select>
+            <div class="crop-other-wrap">
+              <button class="btn-crop-back" title="Back to list" onclick="revertCropSelect(this)">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+              </button>
+              <input class="grid-input" type="text" placeholder="Enter crop name">
+            </div>
+          </td>
+          <td>
+            <input class="grid-input" type="number" placeholder="0.00" min="0" step="0.01">
+          </td>
+          <td>
+            <input class="grid-input" type="number" placeholder="0.00" min="0" step="0.01">
+          </td>
+          <td>
+            <button class="btn-delete-row" title="Remove row">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4h6v2"/></svg>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Add row -->
+    <div class="add-row-wrap">
+      <button class="btn-add-row" onclick="addRow()">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5">
+          <line x1="12" y1="5" x2="12" y2="19"/>
+          <line x1="5" y1="12" x2="19" y2="12"/>
+        </svg>
+        Add Additional Crop
+      </button>
+      <span class="row-count-note" id="row-count">1 crop row added</span>
+    </div>
+  </div>
+
+  <!-- Navigation -->
+  <div class="nav-buttons">
+    <button class="btn btn-back">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+      Back
+    </button>
+    <button class="btn btn-next">
+      Next
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+    </button>
+  </div>
+</div>
+
+<script>
+  function cropCellHTML() {
+    return `<select class="grid-select" onchange="handleCropChange(this)">
+              <option value="">Select crop...</option>
+              <option>Corn</option>
+              <option>Cotton</option>
+              <option>Grain Sorghum</option>
+              <option>Milo</option>
+              <option>Rice</option>
+              <option>Soybeans</option>
+              <option>Wheat</option>
+              <option value="__other__">Other</option>
+            </select>
+            <div class="crop-other-wrap">
+              <button class="btn-crop-back" title="Back to list" onclick="revertCropSelect(this)">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+              </button>
+              <input class="grid-input" type="text" placeholder="Enter crop name">
+            </div>`;
+  }
+
+  function handleCropChange(sel) {
+    if (sel.value === '__other__') {
+      sel.style.display = 'none';
+      const wrap = sel.nextElementSibling;
+      wrap.classList.add('visible');
+      wrap.querySelector('input').focus();
+    }
+  }
+
+  function revertCropSelect(btn) {
+    const wrap = btn.closest('.crop-other-wrap');
+    wrap.classList.remove('visible');
+    wrap.querySelector('input').value = '';
+    const sel = wrap.previousElementSibling;
+    sel.style.display = '';
+    sel.value = '';
+  }
+
+  let rowCount = 1;
+
+  function addRow() {
+    rowCount++;
+    const tbody = document.getElementById('crop-rows');
+    const row = document.createElement('tr');
+    row.innerHTML = `
+      <td class="row-num">${rowCount}</td>
+      <td>
+        <select class="grid-select">
+          <option value="">Select county...</option>
+          <option>Sunflower</option>
+          <option>Humphreys</option>
+          <option>Washington</option>
+        </select>
+      </td>
+      <td><input class="grid-input" type="text" placeholder="e.g. 1201"></td>
+      <td>${cropCellHTML()}</td>
+      <td><input class="grid-input" type="number" placeholder="0.00" min="0" step="0.01"></td>
+      <td><input class="grid-input" type="number" placeholder="0.00" min="0" step="0.01"></td>
+      <td>
+        <button class="btn-delete-row" title="Remove row" onclick="deleteRow(this)">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4h6v2"/></svg>
+        </button>
+      </td>`;
+    tbody.appendChild(row);
+    updateCount();
+    // scroll new row into view
+    row.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
+  function deleteRow(btn) {
+    const row = btn.closest('tr');
+    if (document.querySelectorAll('#crop-rows tr').length > 1) {
+      row.remove();
+      rowCount--;
+      // re-number
+      document.querySelectorAll('#crop-rows tr').forEach((r, i) => {
+        r.querySelector('.row-num').textContent = i + 1;
+      });
+      rowCount = document.querySelectorAll('#crop-rows tr').length;
+      updateCount();
+    }
+  }
+
+  function updateCount() {
+    const c = document.querySelectorAll('#crop-rows tr').length;
+    document.getElementById('row-count').textContent =
+      c === 1 ? '1 crop row added' : `${c} crop rows added`;
+  }
+</script>
+</body>
+</html>

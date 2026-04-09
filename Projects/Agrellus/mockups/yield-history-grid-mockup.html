@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yield History — APH by County</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif;
+    background: #f4f4f0;
+    color: #1a1a1a;
+    font-size: 13px;
+  }
+
+  .app-header {
+    background: #2c4a3e;
+    padding: 0 24px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .app-logo { color: white; font-weight: 700; font-size: 15px; letter-spacing: 0.05em; display: flex; align-items: center; gap: 8px; }
+  .app-divider { color: #4a7a65; font-size: 18px; }
+  .app-section { color: #a8c5b5; font-size: 13px; }
+
+  .farmer-bar {
+    background: white;
+    border-bottom: 1px solid #e5e5e0;
+    padding: 8px 24px;
+    font-size: 12px;
+    color: #555;
+    display: flex;
+    gap: 24px;
+    align-items: center;
+  }
+  .farmer-bar strong { color: #1a1a1a; }
+  .status-chip {
+    display: inline-block;
+    background: #f0f0ea;
+    border: 1px solid #d0d0c8;
+    border-radius: 4px;
+    padding: 1px 8px;
+    font-size: 11px;
+    font-weight: 600;
+    color: #555;
+    letter-spacing: 0.03em;
+  }
+
+  .nav-bar {
+    background: white;
+    border-bottom: 1px solid #e5e5e0;
+    padding: 0 24px;
+    display: flex;
+    gap: 4px;
+  }
+  .nav-item { padding: 10px 14px; font-size: 12px; color: #888; cursor: pointer; border-bottom: 2px solid transparent; white-space: nowrap; }
+  .nav-item.active { color: #2c4a3e; font-weight: 600; border-bottom-color: #2c4a3e; }
+  .nav-dot { display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: #2c4a3e; margin-right: 5px; vertical-align: middle; position: relative; top: -1px; }
+
+  /* Page */
+  .page-body { padding: 24px 32px; max-width: 1100px; margin: 0 auto; }
+
+  /* Module header */
+  .module-header { margin-bottom: 16px; }
+  .module-title { font-size: 15px; font-weight: 700; color: #1a1a1a; display: flex; align-items: center; gap: 10px; }
+  .module-badge {
+    font-size: 11px; font-weight: 600;
+    background: #edf4f0; color: #2c4a3e;
+    border: 1px solid #c5ddd5;
+    border-radius: 99px; padding: 2px 10px;
+  }
+  .module-sub { font-size: 12px; color: #888; margin-top: 3px; }
+
+  /* County grid layout */
+  .county-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+
+  /* Each county card */
+  .county-card {
+    background: white;
+    border: 1px solid #e5e5e0;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .county-card-header {
+    background: #2c4a3e;
+    padding: 10px 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .county-card-title {
+    font-size: 12px;
+    font-weight: 700;
+    color: white;
+    letter-spacing: 0.02em;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+  }
+  .county-card-state {
+    font-size: 11px;
+    color: #a8c5b5;
+    font-weight: 400;
+  }
+  .county-card-count {
+    font-size: 11px;
+    color: #a8c5b5;
+  }
+
+  /* Table inside card */
+  .county-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+
+  .county-table thead th {
+    text-align: left;
+    padding: 7px 12px;
+    background: #f8f8f4;
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #888;
+    border-bottom: 1px solid #e5e5e0;
+  }
+  .county-table thead th.aph-col {
+    text-align: right;
+    color: #c05c00;
+  }
+
+  .county-table tbody tr { border-bottom: 1px solid #f0f0ea; }
+  .county-table tbody tr:last-child { border-bottom: none; }
+  .county-table tbody tr:hover { background: #fafaf8; }
+
+  .county-table tbody td { padding: 9px 12px; color: #333; vertical-align: middle; }
+
+  .conf-dot {
+    display: inline-block;
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: #22c55e;
+    margin-right: 6px;
+    vertical-align: middle;
+    position: relative; top: -1px;
+  }
+  .farm-num { font-weight: 700; color: #1a1a1a; white-space: nowrap; }
+  .crop-name { font-weight: 500; color: #1a1a1a; }
+  .practice-tag {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 600;
+    background: #f0f0ea;
+    color: #555;
+    border-radius: 4px;
+    padding: 1px 6px;
+    letter-spacing: 0.03em;
+  }
+  .practice-tag.irr {
+    background: #eff6ff;
+    color: #2563eb;
+  }
+  .aph-cell {
+    text-align: right;
+    font-weight: 700;
+    color: #c05c00;
+    font-size: 13px;
+    white-space: nowrap;
+  }
+
+  /* Three-county layout — third card spans full width */
+  .county-grid-3 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+  .county-card.span-full {
+    grid-column: 1 / -1;
+  }
+
+  /* APH Summary */
+  .summary-section {
+    background: white;
+    border: 1px solid #e5e5e0;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 12px;
+  }
+  .summary-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 16px;
+    border-bottom: 1px solid #e5e5e0;
+    background: #fffbf5;
+  }
+  .summary-title { font-size: 11px; font-weight: 700; color: #c05c00; text-transform: uppercase; letter-spacing: 0.06em; }
+  .summary-sub { font-size: 11px; color: #b07040; }
+
+  .summary-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+  .summary-table thead th {
+    text-align: left;
+    padding: 7px 16px;
+    background: #f8f8f4;
+    font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: #888;
+    border-bottom: 1px solid #e5e5e0;
+  }
+  .summary-table thead th:last-child { text-align: right; }
+  .summary-table tbody tr { border-bottom: 1px solid #f0f0ea; }
+  .summary-table tbody tr:last-child { border-bottom: none; }
+  .summary-table tbody tr:hover { background: #fffbf5; }
+  .summary-table tbody td { padding: 8px 16px; color: #333; }
+  .summary-table tbody td:last-child { text-align: right; font-weight: 700; color: #c05c00; font-size: 13px; }
+  .ctag {
+    display: inline-block;
+    font-size: 10px; font-weight: 600;
+    background: #edf4f0; color: #2c4a3e;
+    border-radius: 4px; padding: 2px 7px;
+  }
+
+  /* Verify bar */
+  .verify-bar {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 11px 16px;
+    background: white; border: 1px solid #e5e5e0; border-radius: 8px;
+  }
+  .verify-left { font-size: 12px; color: #666; }
+  .verify-btn {
+    font-size: 12px; font-weight: 600;
+    background: #2c4a3e; color: white;
+    border: none; border-radius: 6px;
+    padding: 7px 18px; cursor: pointer;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .verify-btn:hover { background: #1e3a2f; }
+
+  .section-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 8px;
+    margin-top: 4px;
+  }
+</style>
+</head>
+<body>
+
+<div class="app-header">
+  <div class="app-logo">🌾 AGRELLUS</div>
+  <span class="app-divider">|</span>
+  <span class="app-section">Crop Finance Platform</span>
+</div>
+
+<div class="farmer-bar">
+  <span><strong>Farmer:</strong> James Robert Thornton Sr.</span>
+  <span><strong>Farms:</strong> 4 Humphreys, 4 Sunflower, 4 Washington</span>
+  <span><strong>App:</strong> APP-E927572B &nbsp;<span class="status-chip">DRAFT_ANALYST_ENTRY</span></span>
+</div>
+
+<div class="nav-bar">
+  <div class="nav-item">Dashboard</div>
+  <div class="nav-item">✓ Create</div>
+  <div class="nav-item">✓ Collect</div>
+  <div class="nav-item">✓ Review</div>
+  <div class="nav-item active"><span class="nav-dot"></span>Modules</div>
+  <div class="nav-item">5 AI Audit</div>
+  <div class="nav-item">6 Audit</div>
+  <div class="nav-item">7 Certify</div>
+</div>
+
+<div class="page-body">
+
+  <div class="module-header">
+    <div class="module-title">
+      Yield History Review
+      <span class="module-badge">✓ Data Extracted</span>
+    </div>
+    <div class="module-sub">APH sourced from prior year schedules of insurance · 3 counties · 5 crop/practice combinations</div>
+  </div>
+
+  <!-- Example A: 2-county side by side -->
+  <div class="section-label">Example A — 2 Counties</div>
+  <div class="county-grid" style="margin-bottom:24px;">
+
+    <div class="county-card">
+      <div class="county-card-header">
+        <div class="county-card-title">Humphreys County <span class="county-card-state">MS</span></div>
+        <span class="county-card-count">3 records</span>
+      </div>
+      <table class="county-table">
+        <thead>
+          <tr>
+            <th>Farm #</th>
+            <th>Crop</th>
+            <th>Practice</th>
+            <th class="aph-col">APH Yield</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="farm-num"><span class="conf-dot"></span>1201</td>
+            <td class="crop-name">Cotton</td>
+            <td><span class="practice-tag">NI</span></td>
+            <td class="aph-cell">877 lbs/ac</td>
+          </tr>
+          <tr>
+            <td class="farm-num"><span class="conf-dot"></span>1201</td>
+            <td class="crop-name">Soybeans</td>
+            <td><span class="practice-tag">NI</span></td>
+            <td class="aph-cell">44 bu/ac</td>
+          </tr>
+          <tr>
+            <td class="farm-num"><span class="conf-dot"></span>1202</td>
+            <td class="crop-name">Corn</td>
+            <td><span class="practice-tag irr">IRR</span></td>
+            <td class="aph-cell">201 bu/ac</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="county-card">
+      <div class="county-card-header">
+        <div class="county-card-title">Sunflower County <span class="county-card-state">MS</span></div>
+        <span class="county-card-count">1 record</span>
+      </div>
+      <table class="county-table">
+        <thead>
+          <tr>
+            <th>Farm #</th>
+            <th>Crop</th>
+            <th>Practice</th>
+            <th class="aph-col">APH Yield</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="farm-num"><span class="conf-dot"></span>1203</td>
+            <td class="crop-name">Cotton</td>
+            <td><span class="practice-tag">NI</span></td>
+            <td class="aph-cell">861 lbs/ac</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+
+  <!-- Example B: 3-county — 2 up top, 1 below spanning full width -->
+  <div class="section-label">Example B — 3 Counties</div>
+  <div class="county-grid-3" style="margin-bottom:24px;">
+
+    <div class="county-card">
+      <div class="county-card-header">
+        <div class="county-card-title">Humphreys County <span class="county-card-state">MS</span></div>
+        <span class="county-card-count">3 records</span>
+      </div>
+      <table class="county-table">
+        <thead><tr><th>Farm #</th><th>Crop</th><th>Practice</th><th class="aph-col">APH Yield</th></tr></thead>
+        <tbody>
+          <tr><td class="farm-num"><span class="conf-dot"></span>1201</td><td class="crop-name">Cotton</td><td><span class="practice-tag">NI</span></td><td class="aph-cell">877 lbs/ac</td></tr>
+          <tr><td class="farm-num"><span class="conf-dot"></span>1201</td><td class="crop-name">Soybeans</td><td><span class="practice-tag">NI</span></td><td class="aph-cell">44 bu/ac</td></tr>
+          <tr><td class="farm-num"><span class="conf-dot"></span>1202</td><td class="crop-name">Corn</td><td><span class="practice-tag irr">IRR</span></td><td class="aph-cell">201 bu/ac</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="county-card">
+      <div class="county-card-header">
+        <div class="county-card-title">Sunflower County <span class="county-card-state">MS</span></div>
+        <span class="county-card-count">1 record</span>
+      </div>
+      <table class="county-table">
+        <thead><tr><th>Farm #</th><th>Crop</th><th>Practice</th><th class="aph-col">APH Yield</th></tr></thead>
+        <tbody>
+          <tr><td class="farm-num"><span class="conf-dot"></span>1203</td><td class="crop-name">Cotton</td><td><span class="practice-tag">NI</span></td><td class="aph-cell">861 lbs/ac</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="county-card">
+      <div class="county-card-header">
+        <div class="county-card-title">Washington County <span class="county-card-state">MS</span></div>
+        <span class="county-card-count">1 record</span>
+      </div>
+      <table class="county-table">
+        <thead><tr><th>Farm #</th><th>Crop</th><th>Practice</th><th class="aph-col">APH Yield</th></tr></thead>
+        <tbody>
+          <tr><td class="farm-num"><span class="conf-dot"></span>1204</td><td class="crop-name">Soybeans</td><td><span class="practice-tag">NI</span></td><td class="aph-cell">40 bu/ac</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <!-- Empty cell to preserve 2-column alignment -->
+    <div></div>
+
+  </div>
+
+  <!-- APH Summary -->
+  <div class="summary-section">
+    <div class="summary-header">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#c05c00" stroke-width="2.5"><path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+      <span class="summary-title">APH Summary</span>
+      <span class="summary-sub">— All counties · farm · crop · practice</span>
+    </div>
+    <table class="summary-table">
+      <thead>
+        <tr><th>County</th><th>Farm #</th><th>Crop</th><th>Practice</th><th>APH Yield</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><span class="ctag">Humphreys</span></td><td>1201</td><td>Cotton</td><td>NI</td><td>877 lbs/ac</td></tr>
+        <tr><td><span class="ctag">Humphreys</span></td><td>1201</td><td>Soybeans</td><td>NI</td><td>44 bu/ac</td></tr>
+        <tr><td><span class="ctag">Humphreys</span></td><td>1202</td><td>Corn</td><td>IRR</td><td>201 bu/ac</td></tr>
+        <tr><td><span class="ctag">Sunflower</span></td><td>1203</td><td>Cotton</td><td>NI</td><td>861 lbs/ac</td></tr>
+        <tr><td><span class="ctag">Washington</span></td><td>1204</td><td>Soybeans</td><td>NI</td><td>40 bu/ac</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="verify-bar">
+    <span class="verify-left">5 of 5 records extracted · All fields at ≥ 90% confidence</span>
+    <button class="verify-btn">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      Verify Module
+    </button>
+  </div>
+
+</div>
+</body>
+</html>

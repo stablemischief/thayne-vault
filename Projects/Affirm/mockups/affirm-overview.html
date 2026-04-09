@@ -1,0 +1,1050 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Affirm — App Overview</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg: #FAF7F2;
+    --sage: #5C7A5C;
+    --sage-light: #EDF3E8;
+    --text: #2D2420;
+    --muted: #B0A494;
+    --gold: #D4B87A;
+    --card: #FFFFFF;
+    --border: #E8E0D4;
+    --caption: #9B8E7E;
+  }
+
+  body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background: #F5F1EB;
+    color: var(--text);
+    line-height: 1.6;
+  }
+
+  .page {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 60px 40px;
+  }
+
+  /* Header */
+  .header {
+    text-align: center;
+    margin-bottom: 56px;
+  }
+
+  .logo-mark {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(145deg, #1A1A2E, #16213E);
+    border-radius: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.25), 0 0 0 1px rgba(255,255,255,0.06);
+  }
+
+  .header h1 {
+    font-family: 'Lora', serif;
+    font-size: 42px;
+    font-weight: 400;
+    color: var(--text);
+    margin-bottom: 12px;
+    letter-spacing: -0.5px;
+  }
+
+  .header .tagline {
+    font-size: 17px;
+    color: var(--caption);
+    max-width: 500px;
+    margin: 0 auto 24px;
+    line-height: 1.7;
+  }
+
+  .pill-row {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .pill {
+    background: var(--sage-light);
+    color: var(--sage);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    padding: 6px 14px;
+    border-radius: 100px;
+    text-transform: uppercase;
+  }
+
+  /* Intro blurb */
+  .intro {
+    background: white;
+    border-radius: 20px;
+    padding: 32px 36px;
+    margin-bottom: 56px;
+    border: 1px solid var(--border);
+    font-size: 16px;
+    line-height: 1.8;
+    color: #4A3F38;
+  }
+
+  .intro p + p { margin-top: 14px; }
+
+  .intro .security-row {
+    display: flex;
+    gap: 20px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+  }
+
+  .security-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: var(--caption);
+    font-weight: 500;
+  }
+
+  .security-item .icon {
+    width: 28px;
+    height: 28px;
+    background: var(--sage-light);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    flex-shrink: 0;
+  }
+
+  /* Section heading */
+  .section-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--sage);
+    margin-bottom: 24px;
+  }
+
+  /* Screen sections */
+  .screen-section {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 40px;
+    align-items: start;
+    margin-bottom: 52px;
+    background: white;
+    border-radius: 24px;
+    padding: 32px;
+    border: 1px solid var(--border);
+  }
+
+  .screen-section.reverse {
+    grid-template-columns: 1fr 200px;
+  }
+
+  .screen-section.reverse .phone-wrap { order: 2; }
+  .screen-section.reverse .screen-info { order: 1; }
+
+  /* Phone mockup */
+  .phone-wrap {
+    display: flex;
+    justify-content: center;
+  }
+
+  .phone {
+    width: 180px;
+    background: var(--bg);
+    border-radius: 32px;
+    border: 6px solid #2D2420;
+    overflow: hidden;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.15), inset 0 0 0 1px rgba(255,255,255,0.1);
+    position: relative;
+    min-height: 340px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .phone-notch {
+    width: 60px;
+    height: 8px;
+    background: #2D2420;
+    border-radius: 0 0 8px 8px;
+    margin: 0 auto 12px;
+    flex-shrink: 0;
+  }
+
+  .phone-content {
+    flex: 1;
+    padding: 0 10px 12px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Screen info */
+  .screen-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .screen-number {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+
+  .screen-title {
+    font-family: 'Lora', serif;
+    font-size: 24px;
+    font-weight: 400;
+    color: var(--text);
+    margin-bottom: 12px;
+    line-height: 1.3;
+  }
+
+  .screen-desc {
+    font-size: 14px;
+    color: #5A4F47;
+    line-height: 1.8;
+    margin-bottom: 16px;
+  }
+
+  .feature-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .feature-list li {
+    font-size: 13px;
+    color: var(--caption);
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
+  }
+
+  .feature-list li::before {
+    content: '✦';
+    color: var(--sage);
+    font-size: 10px;
+    margin-top: 3px;
+    flex-shrink: 0;
+  }
+
+  /* Mini UI components for phone mockups */
+  .m-header {
+    font-size: 7px;
+    font-weight: 400;
+    color: var(--muted);
+    margin-bottom: 2px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+  }
+
+  .m-title {
+    font-family: 'Lora', serif;
+    font-size: 12px;
+    color: var(--text);
+    margin-bottom: 10px;
+  }
+
+  .m-card {
+    background: white;
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: 0 1px 6px rgba(80,60,40,0.07);
+    margin-bottom: 8px;
+  }
+
+  .m-label {
+    font-size: 5.5px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #7A8C5C;
+    margin-bottom: 6px;
+  }
+
+  .m-text {
+    font-family: 'Lora', serif;
+    font-size: 7px;
+    line-height: 1.5;
+    color: var(--text);
+  }
+
+  .m-caption {
+    font-size: 5.5px;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+
+  .m-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5px;
+    margin-bottom: 5px;
+  }
+
+  .m-tile {
+    background: white;
+    border-radius: 8px;
+    padding: 7px 6px;
+    box-shadow: 0 1px 4px rgba(80,60,40,0.06);
+    min-height: 44px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .m-tile.featured {
+    border: 1px solid var(--gold);
+    background: linear-gradient(145deg, #F7F3EC, #F2EDE4);
+  }
+
+  .m-tile-icon {
+    width: 16px;
+    height: 16px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 8px;
+  }
+
+  .m-tile-label {
+    font-size: 5.5px;
+    font-weight: 600;
+    color: var(--text);
+    line-height: 1.3;
+  }
+
+  .m-tile-full {
+    background: white;
+    border-radius: 8px;
+    padding: 7px 8px;
+    box-shadow: 0 1px 4px rgba(80,60,40,0.06);
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    border: 1px solid var(--sage);
+    margin-top: 0;
+  }
+
+  .m-tile-full .m-tile-label { font-size: 6px; }
+
+  .m-btn {
+    background: var(--sage);
+    color: white;
+    border-radius: 8px;
+    padding: 6px;
+    text-align: center;
+    font-size: 6px;
+    font-weight: 600;
+    margin-top: 6px;
+  }
+
+  .m-btn.secondary {
+    background: white;
+    color: var(--sage);
+    border: 1px solid var(--sage);
+  }
+
+  .m-pill-row {
+    display: flex;
+    gap: 3px;
+    flex-wrap: wrap;
+    margin-bottom: 6px;
+  }
+
+  .m-pill {
+    background: #EDF3E8;
+    color: var(--sage);
+    font-size: 5px;
+    font-weight: 600;
+    padding: 2px 5px;
+    border-radius: 100px;
+  }
+
+  .m-pill.active {
+    background: var(--sage);
+    color: white;
+  }
+
+  .m-input {
+    background: #F5F1EB;
+    border-radius: 6px;
+    padding: 5px 7px;
+    font-size: 5.5px;
+    color: var(--muted);
+    margin-bottom: 6px;
+    min-height: 20px;
+  }
+
+  .m-chakra-row {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    padding: 10px 0;
+  }
+
+  .m-chakra-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+  }
+
+  .m-section-label {
+    font-size: 5.5px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 6px;
+  }
+
+  .m-back {
+    font-size: 6px;
+    color: var(--sage);
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 3px;
+  }
+
+  /* Privacy section */
+  .privacy-section {
+    background: white;
+    border-radius: 20px;
+    padding: 32px 36px;
+    margin-bottom: 40px;
+    border: 1px solid var(--border);
+  }
+
+  .privacy-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 20px;
+  }
+
+  .privacy-card {
+    background: var(--bg);
+    border-radius: 14px;
+    padding: 20px;
+    border: 1px solid var(--border);
+  }
+
+  .privacy-card .icon {
+    font-size: 22px;
+    margin-bottom: 10px;
+  }
+
+  .privacy-card h4 {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 6px;
+  }
+
+  .privacy-card p {
+    font-size: 12px;
+    color: var(--caption);
+    line-height: 1.6;
+  }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    padding-top: 32px;
+    border-top: 1px solid var(--border);
+  }
+
+  .footer p {
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 6px;
+  }
+
+  .footer strong {
+    color: var(--sage);
+  }
+
+  /* Print */
+  @media print {
+    body { background: white; }
+    .page { padding: 40px 30px; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="logo-mark">
+    <svg width="80" height="80" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <radialGradient id="bg" cx="50%" cy="30%" r="75%">
+    <stop offset="0%" stop-color="#0a1628"/>
+    <stop offset="65%" stop-color="#05090f"/>
+    <stop offset="100%" stop-color="#020305"/>
+  </radialGradient>
+  <radialGradient id="heartAura" cx="50%" cy="50%" r="55%">
+    <stop offset="0%" stop-color="#22c55e" stop-opacity="0.30"/>
+    <stop offset="60%" stop-color="#16a34a" stop-opacity="0.06"/>
+    <stop offset="100%" stop-color="#000" stop-opacity="0"/>
+  </radialGradient>
+  <radialGradient id="crownAura" cx="50%" cy="0%" r="60%">
+    <stop offset="0%" stop-color="#a855f7" stop-opacity="0.25"/>
+    <stop offset="100%" stop-color="#a855f7" stop-opacity="0"/>
+  </radialGradient>
+  <filter id="bigGlow" x="-100%" y="-100%" width="300%" height="300%">
+    <feGaussianBlur stdDeviation="7" result="b"/>
+    <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+  </filter>
+  <filter id="medGlow" x="-80%" y="-80%" width="260%" height="260%">
+    <feGaussianBlur stdDeviation="3.5" result="b"/>
+    <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+  </filter>
+  <filter id="smlGlow" x="-60%" y="-60%" width="220%" height="220%">
+    <feGaussianBlur stdDeviation="1.8" result="b"/>
+    <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+  </filter>
+  <filter id="heartBlast" x="-300%" y="-300%" width="700%" height="700%">
+    <feGaussianBlur stdDeviation="12" result="b"/>
+    <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+  </filter>
+  <filter id="crownBlast" x="-200%" y="-200%" width="500%" height="500%">
+    <feGaussianBlur stdDeviation="8" result="b"/>
+    <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+  </filter>
+</defs>
+
+<!-- Background: deep space -->
+<rect width="100" height="100" rx="20" fill="url(#bg)"/>
+
+<!-- Stars -->
+<circle cx="5" cy="7" r="0.4" fill="white" opacity="0.6"/>
+<circle cx="11" cy="3" r="0.3" fill="white" opacity="0.5"/>
+<circle cx="22" cy="5" r="0.32" fill="white" opacity="0.45"/>
+<circle cx="35" cy="2" r="0.28" fill="white" opacity="0.5"/>
+<circle cx="65" cy="2" r="0.28" fill="white" opacity="0.45"/>
+<circle cx="77" cy="5" r="0.38" fill="white" opacity="0.55"/>
+<circle cx="89" cy="8" r="0.3" fill="white" opacity="0.5"/>
+<circle cx="96" cy="22" r="0.32" fill="white" opacity="0.4"/>
+<circle cx="97" cy="42" r="0.28" fill="white" opacity="0.35"/>
+<circle cx="95" cy="62" r="0.32" fill="white" opacity="0.38"/>
+<circle cx="4" cy="30" r="0.28" fill="white" opacity="0.4"/>
+<circle cx="3" cy="55" r="0.32" fill="white" opacity="0.38"/>
+<circle cx="6" cy="78" r="0.28" fill="white" opacity="0.32"/>
+<circle cx="90" cy="82" r="0.3" fill="white" opacity="0.35"/>
+<circle cx="15" cy="92" r="0.28" fill="white" opacity="0.3"/>
+<circle cx="82" cy="95" r="0.28" fill="white" opacity="0.3"/>
+
+<!-- Global auras -->
+<ellipse cx="50" cy="55" rx="30" ry="48" fill="url(#heartAura)"/>
+<ellipse cx="50" cy="10" rx="25" ry="20" fill="url(#crownAura)"/>
+
+<!-- ====== FIGURE ====== -->
+<!-- Head: circle -->
+<circle cx="50" cy="16" r="10.5" fill="#50a8d8" opacity="0.10" filter="url(#bigGlow)"/>
+<circle cx="50" cy="16" r="9" fill="none" stroke="#78d4ff" stroke-width="0.8" opacity="0.85" filter="url(#smlGlow)"/>
+<!-- Head fill -->
+<circle cx="50" cy="16" r="8.8" fill="#5aaad8" opacity="0.08"/>
+
+<!-- Neck -->
+<rect x="46.5" y="25" width="7" height="8" rx="2" fill="#5aaad8" opacity="0.10"/>
+<rect x="46.5" y="25" width="7" height="8" rx="2" fill="none" stroke="#78d4ff" stroke-width="0.6" opacity="0.7"/>
+
+<!-- Shoulders — wide horizontal bar -->
+<path d="M 18 38 Q 22 34, 34 33 L 66 33 Q 78 34, 82 38" fill="none" stroke="#78d4ff" stroke-width="0.75" opacity="0.80" filter="url(#smlGlow)"/>
+
+<!-- Left arm — angled outward and down, ending at roughly 70 -->
+<path d="M 34 33 Q 24 38, 18 48 Q 13 58, 14 70 Q 15 78, 18 86" fill="none" stroke="#78d4ff" stroke-width="0.7" opacity="0.75"/>
+<!-- Left arm inner glow line -->
+<path d="M 34 33 Q 24 38, 18 48 Q 13 58, 14 70 Q 15 78, 18 86" fill="none" stroke="#a8e8ff" stroke-width="0.25" opacity="0.45"/>
+
+<!-- Right arm — mirror -->
+<path d="M 66 33 Q 76 38, 82 48 Q 87 58, 86 70 Q 85 78, 82 86" fill="none" stroke="#78d4ff" stroke-width="0.7" opacity="0.75"/>
+<path d="M 66 33 Q 76 38, 82 48 Q 87 58, 86 70 Q 85 78, 82 86" fill="none" stroke="#a8e8ff" stroke-width="0.25" opacity="0.45"/>
+
+<!-- Torso sides -->
+<path d="M 34 33 Q 38 36, 40 45 Q 40 60, 40 75 Q 40 84, 42 93" fill="none" stroke="#78d4ff" stroke-width="0.7" opacity="0.78"/>
+<path d="M 66 33 Q 62 36, 60 45 Q 60 60, 60 75 Q 60 84, 58 93" fill="none" stroke="#78d4ff" stroke-width="0.7" opacity="0.78"/>
+
+<!-- Torso fill -->
+<path d="M 34 33 Q 38 36, 40 45 L 40 93 L 60 93 L 60 45 Q 62 36, 66 33 Z" fill="#4898c8" opacity="0.07"/>
+
+<!-- Bottom of torso (pelvis line) -->
+<path d="M 42 93 Q 50 96, 58 93" fill="none" stroke="#78d4ff" stroke-width="0.6" opacity="0.5"/>
+
+<!-- ====== NERVOUS SYSTEM ====== -->
+<!-- Organic branching from spine outward into body and beyond -->
+
+<!-- LEFT side branching from spine -->
+<g stroke="#68c0e8" stroke-width="0.26" opacity="0.22" fill="none">
+  <!-- From heart, left radiating -->
+  <line x1="50" y1="54" x2="8" y2="40"/>
+  <line x1="50" y1="54" x2="6" y2="56"/>
+  <line x1="50" y1="54" x2="10" y2="70"/>
+  <line x1="50" y1="54" x2="22" y2="28"/>
+  <line x1="50" y1="54" x2="32" y2="20"/>
+  <!-- Torso left branches -->
+  <line x1="44" y1="46" x2="36" y2="44"/>
+  <line x1="43" y1="53" x2="32" y2="50"/>
+  <line x1="42" y1="60" x2="30" y2="58"/>
+  <line x1="42" y1="67" x2="31" y2="66"/>
+  <line x1="42" y1="74" x2="33" y2="74"/>
+  <line x1="42" y1="81" x2="34" y2="82"/>
+  <!-- Left arm branches -->
+  <line x1="28" y1="40" x2="22" y2="36"/>
+  <line x1="22" y1="50" x2="15" y2="48"/>
+  <line x1="17" y1="60" x2="10" y2="60"/>
+  <line x1="15" y1="71" x2="8" y2="73"/>
+  <line x1="16" y1="81" x2="10" y2="84"/>
+</g>
+
+<!-- RIGHT side branching from spine -->
+<g stroke="#68c0e8" stroke-width="0.26" opacity="0.22" fill="none">
+  <!-- From heart, right radiating -->
+  <line x1="50" y1="54" x2="92" y2="40"/>
+  <line x1="50" y1="54" x2="94" y2="56"/>
+  <line x1="50" y1="54" x2="90" y2="70"/>
+  <line x1="50" y1="54" x2="78" y2="28"/>
+  <line x1="50" y1="54" x2="68" y2="20"/>
+  <!-- Torso right branches -->
+  <line x1="56" y1="46" x2="64" y2="44"/>
+  <line x1="57" y1="53" x2="68" y2="50"/>
+  <line x1="58" y1="60" x2="70" y2="58"/>
+  <line x1="58" y1="67" x2="69" y2="66"/>
+  <line x1="58" y1="74" x2="67" y2="74"/>
+  <line x1="58" y1="81" x2="66" y2="82"/>
+  <!-- Right arm branches -->
+  <line x1="72" y1="40" x2="78" y2="36"/>
+  <line x1="78" y1="50" x2="85" y2="48"/>
+  <line x1="83" y1="60" x2="90" y2="60"/>
+  <line x1="85" y1="71" x2="92" y2="73"/>
+  <line x1="84" y1="81" x2="90" y2="84"/>
+</g>
+
+<!-- Crown upward radiating -->
+<g stroke="#c084fc" stroke-width="0.28" opacity="0.30" fill="none">
+  <line x1="50" y1="8" x2="34" y2="1"/>
+  <line x1="50" y1="8" x2="66" y2="1"/>
+  <line x1="50" y1="7" x2="42" y2="0"/>
+  <line x1="50" y1="7" x2="58" y2="0"/>
+  <line x1="50" y1="9" x2="28" y2="3"/>
+  <line x1="50" y1="9" x2="72" y2="3"/>
+</g>
+
+<!-- Spine (central channel, glowing) -->
+<line x1="50" y1="8" x2="50" y2="90" stroke="#b0dcf8" stroke-width="0.55" opacity="0.35"/>
+
+<!-- Internal torso cross-weave -->
+<g stroke="#58b0d8" stroke-width="0.22" opacity="0.18" fill="none">
+  <line x1="44" y1="46" x2="56" y2="46"/>
+  <line x1="43" y1="53" x2="57" y2="53"/>
+  <line x1="43" y1="60" x2="57" y2="60"/>
+  <line x1="43" y1="67" x2="57" y2="67"/>
+  <line x1="43" y1="74" x2="57" y2="74"/>
+  <line x1="44" y1="81" x2="56" y2="81"/>
+  <line x1="44" y1="46" x2="56" y2="60"/>
+  <line x1="56" y1="46" x2="44" y2="60"/>
+  <line x1="44" y1="60" x2="56" y2="74"/>
+  <line x1="56" y1="60" x2="44" y2="74"/>
+</g>
+
+<!-- ====== CHAKRA CENTERS ====== -->
+
+<!-- CROWN — violet -->
+<circle cx="50" cy="8" r="9" fill="#a855f7" opacity="0.12" filter="url(#crownBlast)"/>
+<circle cx="50" cy="8" r="4.5" fill="#9333ea" opacity="0.20" filter="url(#medGlow)"/>
+<circle cx="50" cy="8" r="3" fill="#a855f7" opacity="0.90" filter="url(#smlGlow)"/>
+<circle cx="50" cy="8" r="1.4" fill="#f5f3ff"/>
+
+<!-- THIRD EYE — indigo (between head center and throat) -->
+<circle cx="50" cy="20" r="3" fill="#4f46e5" opacity="0.18" filter="url(#medGlow)"/>
+<circle cx="50" cy="20" r="2.0" fill="#818cf8" opacity="0.92" filter="url(#smlGlow)"/>
+<circle cx="50" cy="20" r="0.9" fill="#eef2ff"/>
+
+<!-- THROAT — sky blue, at neck -->
+<circle cx="50" cy="31" r="2.8" fill="#0284c7" opacity="0.18" filter="url(#medGlow)"/>
+<circle cx="50" cy="31" r="1.9" fill="#38bdf8" opacity="0.90" filter="url(#smlGlow)"/>
+<circle cx="50" cy="31" r="0.85" fill="#e0f7ff"/>
+
+<!-- HEART — dominant, chest center -->
+<circle cx="50" cy="54" r="22" fill="#fff" opacity="0.05" filter="url(#heartBlast)"/>
+<circle cx="50" cy="54" r="12" fill="#22c55e" opacity="0.15" filter="url(#bigGlow)"/>
+<circle cx="50" cy="54" r="5.5" fill="#16a34a" opacity="0.22" filter="url(#medGlow)"/>
+<circle cx="50" cy="54" r="3.2" fill="#4ade80" opacity="0.82" filter="url(#smlGlow)"/>
+<circle cx="50" cy="54" r="1.5" fill="white"/>
+
+<!-- SOLAR PLEXUS — yellow -->
+<circle cx="50" cy="65" r="2.8" fill="#ca8a04" opacity="0.16" filter="url(#medGlow)"/>
+<circle cx="50" cy="65" r="2.0" fill="#fcd34d" opacity="0.90" filter="url(#smlGlow)"/>
+<circle cx="50" cy="65" r="0.9" fill="#fefce8"/>
+
+<!-- SACRAL — orange -->
+<circle cx="50" cy="76" r="2.8" fill="#c2410c" opacity="0.16" filter="url(#medGlow)"/>
+<circle cx="50" cy="76" r="1.9" fill="#fb923c" opacity="0.90" filter="url(#smlGlow)"/>
+<circle cx="50" cy="76" r="0.85" fill="#fff7ed"/>
+
+<!-- ROOT — red -->
+<circle cx="50" cy="87" r="4" fill="#991b1b" opacity="0.15" filter="url(#medGlow)"/>
+<circle cx="50" cy="87" r="2.5" fill="#f87171" opacity="0.90" filter="url(#smlGlow)"/>
+<circle cx="50" cy="87" r="1.1" fill="#fef2f2"/>
+
+</svg>
+  </div>
+    <h1>Affirm</h1>
+    <p class="tagline">A personal alignment tool grounded in Dr. Joe Dispenza's work and Florence Scovel Shinn's teachings — built to support the inner work you're already doing.</p>
+    <div class="pill-row">
+      <span class="pill">Invite Only</span>
+      <span class="pill">iOS First</span>
+      <span class="pill">AI Powered</span>
+      <span class="pill">Fully Personalized</span>
+    </div>
+  </div>
+
+  <!-- Intro -->
+  <div class="intro">
+    <p>Affirm is a daily companion for people actively doing consciousness work. It doesn't teach you Joe Dispenza's framework — it assumes you already know it. Instead, it meets you where you are each day and delivers personalized content based on <em>your</em> intentions, your limiting beliefs, and the specific inner work you're focused on.</p>
+    <p>Every time you open the app, everything it generates is unique to you. It uses one of the most advanced AI systems available to generate content that speaks your language, references your work, and applies the Joe + Florence framework to your specific situation.</p>
+    <div class="security-row">
+      <div class="security-item">
+        <div class="icon">🔒</div>
+        SOC 2 Type 2 certified database (Supabase)
+      </div>
+      <div class="security-item">
+        <div class="icon">🤐</div>
+        Your data never used for AI model training
+      </div>
+      <div class="security-item">
+        <div class="icon">🔐</div>
+        Private & invite-only — no public access
+      </div>
+    </div>
+  </div>
+
+  <!-- SCREEN 1: Home -->
+  <div class="section-label">The Screens</div>
+
+  <div class="screen-section">
+    <div class="phone-wrap">
+      <div class="phone">
+        <div class="phone-notch"></div>
+        <div class="phone-content">
+          <div class="m-header">Good morning, James</div>
+          <div class="m-title">Your Alignment</div>
+
+          <div class="m-card">
+            <div class="m-label">Today's Blueprint</div>
+            <div class="m-text">"You are not building toward abundance — you are already the version of yourself who receives it. The door is open. Walk through it."</div>
+            <div class="m-caption">FSS · Spoken Word Decree</div>
+          </div>
+
+          <div class="m-section-label" style="margin-top:8px;">What do you need?</div>
+          <div class="m-grid">
+            <div class="m-tile">
+              <div class="m-tile-icon" style="background:#EDF3E8;">✦</div>
+              <div class="m-tile-label">Positive Affirmation</div>
+            </div>
+            <div class="m-tile">
+              <div class="m-tile-icon" style="background:#E9EFEA;">◈</div>
+              <div class="m-tile-label">Daily Dose of Joe</div>
+            </div>
+            <div class="m-tile featured">
+              <div class="m-tile-icon" style="background:#FDF5E0;">◉</div>
+              <div class="m-tile-label" style="color:#7A5A1A;">Remember My Future</div>
+            </div>
+            <div class="m-tile">
+              <div class="m-tile-icon" style="background:#F0EDE8;">♡</div>
+              <div class="m-tile-label">Out of Alignment</div>
+            </div>
+          </div>
+          <div class="m-tile-full">
+            <div class="m-tile-icon" style="background:#EDF3E8; width:16px; height:16px; font-size:8px; border-radius:5px; display:flex; align-items:center; justify-content:center;">☽</div>
+            <div class="m-tile-label">Recommend a Meditation</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="screen-info">
+      <div class="screen-number">Screen 01</div>
+      <div class="screen-title">Home — Your Daily Alignment</div>
+      <p class="screen-desc">Every time you open Affirm, you land here. The top card shows your <strong>Blueprint</strong> — a personalized declaration of your present truth, written in second-person voice. Think of it as your daily anchor statement.<br><br>Below that, five tools — each one a different way into the work depending on what you need in that moment.</p>
+      <ul class="feature-list">
+        <li>Blueprint refreshes on demand with a single tap</li>
+        <li>Greeting adapts to time of day</li>
+        <li>All 5 tools accessible from one screen</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- SCREEN 2: Affirmation -->
+  <div class="screen-section reverse">
+    <div class="screen-info">
+      <div class="screen-number">Screen 02</div>
+      <div class="screen-title">Positive Affirmation</div>
+      <p class="screen-desc">A Florence Scovel Shinn-style decree generated specifically for you — not a generic affirmation pulled from a list, but one written against your blueprint: your focus areas, your limiting beliefs, what you're calling in.<br><br>Short and powerful. One or two sentences. Meant to be spoken aloud.</p>
+      <ul class="feature-list">
+        <li>FSS-style first-person decree</li>
+        <li>Based on your personal blueprint config</li>
+        <li>Includes the source teaching it draws from</li>
+        <li>Generates a fresh one every time you visit</li>
+      </ul>
+    </div>
+    <div class="phone-wrap">
+      <div class="phone">
+        <div class="phone-notch"></div>
+        <div class="phone-content">
+          <div class="m-back">← Back</div>
+          <div style="font-family:'Lora',serif; font-size:11px; font-weight:700; color:var(--text); margin-bottom:8px;">Positive Affirmation</div>
+          <!-- Source badge -->
+          <div style="background:#B5C4A8; border-radius:6px; padding:4px 7px; font-size:5px; color:#2D2420; margin-bottom:10px; display:flex; align-items:center; gap:4px;">
+            <span>📖</span> FSS · Spoken Word Decree
+          </div>
+          <!-- Main affirmation text — big serif like the real app -->
+          <div style="font-family:'Lora',serif; font-size:9px; line-height:1.65; color:var(--text); margin-bottom:10px;">
+            "I have an abundance of wealth and divine opportunity flowing through me now. The field responds to the frequency I broadcast — and I broadcast wholeness."
+          </div>
+          <!-- Why it matters card -->
+          <div style="background:white; border-radius:8px; padding:8px 9px; border: 1px solid var(--border);">
+            <div style="font-size:5px; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; color:#8A8A7A; margin-bottom:5px;">Why This Matters For Your Work</div>
+            <div style="font-family:'Lora',serif; font-size:6px; line-height:1.6; color:#4A3F38;">You already know the word is the wand. This decree speaks it into the field as truth — not a wish, but a law already in motion.</div>
+          </div>
+          <!-- Bottom buttons -->
+          <div style="display:flex; gap:5px; margin-top:auto; padding-top:10px;">
+            <div style="flex:1; border:1px solid var(--border); border-radius:6px; padding:5px; text-align:center; font-size:5.5px; font-weight:600; color:var(--text);">Save</div>
+            <div style="flex:2.2; background:#3D4F35; border-radius:6px; padding:5px; text-align:center; font-size:5.5px; font-weight:600; color:white;">I receive this</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCREEN 3: Daily Joe -->
+  <div class="screen-section">
+    <div class="phone-wrap">
+      <div class="phone">
+        <div class="phone-notch"></div>
+        <div class="phone-content">
+          <div class="m-back">← Back</div>
+          <div style="font-family:'Lora',serif; font-size:11px; font-weight:700; color:var(--text); margin-bottom:8px;">Daily Dose of Joe</div>
+          <!-- Source badge -->
+          <div style="background:#B5C4A8; border-radius:6px; padding:4px 7px; font-size:5px; color:#2D2420; margin-bottom:10px;">
+            📖 Dr. Joe · The Electromagnetic Signature of Lack vs. Wholeness
+          </div>
+          <!-- Main teaching text — large serif, no box -->
+          <div style="font-family:'Lora',serif; font-size:8px; line-height:1.65; color:var(--text); margin-bottom:8px;">
+            When you think from lack — calculating how many hours you need to work to generate it — you are signaling <span style="color:#5C7A5C; font-style:italic;">separation from abundance</span> to the field.
+          </div>
+          <div style="font-family:'Lora',serif; font-size:8px; line-height:1.65; color:var(--text); margin-bottom:8px;">
+            What if the 12-hour days aren't creating abundance — but are actually the <span style="color:#5C7A5C; font-style:italic;">evidence that you're still living from the old blueprint?</span>
+          </div>
+          <!-- Why it matters card -->
+          <div style="background:white; border-radius:8px; padding:8px 9px; border: 1px solid var(--border); margin-bottom:8px;">
+            <div style="font-size:5px; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; color:#8A8A7A; margin-bottom:5px;">Why This Matters For Your Work</div>
+            <div style="font-family:'Lora',serif; font-size:6px; line-height:1.6; color:#4A3F38;">You already know intellectually that abundance flows from the field when you're in coherence. The work now is embodying that truth so deeply that your <span style="font-style:italic;">actions reflect it.</span></div>
+            <div style="font-size:5px; color:#7A8C5C; margin-top:5px; font-style:italic;">Save this to your personal library from Settings →</div>
+          </div>
+          <div style="display:flex; gap:5px; margin-top:auto;">
+            <div style="flex:1; border:1px solid var(--border); border-radius:6px; padding:5px; text-align:center; font-size:5.5px; font-weight:600; color:var(--text);">Save</div>
+            <div style="flex:2.2; background:#3D4F35; border-radius:6px; padding:5px; text-align:center; font-size:5.5px; font-weight:600; color:white;">I receive this</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="screen-info">
+      <div class="screen-number">Screen 03</div>
+      <div class="screen-title">Daily Dose of Joe</div>
+      <p class="screen-desc">A personalized teaching from Joe Dispenza's framework, connected to where you are right now. Not a quote bank — an actual teaching written in Joe's precise language and applied to your specific work.<br><br>Key phrases are italicized in sage green, exactly as they'd appear in Joe's own writing. A "Why This Matters" card grounds it in your personal work.</p>
+      <ul class="feature-list">
+        <li>Teaching written in Joe's precise language — not generic wellness-speak</li>
+        <li>Italic sage green emphasis on key concepts</li>
+        <li>Grounded in your specific focus areas and limiting beliefs</li>
+        <li>Save to your personal library for later</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- SCREEN 4: Future Memory -->
+  <div class="screen-section reverse">
+    <div class="screen-info">
+      <div class="screen-number">Screen 04</div>
+      <div class="screen-title">Remember My Future</div>
+      <p class="screen-desc">A future memory written as though your desired life is already real — past tense, vivid, emotionally specific. Joe teaches that the brain doesn't distinguish between a real memory and a vividly imagined one. This gives your nervous system a memory of a future it hasn't lived yet.<br><br>Written in first person, past tense. "I remember the morning I realized..."</p>
+      <ul class="feature-list">
+        <li>Always past tense — never "I want" or "I hope"</li>
+        <li>Emotionally vivid and specific to your focus areas</li>
+        <li>Tagged with the emotional states it encodes (Freedom, Gratitude, Peace)</li>
+        <li>Designed to be read slowly and felt in the body</li>
+      </ul>
+    </div>
+    <div class="phone-wrap">
+      <div class="phone">
+        <div class="phone-notch"></div>
+        <div class="phone-content">
+          <div class="m-back">← Back</div>
+          <div style="font-family:'Lora',serif; font-size:11px; font-weight:700; color:var(--text); margin-bottom:6px;">Remembering Your Future</div>
+          <!-- Green header card like the real app -->
+          <div style="background:#3D4F35; border-radius:8px; padding:8px 9px; margin-bottom:9px;">
+            <div style="font-size:5px; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; color:rgba(255,255,255,0.6); margin-bottom:3px;">Future Memory</div>
+            <div style="font-family:'Lora',serif; font-size:7.5px; font-weight:700; color:white; margin-bottom:2px;">Business Success from Coherence</div>
+            <div style="font-size:5px; color:rgba(255,255,255,0.55);">Remembered · Already done</div>
+          </div>
+          <!-- Main memory text — large serif, no box -->
+          <div style="font-family:'Lora',serif; font-size:7.5px; line-height:1.65; color:var(--text); margin-bottom:6px;">
+            I remember the morning I woke and knew — deeply, in my body — that <span style="color:#5C7A5C; font-style:italic;">the business was running itself</span> through alignment, not force. Another round of investment had come in, unsolicited, effortless — I hadn't chased it, it had found me.
+          </div>
+          <div style="font-family:'Lora',serif; font-size:7.5px; line-height:1.65; color:var(--text); margin-bottom:8px;">
+            I felt <span style="color:#5C7A5C; font-style:italic;">freedom</span> — not as a concept, but as a hum in my nervous system.
+          </div>
+          <!-- Emotion tags -->
+          <div style="display:flex; gap:4px; margin-bottom:8px;">
+            <div style="border:1px solid var(--border); border-radius:100px; padding:2px 7px; font-size:5px; font-weight:600; color:var(--text);">Freedom</div>
+            <div style="border:1px solid var(--border); border-radius:100px; padding:2px 7px; font-size:5px; font-weight:600; color:var(--text);">Gratitude</div>
+            <div style="border:1px solid var(--border); border-radius:100px; padding:2px 7px; font-size:5px; font-weight:600; color:var(--text);">Peace</div>
+          </div>
+          <div style="background:#3D4F35; border-radius:6px; padding:6px; text-align:center; font-size:5.5px; font-weight:600; color:white;">I remember this</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCREEN 5: Alignment -->
+  <div class="screen-section">
+    <div class="phone-wrap">
+      <div class="phone">
+        <div class="phone-notch"></div>
+        <div class="phone-content">
+          <div class="m-back">← Back</div>
+          <div style="font-family:'Lora',serif; font-size:11px; font-weight:700; color:var(--text); margin-bottom:3px;">Coming Back to Alignment</div>
+          <!-- Big question -->
+          <div style="font-family:'Lora',serif; font-size:10px; font-weight:700; color:var(--text); margin-bottom:3px;">What's pulling you out?</div>
+          <div style="font-family:'Lora',serif; font-size:6px; font-style:italic; color:var(--caption); margin-bottom:8px;">Name it honestly. This is how we find the way back.</div>
+          <!-- User input card -->
+          <div style="background:white; border-radius:8px; padding:7px 8px; border:1px solid var(--border); margin-bottom:7px; font-family:'Lora',serif; font-size:6px; color:var(--text); line-height:1.5;">
+            So much just seems to be going wrong today. It seems like every time I turn around I am seeing another negative situation.
+          </div>
+          <!-- Energy center result card -->
+          <div style="background:white; border-radius:8px; padding:7px 8px; border:1px solid var(--border); margin-bottom:7px;">
+            <div style="display:flex; align-items:center; gap:6px; margin-bottom:5px;">
+              <div style="width:14px; height:14px; background:#C4A94D; border-radius:4px; display:flex; align-items:center; justify-content:center; font-size:7px; font-weight:700; color:white; flex-shrink:0;">1</div>
+              <div>
+                <div style="font-size:6px; font-weight:700; color:var(--text);">Center 1 · Root / Survival Center</div>
+                <div style="font-size:5px; color:#7A8C5C;">Safety, Security, Survival</div>
+              </div>
+            </div>
+            <div style="font-family:'Lora',serif; font-size:6px; line-height:1.55; color:#4A3F38;">When "everything is going wrong" your first energy center is active — pulling you into survival mode. You're not broken — you're chemically addicted to the familiar feeling of struggle.</div>
+          </div>
+          <!-- Buttons -->
+          <div style="display:flex; gap:5px; margin-top:auto;">
+            <div style="flex:1; border:1px solid var(--border); border-radius:6px; padding:5px; text-align:center; font-size:5.5px; font-weight:600; color:var(--text);">Different</div>
+            <div style="flex:2.5; background:#3D4F35; border-radius:6px; padding:5px; text-align:center; font-size:5px; font-weight:600; color:white;">Show me the way back</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="screen-info">
+      <div class="screen-number">Screen 05</div>
+      <div class="screen-title">Coming Back to Alignment</div>
+      <p class="screen-desc">When something feels off — anxious, contracted, reactive — you describe what you're experiencing in your own words. The AI identifies which energy center is activated, then guides you back through a personalized reframe, erasure + replacement exercise, and energy center clearing.<br><br>No selection menus. Just speak your truth and let it find the way.</p>
+      <ul class="feature-list">
+        <li>You type what's pulling you out — in plain language</li>
+        <li>AI identifies the activated energy center from your words</li>
+        <li>Delivers a reframe, an FSS exercise, and a targeted clearing practice</li>
+        <li>"Different" button regenerates if it doesn't land right</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- SCREEN 6: Meditation Recommendation -->
+  <div class="screen-section reverse">
+    <div class="screen-info">
+      <div class="screen-number">Screen 06</div>
+      <div class="screen-title">Recommend a Meditation</div>
+      <p class="screen-desc">You tell it how much time you have. Optionally, you tell it what's on your mind. It recommends the specific Joe Dispenza meditation that best matches — from a catalog of 40+ official meditations, with exact durations.<br><br>Two modes: <strong>Surprise Me</strong> draws from your personal config. <strong>Find My Match</strong> uses your input to pinpoint the right one.</p>
+      <ul class="feature-list">
+        <li>Catalog sourced directly from drjoedispenza.com</li>
+        <li>Duration = meditation track only (intro excluded)</li>
+        <li>Shows 1x and 1.2x speed times</li>
+        <li>Links directly to the purchase page</li>
+      </ul>
+    </div>
+    <div class="phone-wrap">
+      <div class="phone">
+        <div class="phone-notch"></div>
+        <div class="phone-content">
+          <div class="m-back">← Back</div>
+          <div class="m-label">Recommend a Meditation</div>
+          <div class="m-text" style="font-size:6px; margin-bottom:6px; color:#5A4F47;">How much time do you have?</div>
+          <div class="m-pill-row">
+            <div class="m-pill">15 min</div>
+            <div class="m-pill active">30 min</div>
+            <div class="m-pill">45 min</div>
+            <div class="m-pill">60 min</div>
+            <div class="m-pill">60+ min</div>
+          </div>
+          <div class="m-input">What's on your mind? (optional)</div>
+          <div class="m-btn secondary">✦ Surprise Me</div>
+          <div class="m-btn" style="margin-top:4px;">Find My Match</div>
+          <div style="height:6px;"></div>
+          <div class="m-card" style="border-left: 2px solid var(--sage);">
+            <div class="m-label">Recommended</div>
+            <div class="m-text" style="font-weight:600; margin-bottom:3px;">Changing Boxes – Short Version</div>
+            <div class="m-caption">21 min meditation · 18 min at 1.2x</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Privacy -->
+  <div class="privacy-section">
+    <div class="section-label">Privacy & Security</div>
+    <div class="privacy-grid">
+      <div class="privacy-card">
+        <div class="icon">🔒</div>
+        <h4>SOC 2 Type 2 Database</h4>
+        <p>All user data is stored on Supabase — an enterprise-grade platform with SOC 2 Type 2 certification. Your personal information is encrypted and protected.</p>
+      </div>
+      <div class="privacy-card">
+        <div class="icon">🤐</div>
+        <h4>No AI Training</h4>
+        <p>Affirm uses a frontier AI model via an API agreement that explicitly prohibits your data from being used to train AI models. What you share stays yours, period.</p>
+      </div>
+      <div class="privacy-card">
+        <div class="icon">🔐</div>
+        <h4>Invite Only</h4>
+        <p>There is no public sign-up. Every user requires a personal invite token. Your account cannot be accessed by anyone else, and no content is shared between users.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <p>Built by <strong>Stable Mischief</strong> · <strong>affirm-seven.vercel.app</strong></p>
+    <p style="margin-top:4px; font-size:12px;">Early access — invite only · Grounded in Dr. Joe Dispenza + Florence Scovel Shinn frameworks</p>
+  </div>
+
+</div>
+</body>
+</html>

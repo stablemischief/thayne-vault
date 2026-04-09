@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Yield History Grid — v2 (with Practice column)</title>
+  <meta charset="UTF-8" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #f5f5f5;
+      padding: 32px;
+      color: #111;
+    }
+
+    /* ── Page header ── */
+    .page-header {
+      margin-bottom: 24px;
+    }
+    .page-header h1 {
+      font-size: 18px;
+      font-weight: 700;
+      color: #30714C;
+      border-bottom: 3px solid #DDC66F;
+      padding-bottom: 8px;
+      margin-bottom: 6px;
+    }
+    .page-header p {
+      font-size: 12px;
+      color: #6B7280;
+    }
+
+    /* ── Section label ── */
+    .section-label {
+      font-size: 10px;
+      font-weight: 700;
+      color: #6B7280;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 10px;
+    }
+
+    /* ── 2-column county card grid ── */
+    .county-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    /* ── County card ── */
+    .county-card {
+      border: 1px solid #E3E3E3;
+      border-radius: 8px;
+      overflow: hidden;
+      background: white;
+    }
+    .county-header {
+      background: #2c4a3e;
+      padding: 8px 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .county-name {
+      color: white;
+      font-size: 14px;
+      font-weight: 600;
+    }
+    .county-count {
+      color: rgba(255,255,255,0.65);
+      font-size: 11px;
+    }
+
+    /* ── Inner table ── */
+    .crop-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 11px;
+    }
+    .crop-table thead tr {
+      background: #F3F4F6;
+    }
+    .crop-table th {
+      padding: 6px 8px;
+      text-align: left;
+      font-size: 10px;
+      font-weight: 600;
+      color: #6B7280;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      border-bottom: 1px solid #E3E3E3;
+    }
+    .crop-table th.yield-col {
+      text-align: right;
+    }
+    .crop-table th.practice-col {
+      text-align: center;
+    }
+    .crop-table td {
+      padding: 6px 8px;
+      border: 1px solid #E3E3E3;
+      font-size: 11px;
+      color: #111;
+    }
+    .crop-table tr.stripe {
+      background: #FAFAFA;
+    }
+
+    /* Yield cell */
+    .yield-cell {
+      text-align: right;
+      font-weight: 700;
+      color: #c05c00;
+    }
+
+    /* Practice chip */
+    .practice-chip {
+      display: inline-block;
+      padding: 1px 8px;
+      border-radius: 999px;
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .practice-ni {
+      background: #f0f0ea;
+      color: #555;
+    }
+    .practice-irr {
+      background: #eff6ff;
+      color: #1d4ed8;
+    }
+    .practice-cell {
+      text-align: center;
+    }
+
+    /* ── Design notes panel ── */
+    .notes {
+      margin-top: 32px;
+      background: #fefce8;
+      border: 1px solid #fde68a;
+      border-radius: 8px;
+      padding: 16px 20px;
+    }
+    .notes h3 {
+      font-size: 12px;
+      font-weight: 700;
+      color: #92400e;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+    .notes ul {
+      padding-left: 18px;
+    }
+    .notes li {
+      font-size: 12px;
+      color: #78350f;
+      margin-bottom: 4px;
+      line-height: 1.5;
+    }
+    .notes code {
+      font-family: 'SFMono-Regular', Consolas, monospace;
+      background: #fef3c7;
+      padding: 1px 4px;
+      border-radius: 3px;
+      font-size: 11px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="page-header">
+    <h1>Module 4 — Yield History: APH Crop Grid (v2)</h1>
+    <p>Mockup reference for YieldHistoryGrid.tsx — 4-column county card layout (Farm # | Crop | Practice | APH Yield)</p>
+  </div>
+
+  <div class="section-label">APH Crop Summary — grouped by county</div>
+
+  <div class="county-grid">
+
+    <!-- County: Lubbock (mixed IRR + NI) -->
+    <div class="county-card">
+      <div class="county-header">
+        <span class="county-name">Lubbock</span>
+        <span class="county-count">3 crops</span>
+      </div>
+      <table class="crop-table">
+        <thead>
+          <tr>
+            <th>Farm #</th>
+            <th>Crop</th>
+            <th class="practice-col">Practice</th>
+            <th class="yield-col">APH Yield</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="stripe">
+            <td>4812</td>
+            <td>Cotton</td>
+            <td class="practice-cell"><span class="practice-chip practice-irr">IRR</span></td>
+            <td class="yield-cell">685</td>
+          </tr>
+          <tr>
+            <td>4812</td>
+            <td>Cotton</td>
+            <td class="practice-cell"><span class="practice-chip practice-ni">NI</span></td>
+            <td class="yield-cell">512</td>
+          </tr>
+          <tr class="stripe">
+            <td>5021</td>
+            <td>Corn</td>
+            <td class="practice-cell"><span class="practice-chip practice-irr">IRR</span></td>
+            <td class="yield-cell">142</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- County: Terry (NI only) -->
+    <div class="county-card">
+      <div class="county-header">
+        <span class="county-name">Terry</span>
+        <span class="county-count">2 crops</span>
+      </div>
+      <table class="crop-table">
+        <thead>
+          <tr>
+            <th>Farm #</th>
+            <th>Crop</th>
+            <th class="practice-col">Practice</th>
+            <th class="yield-col">APH Yield</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="stripe">
+            <td>3198</td>
+            <td>Cotton</td>
+            <td class="practice-cell"><span class="practice-chip practice-ni">NI</span></td>
+            <td class="yield-cell">498</td>
+          </tr>
+          <tr>
+            <td>3198</td>
+            <td>Wheat</td>
+            <td class="practice-cell"><span class="practice-chip practice-ni">NI</span></td>
+            <td class="yield-cell">38</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- County: Hockley (IRR only) -->
+    <div class="county-card">
+      <div class="county-header">
+        <span class="county-name">Hockley</span>
+        <span class="county-count">1 crop</span>
+      </div>
+      <table class="crop-table">
+        <thead>
+          <tr>
+            <th>Farm #</th>
+            <th>Crop</th>
+            <th class="practice-col">Practice</th>
+            <th class="yield-col">APH Yield</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="stripe">
+            <td>6440</td>
+            <td>Sorghum</td>
+            <td class="practice-cell"><span class="practice-chip practice-irr">IRR</span></td>
+            <td class="yield-cell">61</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- County: Lynn (mixed) -->
+    <div class="county-card">
+      <div class="county-header">
+        <span class="county-name">Lynn</span>
+        <span class="county-count">2 crops</span>
+      </div>
+      <table class="crop-table">
+        <thead>
+          <tr>
+            <th>Farm #</th>
+            <th>Crop</th>
+            <th class="practice-col">Practice</th>
+            <th class="yield-col">APH Yield</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="stripe">
+            <td>7001</td>
+            <td>Cotton</td>
+            <td class="practice-cell"><span class="practice-chip practice-irr">IRR</span></td>
+            <td class="yield-cell">701</td>
+          </tr>
+          <tr>
+            <td>7001</td>
+            <td>Cotton</td>
+            <td class="practice-cell"><span class="practice-chip practice-ni">NI</span></td>
+            <td class="yield-cell">530</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div><!-- /county-grid -->
+
+  <!-- ── Design notes ── -->
+  <div class="notes">
+    <h3>Design Spec — YieldHistoryGrid.tsx (v2)</h3>
+    <ul>
+      <li><strong>4 columns per county card:</strong> Farm # | Crop | Practice | APH Yield</li>
+      <li><strong>Practice chip:</strong> <code>NI</code> = gray background <code>#f0f0ea</code> / dark text &nbsp;|&nbsp; <code>IRR</code> = blue background <code>#eff6ff</code> / blue text <code>#1d4ed8</code></li>
+      <li><strong>APH Yield cell:</strong> right-aligned, amber <code>#c05c00</code>, bold</li>
+      <li><strong>County header:</strong> dark green <code>#2c4a3e</code>, white text, crop count shown</li>
+      <li><strong>Grid:</strong> strict 2-column (<code>grid-cols-2</code>), gap 16px</li>
+      <li><strong>NO APH Summary table</strong> below the cards — removed from scope</li>
+      <li><strong>Stripe rows:</strong> alternating <code>#FAFAFA</code> / white</li>
+      <li><strong>Data source:</strong> <code>APH_crop_N_{farm_number, type, county, practice, aph_yield}</code> for N=1–24</li>
+      <li>Same crop with both IRR and NI practice = <strong>two separate rows</strong></li>
+      <li>Crops with no data across all 5 fields are filtered out (not rendered)</li>
+    </ul>
+  </div>
+
+</body>
+</html>

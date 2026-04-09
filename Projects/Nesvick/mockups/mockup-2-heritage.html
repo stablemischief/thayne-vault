@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nesvick Podcast — Mockup 2: Heritage</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Source+Sans+3:wght@300;400;500;600&display=swap');
+
+    body {
+      font-family: 'Source Sans 3', Georgia, sans-serif;
+      background: #f5f0e8;
+      color: #1a1a1a;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Top bar */
+    .top-bar {
+      background: #1a2e1a;
+      color: #8faa7a;
+      padding: 6px 40px;
+      display: flex;
+      justify-content: space-between;
+      font-size: 11px;
+      letter-spacing: 0.08em;
+    }
+    .top-bar .nfa { color: #6b8757; }
+
+    /* Header */
+    header {
+      background: #f5f0e8;
+      border-bottom: 2px solid #1a2e1a;
+      padding: 20px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .logo-area {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .logo-rule-top {
+      width: 100%;
+      height: 2px;
+      background: #1a2e1a;
+      margin-bottom: 6px;
+    }
+    .logo-name {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 22px;
+      font-weight: 700;
+      color: #1a2e1a;
+      letter-spacing: 0.05em;
+      line-height: 1;
+    }
+    .logo-tagline {
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      color: #6b7280;
+      text-transform: uppercase;
+      margin-top: 4px;
+    }
+    .logo-rule-bottom {
+      width: 100%;
+      height: 1px;
+      background: #c5b99a;
+      margin-top: 6px;
+    }
+    .header-right {
+      text-align: right;
+    }
+    .podcast-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border: 1px solid #1a2e1a;
+      padding: 5px 14px;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #1a2e1a;
+    }
+    .podcast-badge .dot {
+      width: 6px;
+      height: 6px;
+      background: #1a2e1a;
+      border-radius: 50%;
+    }
+
+    /* Wheat/grain decorative element */
+    .section-rule {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 0 40px;
+      margin: 24px 0 0;
+    }
+    .rule-line { flex: 1; height: 1px; background: #c5b99a; }
+    .rule-ornament { color: #8a7055; font-size: 16px; }
+
+    /* Main */
+    main {
+      flex: 1;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 20px 40px 48px;
+    }
+
+    .player-layout {
+      width: 100%;
+      max-width: 740px;
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 32px;
+    }
+
+    /* Left: episode content */
+    .episode-content {}
+
+    .episode-vol {
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #8a7055;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .episode-vol::before {
+      content: '';
+      display: inline-block;
+      width: 24px;
+      height: 1px;
+      background: #8a7055;
+    }
+
+    .episode-title {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 28px;
+      font-weight: 700;
+      color: #1a2e1a;
+      line-height: 1.25;
+      margin-bottom: 12px;
+    }
+
+    .episode-title em {
+      font-style: italic;
+      color: #4a6741;
+    }
+
+    .episode-date {
+      font-size: 12px;
+      color: #8a7055;
+      letter-spacing: 0.05em;
+      margin-bottom: 16px;
+    }
+
+    .episode-rule {
+      height: 1px;
+      background: #c5b99a;
+      margin-bottom: 16px;
+    }
+
+    .episode-summary {
+      font-size: 14px;
+      color: #4b4540;
+      line-height: 1.7;
+      margin-bottom: 24px;
+    }
+
+    /* Player */
+    .player-section {
+      background: #1a2e1a;
+      padding: 20px;
+    }
+
+    .player-section-label {
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      color: #6b8757;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+
+    .progress-track {
+      width: 100%;
+      height: 2px;
+      background: #2d4a2d;
+      border-radius: 0;
+      cursor: pointer;
+      position: relative;
+      margin-bottom: 6px;
+    }
+    .progress-fill {
+      width: 28%;
+      height: 100%;
+      background: #8faa7a;
+    }
+
+    .time-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 10px;
+      color: #6b8757;
+      margin-bottom: 16px;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .controls {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+    .btn-back, .btn-fwd {
+      background: none;
+      border: none;
+      color: #6b8757;
+      cursor: pointer;
+      font-size: 11px;
+      letter-spacing: 0.05em;
+    }
+    .btn-back:hover, .btn-fwd:hover { color: #8faa7a; }
+
+    .btn-play {
+      width: 52px;
+      height: 52px;
+      background: #8faa7a;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+    }
+    .btn-play:hover { background: #a8c491; }
+    .btn-play svg { width: 20px; height: 20px; fill: #1a2e1a; }
+
+    .player-meta {
+      text-align: center;
+    }
+    .player-episode-name {
+      font-size: 11px;
+      color: #8faa7a;
+      letter-spacing: 0.05em;
+      margin-bottom: 2px;
+    }
+    .player-hosts {
+      font-size: 10px;
+      color: #4a6741;
+    }
+
+    /* Right: sidebar */
+    .sidebar {}
+
+    .sidebar-card {
+      border: 1px solid #c5b99a;
+      background: #fffdf7;
+      padding: 20px;
+      margin-bottom: 16px;
+    }
+    .sidebar-label {
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #8a7055;
+      margin-bottom: 12px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid #e5dfd0;
+    }
+    .sidebar-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 8px 0;
+      border-bottom: 1px solid #f0ebe0;
+    }
+    .sidebar-item:last-child { border-bottom: none; }
+    .sidebar-item-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 14px;
+      color: #c5b99a;
+      min-width: 16px;
+    }
+    .sidebar-item-text {
+      font-size: 12px;
+      color: #4b4540;
+      line-height: 1.4;
+    }
+    .sidebar-item-text strong { color: #1a2e1a; font-weight: 600; }
+
+    .sidebar-hosts {
+      border: 1px solid #c5b99a;
+      background: #fffdf7;
+      padding: 20px;
+    }
+    .host-entry {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 0;
+    }
+    .host-entry + .host-entry { border-top: 1px solid #f0ebe0; }
+    .host-initials {
+      width: 32px;
+      height: 32px;
+      background: #1a2e1a;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      color: #8faa7a;
+      font-weight: 600;
+      flex-shrink: 0;
+    }
+    .host-info {}
+    .host-name { font-size: 13px; font-weight: 600; color: #1a2e1a; }
+    .host-role { font-size: 11px; color: #8a7055; }
+
+    /* Footer */
+    footer {
+      background: #1a2e1a;
+      color: #4a6741;
+      padding: 16px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 11px;
+    }
+    footer a { color: #6b8757; text-decoration: none; }
+    footer a:hover { color: #8faa7a; }
+    .footer-links { display: flex; gap: 20px; }
+    .footer-ornament { color: #2d4a2d; }
+  </style>
+</head>
+<body>
+
+  <!-- Top bar -->
+  <div class="top-bar">
+    <span>NESVICK TRADING GROUP, LLC &nbsp;·&nbsp; <span class="nfa">NFA MEMBER &amp; CFTC REGISTERED INTRODUCING BROKER SINCE 2005</span></span>
+    <span>NASHVILLE &nbsp;·&nbsp; MEMPHIS</span>
+  </div>
+
+  <!-- Header -->
+  <header>
+    <div class="logo-area">
+      <div class="logo-rule-top"></div>
+      <span class="logo-name">Nesvick Trading Group</span>
+      <span class="logo-tagline">Market Intelligence · Est. 2005</span>
+      <div class="logo-rule-bottom"></div>
+    </div>
+    <div class="header-right">
+      <div class="podcast-badge">
+        <span class="dot"></span>
+        Daily Grain Podcast
+      </div>
+    </div>
+  </header>
+
+  <!-- Decorative rule -->
+  <div class="section-rule">
+    <div class="rule-line"></div>
+    <span class="rule-ornament">❧</span>
+    <div class="rule-line"></div>
+  </div>
+
+  <!-- Main content -->
+  <main>
+    <div class="player-layout">
+      <!-- Left column -->
+      <div class="episode-content">
+        <div class="episode-vol">Wednesday, March 25, 2026 &nbsp;·&nbsp; Volume 47</div>
+        <h1 class="episode-title">
+          Corn Rebounds on Export Demand — <em>Wheat Holds as Dollar Softens</em>
+        </h1>
+        <div class="episode-date">Published Wednesday, March 25, 2026 &nbsp;·&nbsp; 5 min 12 sec</div>
+        <div class="episode-rule"></div>
+        <p class="episode-summary">
+          In today's briefing: corn futures find support following stronger-than-expected weekly USDA export sales. Soybean basis remains soft across Delta delivery points. Nearby wheat contracts hold firm as the U.S. dollar edges lower. Zachary Davis and Riley Chen discuss what Thursday's WASDE report may mean for the March–May spread.
+        </p>
+
+        <!-- Player -->
+        <div class="player-section">
+          <div class="player-section-label">Now Playing</div>
+          <div class="progress-track">
+            <div class="progress-fill"></div>
+          </div>
+          <div class="time-row">
+            <span>1:23</span>
+            <span>5:12</span>
+          </div>
+          <div class="controls">
+            <button class="btn-back">↺ 15s</button>
+            <button class="btn-play" onclick="togglePlay(this)">
+              <svg id="playIcon" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            </button>
+            <button class="btn-fwd">15s ↻</button>
+          </div>
+          <div class="player-meta">
+            <div class="player-episode-name">Daily Grain · March 25, 2026</div>
+            <div class="player-hosts">Hosted by Zachary Davis &amp; Riley Chen</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right column -->
+      <div class="sidebar">
+        <div class="sidebar-card">
+          <div class="sidebar-label">In This Episode</div>
+          <div class="sidebar-item">
+            <span class="sidebar-item-num">I.</span>
+            <span class="sidebar-item-text"><strong>Corn Futures</strong> — USDA export sales data and impact on Dec contracts</span>
+          </div>
+          <div class="sidebar-item">
+            <span class="sidebar-item-num">II.</span>
+            <span class="sidebar-item-text"><strong>Soybean Basis</strong> — Delta delivery softness and nearby spread analysis</span>
+          </div>
+          <div class="sidebar-item">
+            <span class="sidebar-item-num">III.</span>
+            <span class="sidebar-item-text"><strong>Wheat &amp; Dollar</strong> — HRW holds as index softens mid-week</span>
+          </div>
+          <div class="sidebar-item">
+            <span class="sidebar-item-num">IV.</span>
+            <span class="sidebar-item-text"><strong>WASDE Preview</strong> — Thursday report expectations and positioning</span>
+          </div>
+        </div>
+
+        <div class="sidebar-hosts">
+          <div class="sidebar-label">Your Hosts</div>
+          <div class="host-entry">
+            <div class="host-initials">ZD</div>
+            <div class="host-info">
+              <div class="host-name">Zachary Davis</div>
+              <div class="host-role">Senior Market Analyst</div>
+            </div>
+          </div>
+          <div class="host-entry">
+            <div class="host-initials">RC</div>
+            <div class="host-info">
+              <div class="host-name">Riley Chen</div>
+              <div class="host-role">Commodity Desk, NTG</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <span>© 2026 Nesvick Trading Group, LLC &nbsp;·&nbsp; <a href="#">nesvick.com</a></span>
+    <span class="footer-ornament">— ❧ —</span>
+    <div class="footer-links">
+      <a href="#">Disclaimer</a>
+      <a href="#">Privacy</a>
+      <a href="#">Subscribe</a>
+    </div>
+  </footer>
+
+  <script>
+    let playing = false;
+    function togglePlay(btn) {
+      playing = !playing;
+      const icon = btn.querySelector('svg');
+      icon.innerHTML = playing
+        ? '<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>'
+        : '<path d="M8 5v14l11-7z"/>';
+    }
+  </script>
+</body>
+</html>

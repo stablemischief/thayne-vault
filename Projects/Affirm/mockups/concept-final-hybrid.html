@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Affirm — Final Hybrid</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #DDD5C8;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      padding: 40px 20px 60px;
+      font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
+    }
+
+    .concept-label {
+      color: #8A7B6B;
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+
+    .phone {
+      width: 375px;
+      background: #FAF7F2;
+      border-radius: 44px;
+      overflow: hidden;
+      box-shadow: 0 24px 64px rgba(60,40,20,0.22), 0 0 0 1px rgba(80,60,40,0.07);
+    }
+
+    .screen { display: none; flex-direction: column; min-height: 812px; }
+    .screen.active { display: flex; }
+
+    .safe-top { height: 44px; flex-shrink: 0; display: flex; align-items: center; justify-content: flex-end; padding: 0 24px; }
+    .safe-bottom { height: 34px; flex-shrink: 0; }
+    .status-bar { font-size: 12px; color: #B0A494; font-weight: 500; }
+
+    /* ─── SHARED COMPONENTS ─── */
+    .screen-header {
+      padding: 8px 20px 0;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .back-btn {
+      width: 44px; height: 44px;
+      background: white;
+      border: 1.5px solid #E8E0D4;
+      border-radius: 13px;
+      display: flex; align-items: center; justify-content: center;
+      color: #8A7B6B;
+      font-size: 18px;
+      cursor: pointer;
+      transition: background 0.12s;
+      flex-shrink: 0;
+    }
+    .back-btn:active { background: #F0EBE3; }
+
+    .screen-header-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: #2D2420;
+      letter-spacing: -0.01em;
+    }
+
+    .result-footer {
+      padding: 16px 20px;
+      display: flex;
+      gap: 10px;
+    }
+
+    .btn-outline {
+      padding: 14px 20px;
+      border: 1.5px solid #E0D8CE;
+      background: white;
+      border-radius: 14px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #8A7B6B;
+      cursor: pointer;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      transition: transform 0.1s;
+      min-height: 48px;
+    }
+    .btn-outline:active { transform: scale(0.97); background: #FAF7F2; }
+
+    .btn-filled {
+      flex: 1;
+      padding: 14px 20px;
+      border: none;
+      background: #5C7A5C;
+      border-radius: 14px;
+      font-size: 14px;
+      font-weight: 600;
+      color: white;
+      cursor: pointer;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      transition: transform 0.1s, opacity 0.1s;
+      min-height: 48px;
+    }
+    .btn-filled:active { transform: scale(0.97); opacity: 0.9; }
+
+    .btn-full {
+      width: 100%;
+      padding: 16px;
+      border: none;
+      background: #5C7A5C;
+      border-radius: 14px;
+      font-size: 15px;
+      font-weight: 600;
+      color: white;
+      cursor: pointer;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      transition: transform 0.1s, opacity 0.1s;
+      min-height: 52px;
+    }
+    .btn-full:active { transform: scale(0.97); opacity: 0.9; }
+
+    .source-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border-radius: 20px;
+      padding: 6px 12px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      margin-bottom: 18px;
+    }
+
+    .badge-green { background: #EDF3E8; color: #4A6B4A; }
+    .badge-amber { background: #FFF3CD; color: #B8892A; }
+    .badge-sage  { background: #E8EFEA; color: #4A6B4A; }
+
+    /* ─── HOME SCREEN ─── */
+    #screen-home { background: #FAF7F2; }
+
+    .home-header {
+      padding: 4px 24px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .greeting-block {}
+    .greeting-sub {
+      font-size: 12px;
+      color: #B0A494;
+      font-weight: 400;
+    }
+    .greeting-main {
+      font-family: 'Lora', serif;
+      font-size: 22px;
+      font-weight: 400;
+      color: #2D2420;
+      margin-top: 1px;
+    }
+
+    .settings-btn {
+      width: 42px; height: 42px;
+      border: 1.5px solid #E8E0D4;
+      background: white;
+      border-radius: 13px;
+      display: flex; align-items: center; justify-content: center;
+      color: #B0A494;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 0.12s;
+    }
+    .settings-btn:active { background: #F0EBE3; }
+
+    .affirmation-card {
+      margin: 18px 20px 0;
+      background: white;
+      border-radius: 24px;
+      padding: 26px 22px 22px;
+      box-shadow: 0 2px 16px rgba(80,60,40,0.07), 0 0 0 1px rgba(80,60,40,0.04);
+    }
+
+    .aff-label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #7A8C5C;
+      margin-bottom: 14px;
+    }
+
+    .aff-text {
+      font-family: 'Lora', serif;
+      font-size: 20px;
+      font-weight: 400;
+      line-height: 1.56;
+      color: #2D2420;
+      margin-bottom: 18px;
+    }
+    .aff-text em { color: #5C7A5C; font-style: italic; }
+
+    .aff-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 14px;
+      border-top: 1px solid #F0EBE3;
+    }
+
+    .aff-meta { font-size: 12px; color: #C4B8A8; }
+    .aff-refresh {
+      background: none;
+      border: none;
+      font-size: 13px;
+      font-weight: 500;
+      color: #9B8E7E;
+      cursor: pointer;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      padding: 4px 6px;
+    }
+
+    .actions-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #C4B8A8;
+      padding: 20px 24px 12px;
+    }
+
+    .actions-grid {
+      padding: 0 20px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .action-tile {
+      background: white;
+      border-radius: 20px;
+      padding: 18px 16px;
+      box-shadow: 0 1px 8px rgba(80,60,40,0.05), 0 0 0 1px rgba(80,60,40,0.04);
+      cursor: pointer;
+      transition: transform 0.1s, box-shadow 0.1s;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      min-height: 96px;
+      text-align: left;
+      border: 1.5px solid transparent;
+    }
+    .action-tile:active { transform: scale(0.97); box-shadow: 0 1px 3px rgba(80,60,40,0.04); }
+
+    .action-tile.featured {
+      background: linear-gradient(145deg, #F7F3EC, #F2EDE4);
+      border-color: #D4B87A;
+    }
+
+    .tile-icon {
+      width: 34px; height: 34px;
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+    .icon-green  { background: #EDF3E8; }
+    .icon-sage   { background: #E9EFEA; }
+    .icon-amber  { background: #FDF5E0; }
+    .icon-terra  { background: #F0EDE8; }
+
+    .tile-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: #2D2420;
+      line-height: 1.3;
+    }
+    .action-tile.featured .tile-title { color: #7A5A1A; }
+
+    /* ─── AFFIRMATION RESULT ─── */
+    #screen-affirmation { background: #FAF7F2; }
+
+    .result-content {
+      flex: 1;
+      padding: 20px 24px 0;
+    }
+
+    .result-pull-quote {
+      font-family: 'Lora', serif;
+      font-size: 22px;
+      font-weight: 400;
+      line-height: 1.56;
+      color: #2D2420;
+      margin-bottom: 22px;
+    }
+    .result-pull-quote em { color: #5C7A5C; }
+
+    .result-context-card {
+      background: white;
+      border-radius: 16px;
+      padding: 18px;
+      box-shadow: 0 1px 8px rgba(80,60,40,0.05);
+    }
+    .result-context-label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #B0A494;
+      margin-bottom: 9px;
+    }
+    .result-context-text {
+      font-size: 14px;
+      line-height: 1.6;
+      color: #6B5F54;
+    }
+
+    /* ─── DAILY JOE ─── */
+    #screen-joe { background: #FAF7F2; }
+
+    .joe-save-hint {
+      font-size: 11px;
+      color: #B0A494;
+      margin-top: 12px;
+      font-style: italic;
+    }
+
+    /* ─── REMEMBER MY FUTURE ─── */
+    #screen-future { background: #FAF7F2; }
+
+    .memory-header-card {
+      margin: 16px 20px 0;
+      background: linear-gradient(135deg, #4A6B4A, #3D5C3D);
+      border-radius: 20px;
+      padding: 20px 22px;
+    }
+    .memory-header-label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.55);
+      margin-bottom: 5px;
+    }
+    .memory-header-title {
+      font-family: 'Lora', serif;
+      font-size: 20px;
+      font-weight: 400;
+      color: white;
+      margin-bottom: 3px;
+    }
+    .memory-header-sub {
+      font-size: 12px;
+      color: rgba(255,255,255,0.5);
+    }
+
+    .memory-body {
+      flex: 1;
+      padding: 22px 24px 0;
+    }
+    .memory-text {
+      font-family: 'Lora', serif;
+      font-size: 19px;
+      font-weight: 400;
+      line-height: 1.65;
+      color: #2D2420;
+      margin-bottom: 22px;
+    }
+    .memory-text strong { color: #4A6B4A; font-weight: 500; }
+
+    .emotion-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .etag {
+      padding: 7px 14px;
+      background: #EDF3E8;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 500;
+      color: #4A6B4A;
+    }
+
+    /* ─── ALIGNMENT SCREEN ─── */
+    #screen-struggle { background: #FAF7F2; }
+
+    .struggle-body {
+      flex: 1;
+      padding: 18px 20px 0;
+    }
+
+    .struggle-intro {
+      font-family: 'Lora', serif;
+      font-size: 21px;
+      font-weight: 400;
+      color: #2D2420;
+      line-height: 1.45;
+      margin-bottom: 5px;
+    }
+    .struggle-sub {
+      font-size: 14px;
+      color: #A89884;
+      line-height: 1.5;
+      margin-bottom: 18px;
+    }
+
+    .struggle-input-area {
+      background: white;
+      border: 1.5px solid #E0D8CE;
+      border-radius: 16px;
+      padding: 15px 16px;
+      min-height: 96px;
+      font-size: 15px;
+      color: #6B5F54;
+      line-height: 1.6;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      margin-bottom: 14px;
+      width: 100%;
+    }
+
+    /* Signal-style energy card */
+    .energy-card {
+      background: white;
+      border-radius: 18px;
+      border: 1px solid #E8E0D4;
+      overflow: hidden;
+      box-shadow: 0 1px 8px rgba(80,60,40,0.05);
+    }
+    .energy-card-header {
+      background: linear-gradient(135deg, #F5F0E8, #EDE8DF);
+      padding: 14px 16px;
+      display: flex;
+      align-items: center;
+      gap: 13px;
+      border-bottom: 1px solid #E8E0D4;
+    }
+    .center-badge {
+      width: 38px; height: 38px;
+      background: linear-gradient(135deg, #B8892A, #D4A853);
+      border-radius: 11px;
+      display: flex; align-items: center; justify-content: center;
+      color: white;
+      font-size: 16px;
+      font-weight: 700;
+      flex-shrink: 0;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+    .energy-card-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: #2D2420;
+    }
+    .energy-card-sub {
+      font-size: 12px;
+      color: #A89884;
+      margin-top: 2px;
+    }
+    .energy-card-body {
+      padding: 14px 16px;
+      font-size: 13px;
+      color: #6B5F54;
+      line-height: 1.6;
+    }
+
+    /* ─── ALIGNMENT RESPONSE ─── */
+    #screen-response { background: #FAF7F2; }
+
+    .response-body {
+      flex: 1;
+      padding: 16px 20px 0;
+      overflow-y: auto;
+    }
+
+    .response-section {
+      margin-bottom: 16px;
+    }
+
+    .response-section-label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #B0A494;
+      margin-bottom: 10px;
+    }
+
+    .response-reframe {
+      background: white;
+      border-radius: 18px;
+      padding: 20px;
+      box-shadow: 0 1px 8px rgba(80,60,40,0.05);
+    }
+    .reframe-text {
+      font-family: 'Lora', serif;
+      font-size: 18px;
+      font-weight: 400;
+      line-height: 1.6;
+      color: #2D2420;
+    }
+    .reframe-text em { color: #5C7A5C; }
+    .reframe-source {
+      font-size: 11px;
+      color: #C4B8A8;
+      margin-top: 12px;
+    }
+
+    .response-exercise {
+      background: white;
+      border-radius: 18px;
+      padding: 18px 20px;
+      box-shadow: 0 1px 8px rgba(80,60,40,0.05);
+    }
+    .exercise-type-badge {
+      display: inline-flex;
+      align-items: center;
+      background: #FFF3CD;
+      border-radius: 20px;
+      padding: 5px 11px;
+      font-size: 11px;
+      font-weight: 600;
+      color: #B8892A;
+      letter-spacing: 0.06em;
+      margin-bottom: 12px;
+    }
+    .exercise-text {
+      font-family: 'Lora', serif;
+      font-size: 17px;
+      font-weight: 400;
+      line-height: 1.6;
+      color: #2D2420;
+      font-style: italic;
+    }
+
+    .clearing-card {
+      background: linear-gradient(135deg, #EDF3E8, #E8EFEA);
+      border-radius: 18px;
+      padding: 16px 18px;
+    }
+    .clearing-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: #3D5C3D;
+      margin-bottom: 7px;
+    }
+    .clearing-text {
+      font-size: 13px;
+      color: #4A6B4A;
+      line-height: 1.6;
+    }
+
+    /* ─── SETTINGS ─── */
+    #screen-settings { background: #FAF7F2; }
+
+    .settings-body {
+      flex: 1;
+      padding: 16px 20px 0;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .settings-card {
+      background: white;
+      border-radius: 20px;
+      padding: 18px 20px;
+      box-shadow: 0 1px 8px rgba(80,60,40,0.05), 0 0 0 1px rgba(80,60,40,0.03);
+    }
+
+    .settings-card-label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #B0A494;
+      margin-bottom: 13px;
+    }
+
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .tag-green {
+      padding: 7px 14px;
+      background: #EDF3E8;
+      border-radius: 20px;
+      color: #4A6B4A;
+      font-size: 13px;
+      font-weight: 500;
+    }
+
+    .blueprint-text {
+      font-size: 14px;
+      color: #6B5F54;
+      font-family: 'Lora', serif;
+      font-style: italic;
+    }
+
+    .memory-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 14px;
+      background: #FAF7F2;
+      border-radius: 12px;
+    }
+    .memory-row-title { font-size: 14px; font-weight: 500; color: #2D2420; }
+    .memory-row-sub { font-size: 12px; color: #B0A494; margin-top: 2px; }
+    .memory-row-chevron { color: #D4C8BC; font-size: 16px; }
+  </style>
+</head>
+<body>
+
+  <div class="concept-label">Final Hybrid — Morning Light base · Signal energy card · Refined labels</div>
+
+  <div class="phone">
+
+    <!-- ═══════════════════════════ HOME ═══════════════════════════ -->
+    <div class="screen active" id="screen-home">
+      <div class="safe-top"><span class="status-bar">9:41</span></div>
+
+      <div class="home-header">
+        <div class="greeting-block">
+          <div class="greeting-sub">Good morning, James</div>
+          <div class="greeting-main">Your Alignment</div>
+        </div>
+        <button class="settings-btn" onclick="showScreen('screen-settings')">⚙</button>
+      </div>
+
+      <div class="affirmation-card">
+        <div class="aff-label">Today's Blueprint</div>
+        <div class="aff-text">
+          The blueprint for <em>abundant wealth</em> already exists in the field. You are not waiting — you are receiving what is already yours.
+        </div>
+        <div class="aff-footer">
+          <span class="aff-meta">FSS · The Decree</span>
+          <button class="aff-refresh">New ↻</button>
+        </div>
+      </div>
+
+      <div class="actions-label">What do you need?</div>
+
+      <div class="actions-grid">
+        <button class="action-tile" onclick="showScreen('screen-affirmation')">
+          <div class="tile-icon icon-green">✦</div>
+          <div class="tile-title">Positive Affirmation</div>
+        </button>
+
+        <button class="action-tile" onclick="showScreen('screen-joe')">
+          <div class="tile-icon icon-sage">◈</div>
+          <div class="tile-title">Daily Dose of Joe</div>
+        </button>
+
+        <button class="action-tile featured" onclick="showScreen('screen-future')">
+          <div class="tile-icon icon-amber">◉</div>
+          <div class="tile-title">Remember My Future</div>
+        </button>
+
+        <button class="action-tile" onclick="showScreen('screen-struggle')">
+          <div class="tile-icon icon-terra">♡</div>
+          <div class="tile-title">Feeling Out of Alignment</div>
+        </button>
+      </div>
+
+      <div class="safe-bottom"></div>
+    </div>
+
+    <!-- ═══════════════════════════ AFFIRMATION RESULT ═══════════════════════════ -->
+    <div class="screen" id="screen-affirmation">
+      <div class="safe-top"><span class="status-bar">9:41</span></div>
+      <div class="screen-header">
+        <button class="back-btn" onclick="showScreen('screen-home')">←</button>
+        <span class="screen-header-title">Affirmation</span>
+      </div>
+
+      <div class="result-content">
+        <div class="source-badge badge-amber" style="margin-bottom:18px;">✦ Gratitude Treatment</div>
+
+        <div class="result-pull-quote">
+          I give infinite thanks that <em>right abundance</em> is mine now — flowing freely, in expected and unexpected ways, with ease and grace.
+        </div>
+
+        <div class="result-context-card">
+          <div class="result-context-label">From Florence Scovel Shinn</div>
+          <div class="result-context-text">
+            Gratitude is the great multiplier. When you give thanks in advance, your body believes the future has already arrived — and the field responds to that signal.
+          </div>
+        </div>
+      </div>
+
+      <div class="result-footer">
+        <button class="btn-outline">Again ↻</button>
+        <button class="btn-filled" onclick="showScreen('screen-home')">I receive this</button>
+      </div>
+      <div class="safe-bottom"></div>
+    </div>
+
+    <!-- ═══════════════════════════ DAILY JOE ═══════════════════════════ -->
+    <div class="screen" id="screen-joe">
+      <div class="safe-top"><span class="status-bar">9:41</span></div>
+      <div class="screen-header">
+        <button class="back-btn" onclick="showScreen('screen-home')">←</button>
+        <span class="screen-header-title">Daily Dose of Joe</span>
+      </div>
+
+      <div class="result-content">
+        <div class="source-badge badge-green">📖 Dr. Joe · Becoming Supernatural</div>
+
+        <div class="result-pull-quote">
+          When you can <em>feel the emotion of your future</em> before it happens, you stop looking for it.<br><br>
+          How could you look for what you already feel?
+        </div>
+
+        <div class="result-context-card">
+          <div class="result-context-label">Why this matters for your work</div>
+          <div class="result-context-text">
+            Your blueprint for abundance is already in the field. The shift isn't trying harder — it's feeling the reality of it now, before the outer world confirms it.
+          </div>
+          <div class="joe-save-hint">Save this to your personal library from Settings →</div>
+        </div>
+      </div>
+
+      <div class="result-footer">
+        <button class="btn-outline">Save</button>
+        <button class="btn-filled" onclick="showScreen('screen-home')">I receive this</button>
+      </div>
+      <div class="safe-bottom"></div>
+    </div>
+
+    <!-- ═══════════════════════════ REMEMBER MY FUTURE ═══════════════════════════ -->
+    <div class="screen" id="screen-future">
+      <div class="safe-top"><span class="status-bar">9:41</span></div>
+      <div class="screen-header">
+        <button class="back-btn" onclick="showScreen('screen-home')">←</button>
+        <span class="screen-header-title">Remembering Your Future</span>
+      </div>
+
+      <div class="memory-header-card">
+        <div class="memory-header-label">Future Memory</div>
+        <div class="memory-header-title">The Investment Close</div>
+        <div class="memory-header-sub">Remembered · Already done</div>
+      </div>
+
+      <div class="memory-body">
+        <div class="memory-text">
+          I remember the warmth that moved through my chest the moment I heard those words.<br><br>
+          <strong>The certainty — not surprise, but recognition.</strong> Some deeper part of me had always known this was already done.<br><br>
+          I sat in the quiet after the call ended. Grateful. Knowing the field had delivered what I had received in meditation months before.
+        </div>
+
+        <div class="emotion-row">
+          <span class="etag">Gratitude</span>
+          <span class="etag">Certainty</span>
+          <span class="etag">Deep knowing</span>
+          <span class="etag">Freedom</span>
+        </div>
+      </div>
+
+      <div style="padding: 20px 20px;">
+        <button class="btn-full" onclick="showScreen('screen-home')">I remember this</button>
+      </div>
+      <div class="safe-bottom"></div>
+    </div>
+
+    <!-- ═══════════════════════════ FEELING OUT OF ALIGNMENT ═══════════════════════════ -->
+    <div class="screen" id="screen-struggle">
+      <div class="safe-top"><span class="status-bar">9:41</span></div>
+      <div class="screen-header">
+        <button class="back-btn" onclick="showScreen('screen-home')">←</button>
+        <span class="screen-header-title">Coming Back to Alignment</span>
+      </div>
+
+      <div class="struggle-body">
+        <div class="struggle-intro">What's pulling you out?</div>
+        <div class="struggle-sub">Name it honestly. This is how we find the way back.</div>
+
+        <textarea class="struggle-input-area" readonly>I keep feeling like I'm not worthy of the success I'm working toward...</textarea>
+
+        <!-- Signal-style energy center card -->
+        <div class="energy-card">
+          <div class="energy-card-header">
+            <div class="center-badge">2</div>
+            <div>
+              <div class="energy-card-title">Center 2 · Sacral — Worthiness</div>
+              <div class="energy-card-sub">Guilt, shame, and victim mentality patterns</div>
+            </div>
+          </div>
+          <div class="energy-card-body">
+            Energy stored in Center 2 blocks the upward flow through Centers 3 and 4. This is where your "unworthy of abundance" blueprint lives. A targeted clearing will free this energy and open the path to the heart center.
+          </div>
+        </div>
+      </div>
+
+      <div class="result-footer">
+        <button class="btn-outline">Different</button>
+        <button class="btn-filled" onclick="showScreen('screen-response')">Show me the way back</button>
+      </div>
+      <div class="safe-bottom"></div>
+    </div>
+
+    <!-- ═══════════════════════════ ALIGNMENT RESPONSE ═══════════════════════════ -->
+    <div class="screen" id="screen-response">
+      <div class="safe-top"><span class="status-bar">9:41</span></div>
+      <div class="screen-header">
+        <button class="back-btn" onclick="showScreen('screen-struggle')">←</button>
+        <span class="screen-header-title">Your Way Back</span>
+      </div>
+
+      <div class="response-body">
+
+        <div class="response-section">
+          <div class="response-section-label">Reframe</div>
+          <div class="response-reframe">
+            <div class="reframe-text">
+              Worthiness is not something you earn. <em>It is the very nature of the consciousness that created you.</em><br><br>
+              The field doesn't withhold from the undeserving — it responds to whoever signals certainty that what they're calling in is already done.
+            </div>
+            <div class="reframe-source">Dr. Joe Dispenza · The blueprint precedes the matter.</div>
+          </div>
+        </div>
+
+        <div class="response-section">
+          <div class="response-section-label">Your Exercise · The Erasure</div>
+          <div class="response-exercise">
+            <div class="exercise-type-badge">FSS · Erasure + Replacement</div>
+            <div style="font-size:12px; color:#A89884; line-height:1.6; margin-bottom:14px; font-family:'Plus Jakarta Sans',sans-serif;">
+              Speak these words <strong style="color:#7A6E64;">out loud, slowly — 3 times.</strong> With each repetition, feel the truth of them in your body, not just your mind. The emotion is the signal. The words are the carrier.
+            </div>
+            <div class="exercise-text">
+              "I release the belief that I must prove my worth before abundance can flow.<br><br>
+              I now accept that I am worthy — not because of what I've done, but because of what I am. Abundance is my divine right, and I receive it now."
+            </div>
+          </div>
+        </div>
+
+        <div class="response-section">
+          <div class="response-section-label">Center 2 Clearing</div>
+          <div class="clearing-card">
+            <div class="clearing-title">Sacral Center Blessing</div>
+            <div class="clearing-text">
+              Place your attention on the area just below your navel. Breathe slowly and send love to that center. Whisper or think: <em>"I bless this center. I release all stored guilt and shame. I am free."</em> Hold for three breaths.
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div style="padding: 16px 20px;">
+        <button class="btn-full" onclick="showScreen('screen-home')">I'm back in alignment</button>
+      </div>
+      <div class="safe-bottom"></div>
+    </div>
+
+    <!-- ═══════════════════════════ SETTINGS ═══════════════════════════ -->
+    <div class="screen" id="screen-settings">
+      <div class="safe-top"><span class="status-bar">9:41</span></div>
+      <div class="screen-header">
+        <button class="back-btn" onclick="showScreen('screen-home')">←</button>
+        <span class="screen-header-title">Your Blueprint</span>
+      </div>
+
+      <div class="settings-body">
+        <div class="settings-card">
+          <div class="settings-card-label">Work Areas</div>
+          <div class="tag-row">
+            <span class="tag-green">Business Abundance</span>
+            <span class="tag-green">Energy Centers</span>
+            <span class="tag-green">Mystical Experiences</span>
+          </div>
+        </div>
+
+        <div class="settings-card">
+          <div class="settings-card-label">Blueprint to Rewire</div>
+          <div class="blueprint-text">"Unworthy of abundance"</div>
+        </div>
+
+        <div class="settings-card">
+          <div class="settings-card-label">Elevated Emotion Anchors</div>
+          <div class="tag-row">
+            <span class="tag-green">Gratitude</span>
+            <span class="tag-green">Joy</span>
+            <span class="tag-green">Awe</span>
+          </div>
+        </div>
+
+        <div class="settings-card">
+          <div class="settings-card-label">Future Memories (1)</div>
+          <div class="memory-row">
+            <div>
+              <div class="memory-row-title">The Investment Close</div>
+              <div class="memory-row-sub">Gratitude · Certainty · Deep knowing</div>
+            </div>
+            <div class="memory-row-chevron">›</div>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding: 16px 20px;">
+        <button class="btn-full" onclick="showScreen('screen-home')">Save Blueprint</button>
+      </div>
+      <div class="safe-bottom"></div>
+    </div>
+
+  </div>
+
+  <div style="margin-top:28px; color:#8A7B6B; font-size:11px; font-family:'Plus Jakarta Sans',sans-serif; text-align:center; line-height:1.9;">
+    Final Hybrid · Morning Light base + Signal energy card<br>
+    Font: Lora + Plus Jakarta Sans · Palette: Warm cream · Sage green · Amber gold<br>
+    Screens: Home → Affirmation · Daily Joe · Remember My Future · Feeling Out of Alignment → Response · Settings
+  </div>
+
+  <script>
+    function showScreen(id) {
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+      document.querySelector('.phone').scrollTop = 0;
+    }
+  </script>
+</body>
+</html>

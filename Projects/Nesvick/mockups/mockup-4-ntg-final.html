@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nesvick Daily Grain Podcast</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Oswald:wght@400;500;600;700&display=swap');
+
+    :root {
+      --ntg-teal:    #1e4456;
+      --ntg-teal-lt: #245268;
+      --ntg-charcoal:#2d2d2d;
+      --ntg-dark:    #1e1e1e;
+      --ntg-green:   #7ab648;
+      --ntg-green-dk:#5d9030;
+      --ntg-green-lt:#e8f4d8;
+      --white:       #ffffff;
+      --off-white:   #f4f4f2;
+      --border:      #e0dcd6;
+      --text:        #1c1917;
+      --muted:       #6b6662;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: var(--off-white);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── NAV ──────────────────────────────────────── */
+    nav {
+      background: var(--ntg-teal);
+      padding: 0 36px;
+      height: 52px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-shrink: 0;
+    }
+    .nav-logo {
+      display: flex;
+      flex-direction: column;
+      line-height: 1;
+    }
+    .nav-logo .top-word {
+      font-family: 'Oswald', sans-serif;
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--white);
+      letter-spacing: 0.06em;
+    }
+    .nav-logo .sub-word {
+      font-family: 'Oswald', sans-serif;
+      font-size: 11px;
+      font-weight: 400;
+      color: rgba(255,255,255,0.55);
+      letter-spacing: 0.12em;
+    }
+    .nav-right {
+      display: flex;
+      align-items: center;
+      position: relative;
+    }
+    .nav-cta {
+      background: var(--ntg-green);
+      color: var(--white);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      border-radius: 2px;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: background 0.15s;
+    }
+    .nav-cta:hover { background: var(--ntg-green-dk); }
+    .nav-cta .caret { font-size: 9px; transition: transform 0.2s; }
+    .nav-cta.open .caret { transform: rotate(180deg); }
+
+    /* Contact dropdown */
+    .contact-dropdown {
+      display: none;
+      position: absolute;
+      top: calc(100% + 8px);
+      right: 0;
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      padding: 18px 20px;
+      min-width: 260px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.18);
+      z-index: 100;
+      color: var(--text);
+    }
+    .contact-dropdown.open { display: block; }
+    .cd-name {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--ntg-teal);
+      margin-bottom: 2px;
+    }
+    .cd-company {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--ntg-teal);
+      margin-bottom: 12px;
+    }
+    .cd-addr {
+      font-size: 12px;
+      color: #555;
+      line-height: 1.55;
+      margin-bottom: 10px;
+    }
+    .cd-addr + .cd-addr { padding-top: 8px; border-top: 1px solid #eee; margin-top: 2px; }
+    .cd-phone {
+      font-size: 12px;
+      color: #555;
+      margin-bottom: 3px;
+    }
+    .cd-email {
+      display: inline-block;
+      margin-top: 10px;
+      font-size: 12px;
+      color: var(--ntg-teal);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(30,68,86,0.3);
+    }
+    .cd-email:hover { color: var(--ntg-green-dk); border-bottom-color: var(--ntg-green-dk); }
+
+    /* ── HERO ─────────────────────────────────────── */
+    .hero {
+      background-color: var(--ntg-charcoal);
+      padding: 36px 36px 0;
+      flex-shrink: 0;
+      position: relative;
+      overflow: hidden;
+    }
+    /* Market numbers watermark — CSS SVG background */
+    .hero-bg-numbers {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='480' height='300'%3E%3Cg font-family='Georgia%2C serif' fill='rgba(255%2C255%2C255%2C0.13)' transform='rotate(-12%2C240%2C150)'%3E%3Ctext x='-30' y='90' font-size='72' font-weight='700'%3E%2B1%2C894%3C/text%3E%3Ctext x='160' y='68' font-size='44' font-weight='700'%3E%E2%96%B2%3C/text%3E%3Ctext x='30' y='155' font-size='64' font-weight='700'%3E%2B732%3C/text%3E%3Ctext x='220' y='148' font-size='38' font-weight='700'%3E%E2%96%B2%3C/text%3E%3Ctext x='10' y='218' font-size='60' font-weight='700'%3E%2B529%3C/text%3E%3Ctext x='265' y='100' font-size='58' font-weight='700'%3E475.25%3C/text%3E%3Ctext x='310' y='175' font-size='70' font-weight='700'%3E%2B751%3C/text%3E%3Ctext x='390' y='60' font-size='42' font-weight='700'%3E%E2%96%B2%3C/text%3E%3Ctext x='400' y='230' font-size='56' font-weight='700'%3E%2B39%3C/text%3E%3Ctext x='180' y='240' font-size='52' font-weight='700'%3E1%2C084%3C/text%3E%3C/g%3E%3C/svg%3E");
+      background-size: 480px 300px;
+      background-repeat: repeat;
+      opacity: 1;
+    }
+    /* Gradient overlay — let texture breathe on the right, darker on left where title is */
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        105deg,
+        rgba(30,30,30,0.82) 0%,
+        rgba(30,30,30,0.65) 45%,
+        rgba(30,30,30,0.45) 100%
+      );
+      pointer-events: none;
+    }
+    .hero-inner {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .hero-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      border: 1px solid rgba(122,182,72,0.4);
+      background: rgba(122,182,72,0.08);
+      border-radius: 3px;
+      padding: 4px 11px;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ntg-green);
+      margin-bottom: 14px;
+    }
+    .hero-pill .live-dot {
+      width: 5px; height: 5px;
+      background: var(--ntg-green);
+      border-radius: 50%;
+      animation: blink 2s ease-in-out infinite;
+    }
+    @keyframes blink {
+      0%,100% { opacity:1; }
+      50%      { opacity:0.35; }
+    }
+    .hero-title {
+      font-family: 'Oswald', sans-serif;
+      font-size: 34px;
+      font-weight: 600;
+      color: var(--white);
+      line-height: 1.15;
+      max-width: 640px;
+      margin-bottom: 12px;
+      letter-spacing: 0.01em;
+    }
+    .hero-meta {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 12px;
+      color: rgba(255,255,255,0.45);
+      margin-bottom: 28px;
+    }
+    .hero-meta .sep { color: rgba(255,255,255,0.2); }
+
+    /* ── FLOATING PLAYER CARD ─────────────────────── */
+    .player-float {
+      transform: translateY(28px);
+    }
+    .player-card {
+      background: var(--white);
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.35), 0 2px 8px rgba(0,0,0,0.2);
+    }
+    .player-top {
+      background: var(--ntg-teal);
+      padding: 12px 20px 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .player-label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.6);
+    }
+    .player-ep-name {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--white);
+    }
+    .player-body {
+      padding: 18px 20px 20px;
+    }
+
+    /* Waveform */
+    .waveform {
+      height: 48px;
+      display: flex;
+      align-items: center;
+      gap: 2px;
+      cursor: pointer;
+      margin-bottom: 8px;
+    }
+    .wf {
+      flex: 1;
+      border-radius: 2px;
+      background: #e8e4dc;
+      min-height: 4px;
+    }
+    .wf.played  { background: var(--ntg-green); }
+    .wf.cursor  { background: var(--ntg-charcoal); width: 3px; flex: none; }
+
+    .time-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 11px;
+      color: var(--muted);
+      font-variant-numeric: tabular-nums;
+      margin-bottom: 14px;
+    }
+
+    /* Controls */
+    .controls {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding-top: 12px;
+      border-top: 1px solid var(--border);
+    }
+    .btn-ghost {
+      height: 34px;
+      padding: 0 12px;
+      background: none;
+      border: 1px solid var(--border);
+      border-radius: 5px;
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--muted);
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .btn-ghost:hover { border-color: #bbb; color: var(--text); }
+    .btn-play {
+      width: 46px; height: 46px;
+      background: var(--ntg-green);
+      border: none;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(122,182,72,0.35);
+      flex-shrink: 0;
+      transition: transform 0.15s, background 0.15s;
+    }
+    .btn-play:hover { background: var(--ntg-green-dk); transform: scale(1.06); }
+    .btn-play svg { width: 18px; height: 18px; fill: #fff; }
+    .spacer { flex: 1; }
+    .btn-speed {
+      font-size: 11px; font-weight: 500;
+      color: var(--muted);
+      background: var(--off-white);
+      border: 1px solid var(--border);
+      border-radius: 5px;
+      padding: 0 10px; height: 34px;
+      cursor: pointer;
+    }
+
+    /* ── CONTENT AREA ─────────────────────────────── */
+    main {
+      flex: 1;
+      padding: 56px 36px 48px;
+    }
+    .content-grid {
+      max-width: 900px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 28px;
+    }
+
+    /* Left */
+    .section-label {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--ntg-green-dk);
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .briefing-text {
+      font-size: 14px;
+      line-height: 1.75;
+      color: #444;
+      margin-bottom: 28px;
+    }
+
+    .topics-list { margin-bottom: 4px; }
+    .topic-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 11px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .topic-row:last-child { border-bottom: none; }
+    .topic-icon {
+      width: 30px; height: 30px;
+      background: var(--ntg-green-lt);
+      border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+    .topic-body { line-height: 1.4; }
+    .topic-body strong { font-size: 13px; font-weight: 600; color: var(--ntg-teal); }
+    .topic-body span { font-size: 13px; color: var(--muted); }
+
+    /* Right sidebar */
+    .sidebar { display: flex; flex-direction: column; gap: 16px; }
+
+    .card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .card-head {
+      background: var(--ntg-teal);
+      padding: 9px 16px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.7);
+    }
+    .card-body { padding: 14px 16px; }
+
+    .host-row {
+      display: flex; align-items: center; gap: 10px;
+      padding: 8px 0;
+    }
+    .host-row + .host-row { border-top: 1px solid var(--off-white); }
+    .host-av {
+      width: 34px; height: 34px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 12px; font-weight: 700;
+      flex-shrink: 0;
+    }
+    .host-av.z { background: var(--ntg-green-lt); color: var(--ntg-green-dk); }
+    .host-av.r { background: #ddeaf5; color: var(--ntg-teal); }
+    .host-name { font-size: 13px; font-weight: 600; color: var(--text); line-height: 1.2; }
+    .host-role { font-size: 11px; color: var(--muted); }
+
+    /* Share card */
+    .share-card {
+      background: var(--ntg-charcoal);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .share-head {
+      background: var(--ntg-teal);
+      padding: 9px 16px;
+      font-size: 10px; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: rgba(255,255,255,0.7);
+    }
+    .share-body { padding: 14px 16px; }
+    .share-desc {
+      font-size: 12px;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 10px;
+      line-height: 1.5;
+    }
+    .share-url {
+      background: rgba(0,0,0,0.35);
+      border-radius: 5px;
+      padding: 8px 10px;
+      font-size: 10px;
+      color: rgba(255,255,255,0.4);
+      font-family: 'Inter', monospace;
+      word-break: break-all;
+      margin-bottom: 10px;
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+    .btn-copy {
+      width: 100%;
+      background: var(--ntg-green);
+      color: var(--white);
+      border: none;
+      border-radius: 5px;
+      padding: 9px;
+      font-size: 12px; font-weight: 600;
+      cursor: pointer;
+      letter-spacing: 0.04em;
+      transition: background 0.15s;
+    }
+    .btn-copy:hover { background: var(--ntg-green-dk); }
+
+    /* ── FOOTER ───────────────────────────────────── */
+    footer {
+      background: var(--ntg-teal);
+      padding: 14px 36px;
+      display: flex; align-items: center; justify-content: space-between;
+      font-size: 11px; color: rgba(255,255,255,0.45);
+      flex-shrink: 0;
+    }
+    footer a { color: rgba(255,255,255,0.6); text-decoration: none; }
+    footer a:hover { color: var(--white); }
+    .footer-links { display: flex; gap: 20px; }
+    .footer-disclaimer {
+      font-size: 10px;
+      color: rgba(255,255,255,0.3);
+      max-width: 420px;
+      line-height: 1.4;
+    }
+
+    /* Responsive */
+    @media (max-width: 700px) {
+      .content-grid { grid-template-columns: 1fr; }
+      .nav-right .nav-link { display: none; }
+      .hero-title { font-size: 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-logo">
+      <span class="top-word">NESVICK</span>
+      <span class="sub-word">TRADING GROUP, LLC</span>
+    </div>
+    <div class="nav-right">
+      <button class="nav-cta" id="contactBtn" onclick="toggleContact()">
+        Contact Us <span class="caret">▼</span>
+      </button>
+      <div class="contact-dropdown" id="contactDropdown">
+        <div class="cd-name">Zachary Davis</div>
+        <div class="cd-company">Nesvick Trading Group, LLC</div>
+        <div class="cd-addr">
+          424 Church Street, Suite 1330<br>
+          Nashville, TN 37219
+        </div>
+        <div class="cd-addr">
+          9047 Poplar Avenue, Suite 101<br>
+          Germantown, TN 38138
+        </div>
+        <div class="cd-phone">901.766.4446 (office)</div>
+        <a class="cd-email" href="mailto:zdavis@nesvick.com">zdavis@nesvick.com</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero">
+    <!-- Watermark numbers background -->
+    <div class="hero-bg-numbers" id="heroBg"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-inner" style="position:relative;z-index:1;">
+      <div class="hero-pill">
+        <span class="live-dot"></span>
+        Daily Grain · Wed, March 25, 2026 · Vol. 47
+      </div>
+      <h1 class="hero-title">Corn Rebounds on Export<br>Demand — Wheat Holds as<br>Dollar Softens</h1>
+      <div class="hero-meta">
+        <span>🕐 5 min 12 sec</span>
+        <span class="sep">|</span>
+        <span>Corn · Soybeans · Wheat · WASDE</span>
+        <span class="sep">|</span>
+        <span>Zachary Davis &amp; Riley Chen</span>
+      </div>
+
+      <!-- FLOATING PLAYER -->
+      <div class="player-float">
+        <div class="player-card">
+          <div class="player-top">
+            <span class="player-label">Now Playing</span>
+            <span class="player-ep-name">Daily Grain — March 25, 2026</span>
+          </div>
+          <div class="player-body">
+            <div class="waveform" id="waveform"></div>
+            <div class="time-row">
+              <span>1:23</span>
+              <span>5:12</span>
+            </div>
+            <div class="controls">
+              <button class="btn-ghost">↺ 15s</button>
+              <button class="btn-play" onclick="togglePlay(this)">
+                <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+              </button>
+              <button class="btn-ghost">15s ↻</button>
+              <div class="spacer"></div>
+              <button class="btn-speed">1× Speed</button>
+              <button class="btn-ghost">↓ Download</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <main>
+    <div class="content-grid">
+
+      <!-- LEFT -->
+      <div>
+        <div class="section-label">Today's Briefing</div>
+        <p class="briefing-text">
+          Corn futures found support Wednesday following stronger-than-expected USDA weekly export sales data.
+          Soybean basis remains under pressure at Delta delivery points while nearby wheat contracts hold firm
+          as the U.S. dollar retreats mid-week. Zachary and Riley discuss positioning ahead of Thursday's
+          WASDE report and what recent weather patterns mean for early planting progress across the Corn Belt.
+        </p>
+
+        <div class="section-label">Key Topics</div>
+        <div class="topics-list">
+          <div class="topic-row">
+            <div class="topic-icon">🌽</div>
+            <div class="topic-body">
+              <strong>Corn Futures</strong>
+              <span> — USDA export data drives front-month recovery; Dec spread analysis</span>
+            </div>
+          </div>
+          <div class="topic-row">
+            <div class="topic-icon">🫘</div>
+            <div class="topic-body">
+              <strong>Soybean Basis</strong>
+              <span> — Delta delivery softness continues; Gulf bids remain mixed</span>
+            </div>
+          </div>
+          <div class="topic-row">
+            <div class="topic-icon">🌾</div>
+            <div class="topic-body">
+              <strong>HRW Wheat</strong>
+              <span> — Holds firm as U.S. dollar index retreats; export competition eases</span>
+            </div>
+          </div>
+          <div class="topic-row">
+            <div class="topic-icon">📋</div>
+            <div class="topic-body">
+              <strong>WASDE Preview</strong>
+              <span> — Thursday report expectations and pre-report positioning strategy</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT -->
+      <div class="sidebar">
+
+        <!-- Hosts -->
+        <div class="card">
+          <div class="card-head">Your Hosts</div>
+          <div class="card-body">
+            <div class="host-row">
+              <div class="host-av z">ZD</div>
+              <div>
+                <div class="host-name">Zachary Davis</div>
+                <div class="host-role">Senior Market Analyst, NTG</div>
+              </div>
+            </div>
+            <div class="host-row">
+              <div class="host-av r">RC</div>
+              <div>
+                <div class="host-name">Riley Chen</div>
+                <div class="host-role">Commodity Desk, NTG</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Share -->
+        <div class="share-card">
+          <div class="share-head">Share This Episode</div>
+          <div class="share-body">
+            <p class="share-desc">Send this episode to a colleague — no login required to listen.</p>
+            <div class="share-url">nesvick.podcast.stablemischief.ai/share/k9x2mq8r...</div>
+            <button class="btn-copy" onclick="this.textContent='Copied!'; setTimeout(()=>this.textContent='Copy Link',2000)">
+              Copy Link
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div>
+      <div>© 2026 <a href="#">Nesvick Trading Group, LLC</a> · NFA Member · CFTC Registered IB Since 2005 · Nashville · Memphis</div>
+      <div class="footer-disclaimer" style="margin-top:4px;">Futures trading involves risk of loss and is not suitable for everyone.</div>
+    </div>
+    <div class="footer-links">
+      <a href="#">nesvick.com</a>
+      <a href="#">Disclaimer</a>
+      <a href="#">Privacy</a>
+    </div>
+  </footer>
+
+  <script>
+    // (watermark is pure CSS SVG background — no JS needed)
+
+    // Waveform
+    const wf = document.getElementById('waveform');
+    const n = 90, played = 0.285;
+    for (let i = 0; i < n; i++) {
+      const b = document.createElement('div');
+      b.className = 'wf';
+      const p = i / n;
+      const h = 8 + Math.abs(Math.sin(i * 0.38 + 0.5)) * 26 + (Math.sin(i * 1.3) * 5) + Math.random() * 8;
+      b.style.height = h + 'px';
+      if (p < played - 0.01) b.classList.add('played');
+      if (Math.abs(p - played) <= 0.012) b.classList.add('cursor');
+      wf.appendChild(b);
+    }
+
+    // Contact dropdown
+    function toggleContact() {
+      const btn = document.getElementById('contactBtn');
+      const dd  = document.getElementById('contactDropdown');
+      btn.classList.toggle('open');
+      dd.classList.toggle('open');
+    }
+    // Close on outside click
+    document.addEventListener('click', e => {
+      if (!e.target.closest('.nav-right')) {
+        document.getElementById('contactBtn').classList.remove('open');
+        document.getElementById('contactDropdown').classList.remove('open');
+      }
+    });
+
+    // Play toggle
+    let playing = false;
+    function togglePlay(btn) {
+      playing = !playing;
+      btn.querySelector('svg').innerHTML = playing
+        ? '<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>'
+        : '<path d="M8 5v14l11-7z"/>';
+    }
+  </script>
+
+</body>
+</html>

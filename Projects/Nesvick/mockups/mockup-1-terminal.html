@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nesvick Podcast — Mockup 1: Trading Terminal</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap');
+
+    body {
+      font-family: 'IBM Plex Sans', 'Helvetica Neue', sans-serif;
+      background: #0a0e14;
+      color: #c8d0d8;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Ticker bar */
+    .ticker-bar {
+      background: #111827;
+      border-bottom: 1px solid #1e3a2e;
+      padding: 6px 0;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+    .ticker-inner {
+      display: inline-flex;
+      gap: 48px;
+      animation: ticker 30s linear infinite;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px;
+      color: #6b7280;
+    }
+    .ticker-inner span.up { color: #22c55e; }
+    .ticker-inner span.down { color: #ef4444; }
+    .ticker-inner span.label { color: #9ca3af; margin-right: 4px; }
+    @keyframes ticker {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    /* Header */
+    header {
+      background: #0d1117;
+      border-bottom: 1px solid #1f2937;
+      padding: 14px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .logo-area {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .logo-mark {
+      width: 36px;
+      height: 36px;
+      background: linear-gradient(135deg, #16a34a, #15803d);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'IBM Plex Mono', monospace;
+      font-weight: 600;
+      font-size: 14px;
+      color: #fff;
+      letter-spacing: -1px;
+    }
+    .logo-text {
+      display: flex;
+      flex-direction: column;
+    }
+    .logo-name {
+      font-size: 15px;
+      font-weight: 600;
+      color: #e5e7eb;
+      letter-spacing: 0.05em;
+    }
+    .logo-sub {
+      font-size: 10px;
+      color: #4b5563;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-family: 'IBM Plex Mono', monospace;
+    }
+    .header-right {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px;
+      color: #4b5563;
+      text-align: right;
+    }
+    .header-right .live-dot {
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #22c55e;
+      margin-right: 5px;
+      animation: blink 2s ease-in-out infinite;
+    }
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+
+    /* Main content */
+    main {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+    }
+
+    .player-card {
+      width: 100%;
+      max-width: 680px;
+      background: #0d1117;
+      border: 1px solid #1f2937;
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    /* Card header bar */
+    .card-header {
+      background: #111827;
+      border-bottom: 1px solid #1f2937;
+      padding: 10px 20px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px;
+      color: #4b5563;
+    }
+    .card-header .tag {
+      background: #16a34a22;
+      border: 1px solid #16a34a44;
+      color: #22c55e;
+      padding: 2px 8px;
+      border-radius: 2px;
+      font-size: 10px;
+      letter-spacing: 0.1em;
+    }
+    .card-header .separator { flex: 1; }
+
+    /* Episode info */
+    .episode-info {
+      padding: 28px 28px 20px;
+    }
+    .episode-date {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px;
+      color: #22c55e;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .episode-title {
+      font-size: 22px;
+      font-weight: 600;
+      color: #f3f4f6;
+      line-height: 1.3;
+      margin-bottom: 8px;
+    }
+    .episode-desc {
+      font-size: 13px;
+      color: #6b7280;
+      line-height: 1.6;
+    }
+
+    /* Waveform placeholder */
+    .waveform {
+      margin: 0 28px 4px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      gap: 2px;
+    }
+    .waveform-bar {
+      flex: 1;
+      background: #1f2937;
+      border-radius: 1px;
+      transition: background 0.1s;
+    }
+    .waveform-bar.played { background: #16a34a; }
+    .waveform-bar.playing { background: #22c55e; }
+
+    /* Player controls */
+    .player-controls {
+      padding: 0 28px 28px;
+    }
+    .progress-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+    .time-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px;
+      color: #4b5563;
+      min-width: 36px;
+    }
+    .progress-track {
+      flex: 1;
+      height: 3px;
+      background: #1f2937;
+      border-radius: 2px;
+      cursor: pointer;
+      position: relative;
+    }
+    .progress-fill {
+      width: 28%;
+      height: 100%;
+      background: #16a34a;
+      border-radius: 2px;
+      position: relative;
+    }
+    .progress-fill::after {
+      content: '';
+      position: absolute;
+      right: -5px;
+      top: -3.5px;
+      width: 10px;
+      height: 10px;
+      background: #22c55e;
+      border-radius: 50%;
+    }
+
+    .controls-row {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    .btn-play {
+      width: 48px;
+      height: 48px;
+      background: #16a34a;
+      border: none;
+      border-radius: 2px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: background 0.2s;
+    }
+    .btn-play:hover { background: #15803d; }
+    .btn-play svg { width: 18px; height: 18px; fill: #fff; }
+    .btn-skip {
+      width: 32px;
+      height: 32px;
+      background: transparent;
+      border: 1px solid #1f2937;
+      border-radius: 2px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #6b7280;
+      font-size: 11px;
+      font-family: 'IBM Plex Mono', monospace;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .btn-skip:hover { border-color: #374151; color: #9ca3af; }
+    .spacer { flex: 1; }
+    .btn-download {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px;
+      color: #4b5563;
+      background: transparent;
+      border: 1px solid #1f2937;
+      border-radius: 2px;
+      padding: 6px 12px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .btn-download:hover { border-color: #374151; color: #9ca3af; }
+
+    /* Divider */
+    .card-divider {
+      height: 1px;
+      background: #1f2937;
+      margin: 0 28px;
+    }
+
+    /* Hosts row */
+    .hosts-row {
+      padding: 16px 28px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .host-chip {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .host-avatar {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #16a34a22, #1d4ed822);
+      border: 1px solid #1f2937;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      color: #6b7280;
+    }
+    .host-name {
+      font-size: 12px;
+      color: #6b7280;
+    }
+    .host-separator {
+      font-size: 11px;
+      color: #374151;
+    }
+    .hosts-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px;
+      color: #374151;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-left: auto;
+    }
+
+    /* Footer */
+    footer {
+      background: #0d1117;
+      border-top: 1px solid #1a2332;
+      padding: 12px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .footer-brand {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px;
+      color: #374151;
+      letter-spacing: 0.05em;
+    }
+    .footer-brand a { color: #4b5563; text-decoration: none; }
+    .footer-links {
+      display: flex;
+      gap: 20px;
+    }
+    .footer-links a {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px;
+      color: #374151;
+      text-decoration: none;
+    }
+    .footer-links a:hover { color: #6b7280; }
+  </style>
+</head>
+<body>
+
+  <!-- Ticker Bar -->
+  <div class="ticker-bar">
+    <div class="ticker-inner">
+      <span><span class="label">ZCK5</span><span class="up">475.25</span> <span class="up">▲ 3.50</span></span>
+      <span><span class="label">ZSK5</span><span class="down">1084.00</span> <span class="down">▼ 6.25</span></span>
+      <span><span class="label">ZWK5</span><span class="up">562.75</span> <span class="up">▲ 1.25</span></span>
+      <span><span class="label">CLK5</span><span class="down">68.14</span> <span class="down">▼ 0.42</span></span>
+      <span><span class="label">GCJ5</span><span class="up">2318.40</span> <span class="up">▲ 12.30</span></span>
+      <span><span class="label">ZCK5</span><span class="up">475.25</span> <span class="up">▲ 3.50</span></span>
+      <span><span class="label">ZSK5</span><span class="down">1084.00</span> <span class="down">▼ 6.25</span></span>
+      <span><span class="label">ZWK5</span><span class="up">562.75</span> <span class="up">▲ 1.25</span></span>
+      <span><span class="label">CLK5</span><span class="down">68.14</span> <span class="down">▼ 0.42</span></span>
+      <span><span class="label">GCJ5</span><span class="up">2318.40</span> <span class="up">▲ 12.30</span></span>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header>
+    <div class="logo-area">
+      <div class="logo-mark">NTG</div>
+      <div class="logo-text">
+        <span class="logo-name">Nesvick Trading Group</span>
+        <span class="logo-sub">Market Intelligence Podcast</span>
+      </div>
+    </div>
+    <div class="header-right">
+      <div><span class="live-dot"></span>NFA Member · CFTC Registered</div>
+      <div style="margin-top:3px;">Nashville · Memphis</div>
+    </div>
+  </header>
+
+  <!-- Main -->
+  <main>
+    <div class="player-card">
+      <div class="card-header">
+        <span>EPISODE</span>
+        <span style="color:#374151;">·</span>
+        <span>DAILY GRAIN</span>
+        <span class="separator"></span>
+        <span class="tag">AUDIO</span>
+        <span style="margin-left:8px; color:#374151;">WED MAR 25 2026</span>
+      </div>
+
+      <div class="episode-info">
+        <div class="episode-date">March 25, 2026 · Vol. 47</div>
+        <div class="episode-title">Corn Futures Rebound on USDA<br>Export Demand — Wheat Holds Firm</div>
+        <div class="episode-desc">
+          Today's daily grain market briefing covers corn futures recovery following strong USDA export sales data, soybean basis movement across the Delta, and what Thursday's WASDE report may mean for nearby contracts.
+        </div>
+      </div>
+
+      <!-- Waveform -->
+      <div class="waveform" id="waveform"></div>
+
+      <!-- Player -->
+      <div class="player-controls">
+        <div class="progress-row">
+          <span class="time-label">1:23</span>
+          <div class="progress-track">
+            <div class="progress-fill"></div>
+          </div>
+          <span class="time-label" style="text-align:right;">5:12</span>
+        </div>
+        <div class="controls-row">
+          <button class="btn-skip" title="Rewind 15s">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 5V1L7 6l5 5V7c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H4c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8zm-1.1 11H10v-3.6l-1.2.37V12l2.1-.63V16zm4.3-1.14c0 .74-.2 1.3-.6 1.67s-.93.56-1.6.56c-.64 0-1.14-.18-1.5-.55s-.55-.9-.55-1.59v-.77c0-.73.19-1.29.57-1.67s.9-.57 1.56-.57c.65 0 1.16.19 1.54.56s.57.92.57 1.63v.73zm-.92-.82c0-.45-.07-.78-.21-.99s-.35-.31-.64-.31c-.28 0-.48.1-.62.3s-.21.52-.21.95v.93c0 .45.07.79.21 1s.35.32.64.32.49-.1.63-.31.21-.54.21-.99v-.9z"/></svg>
+          </button>
+          <button class="btn-play" id="playBtn" onclick="togglePlay()">
+            <svg id="playIcon" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+          </button>
+          <button class="btn-skip" title="Forward 15s">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18 13c0 3.31-2.69 6-6 6s-6-2.69-6-6 2.69-6 6-6v4l5-5-5-5v4c-4.42 0-8 3.58-8 8s3.58 8 8 8 8-3.58 8-8h-2zm-6-2.1V16h-.9v-3.6l-1.2.37V12l2.1-.63v1.53zm4.3 3c0 .74-.2 1.3-.6 1.67s-.93.56-1.6.56c-.64 0-1.14-.18-1.5-.55s-.55-.9-.55-1.59v-.77c0-.73.19-1.29.57-1.67s.9-.57 1.56-.57c.65 0 1.16.19 1.54.56s.57.92.57 1.63v.73zm-.92-.82c0-.45-.07-.78-.21-.99s-.35-.31-.64-.31c-.28 0-.48.1-.62.3s-.21.52-.21.95v.93c0 .45.07.79.21 1s.35.32.64.32.49-.1.63-.31.21-.54.21-.99v-.9z"/></svg>
+          </button>
+          <div class="spacer"></div>
+          <button class="btn-download">↓ Download</button>
+        </div>
+      </div>
+
+      <div class="card-divider"></div>
+
+      <div class="hosts-row">
+        <div class="host-chip">
+          <div class="host-avatar">ZD</div>
+          <span class="host-name">Zachary Davis</span>
+        </div>
+        <span class="host-separator">&amp;</span>
+        <div class="host-chip">
+          <div class="host-avatar">RC</div>
+          <span class="host-name">Riley Chen</span>
+        </div>
+        <span class="hosts-label">NTG MARKET DESK</span>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <span class="footer-brand">© 2026 <a href="#">Nesvick Trading Group, LLC</a> · NFA Member · CFTC Registered IB</span>
+    <div class="footer-links">
+      <a href="#">nesvick.com</a>
+      <a href="#">Disclaimer</a>
+      <a href="#">Privacy</a>
+    </div>
+  </footer>
+
+  <script>
+    // Generate waveform bars
+    const waveform = document.getElementById('waveform');
+    const bars = 80;
+    const playedPct = 0.28;
+    for (let i = 0; i < bars; i++) {
+      const bar = document.createElement('div');
+      bar.className = 'waveform-bar';
+      const pct = i / bars;
+      const height = 12 + Math.sin(i * 0.4) * 8 + Math.random() * 16;
+      bar.style.height = height + 'px';
+      if (pct < playedPct) bar.classList.add('played');
+      if (Math.abs(pct - playedPct) < 0.015) bar.classList.add('playing');
+      waveform.appendChild(bar);
+    }
+
+    let playing = false;
+    function togglePlay() {
+      playing = !playing;
+      const icon = document.getElementById('playIcon');
+      icon.innerHTML = playing
+        ? '<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>'
+        : '<path d="M8 5v14l11-7z"/>';
+    }
+  </script>
+</body>
+</html>

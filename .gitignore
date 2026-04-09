@@ -1,0 +1,14 @@
+# Obsidian workspace state (machine-specific, should not sync)
+.obsidian/workspace.json
+.obsidian/workspace-mobile.json
+
+# Obsidian cache and trash
+.obsidian/cache
+.trash/
+
+# Lock files from concurrent writes
+*.lock
+*.tmp
+
+# macOS
+.DS_Store

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Affirm — Waitlist Mockups</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #DDD5C8; display: flex; justify-content: center; align-items: flex-start; min-height: 100vh; padding: 40px 20px; font-family: 'Plus Jakarta Sans', -apple-system, sans-serif; gap: 32px; flex-wrap: wrap; }
+
+  .screen-wrap { display: flex; flex-direction: column; align-items: center; gap: 14px; }
+  .screen-label { font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #8A7B6B; }
+
+  .phone { width: 360px; background: #FAF7F2; border-radius: 44px; overflow: hidden; box-shadow: 0 30px 80px rgba(0,0,0,0.25); position: relative; }
+  .status-bar { height: 44px; background: #FAF7F2; display: flex; align-items: center; justify-content: space-between; padding: 0 24px; }
+  .status-time { font-size: 15px; font-weight: 600; color: #2D2420; }
+  .status-icons { display: flex; gap: 6px; align-items: center; }
+  .battery { width: 22px; height: 11px; border-radius: 3px; border: 1.5px solid #2D2420; position: relative; }
+  .battery::after { content: ''; position: absolute; right: -5px; top: 3px; width: 3px; height: 5px; background: #2D2420; border-radius: 0 1px 1px 0; }
+  .battery-fill { position: absolute; left: 2px; top: 2px; width: 55%; height: 100%; background: #2D2420; border-radius: 1px; }
+  .signal { width: 12px; height: 10px; background: #2D2420; border-radius: 1px; opacity: 0.8; }
+
+  .content { padding: 0 24px 32px; }
+
+  /* Shared input styles */
+  .field-label { font-size: 11px; font-weight: 700; color: #A89884; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.05em; display: block; }
+  .input { width: 100%; padding: 13px 15px; font-size: 14px; border: 1.5px solid #E8E0D4; border-radius: 14px; background: #FAF7F2; color: #2D2420; margin-bottom: 14px; }
+  .input.focus { border-color: #5C7A5C; }
+  .select { width: 100%; padding: 13px 15px; font-size: 14px; border: 1.5px solid #E8E0D4; border-radius: 14px; background: #FAF7F2; color: #2D2420; margin-bottom: 14px; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23A89884' stroke-width='1.5' fill='none'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; }
+
+  .btn-primary { width: 100%; padding: 14px; font-size: 15px; font-weight: 600; background: #5C7A5C; color: white; border: none; border-radius: 14px; cursor: pointer; min-height: 48px; }
+  .btn-link { display: block; text-align: center; font-size: 13px; color: #A89884; margin-top: 14px; text-decoration: none; }
+  .btn-back { width: 44px; height: 44px; background: white; border: 1.5px solid #E8E0D4; border-radius: 13px; display: flex; align-items: center; justify-content: center; color: #8A7B6B; font-size: 18px; flex-shrink: 0; }
+
+  /* Screen A — Login */
+  .login-card { background: white; border-radius: 24px; padding: 36px 28px; border: 1px solid #E8E0D4; margin-top: 20px; }
+  .login-title { font-family: Georgia, serif; font-size: 28px; font-weight: 400; color: #2D2420; text-align: center; margin-bottom: 6px; }
+  .login-sub { font-size: 13px; color: #A89884; text-align: center; line-height: 1.6; margin-bottom: 28px; }
+  .divider { display: flex; align-items: center; gap: 12px; margin: 18px 0; }
+  .divider-line { flex: 1; height: 1px; background: #E8E0D4; }
+  .divider-text { font-size: 11px; color: #C4B8A8; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; }
+  .request-btn { width: 100%; padding: 13px; font-size: 14px; font-weight: 500; background: white; color: #5C7A5C; border: 1.5px solid #5C7A5C; border-radius: 14px; cursor: pointer; min-height: 48px; }
+
+  /* Screen B — Waitlist Form */
+  .form-header { display: flex; align-items: center; gap: 12px; padding: 8px 24px 16px; border-bottom: 1px solid #E8E0D4; }
+  .form-title { font-family: Georgia, serif; font-size: 20px; font-weight: 400; color: #2D2420; }
+  .form-sub { font-size: 12px; color: #A89884; margin-top: 2px; }
+  .name-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .conditional-field { background: #F5F1EB; border-radius: 12px; padding: 12px 14px; margin-bottom: 14px; }
+  .conditional-label { font-size: 11px; font-weight: 700; color: #A89884; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.05em; }
+  .conditional-input { width: 100%; padding: 10px 12px; font-size: 13px; border: 1.5px solid #E8E0D4; border-radius: 10px; background: white; color: #2D2420; }
+
+  /* Screen C — Success */
+  .success-wrap { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 500px; padding: 0 28px; text-align: center; }
+  .success-icon { width: 72px; height: 72px; background: #EDF3E8; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 28px; margin-bottom: 24px; }
+  .success-title { font-family: Georgia, serif; font-size: 26px; font-weight: 400; color: #2D2420; margin-bottom: 12px; line-height: 1.3; }
+  .success-body { font-size: 14px; color: #6B5F54; line-height: 1.75; margin-bottom: 32px; }
+  .success-note { background: #F5F1EB; border-radius: 14px; padding: 14px 16px; font-size: 12px; color: #8A7B6B; line-height: 1.6; margin-bottom: 28px; text-align: left; }
+</style>
+</head>
+<body>
+
+<!-- SCREEN A: Login with Request Access -->
+<div class="screen-wrap">
+  <div class="screen-label">Screen A — Login</div>
+  <div class="phone">
+    <div class="status-bar">
+      <div class="status-time">9:41</div>
+      <div class="status-icons">
+        <div class="signal"></div>
+        <div class="battery"><div class="battery-fill"></div></div>
+      </div>
+    </div>
+    <div class="content">
+      <div class="login-card">
+        <div class="login-title">Affirm</div>
+        <div class="login-sub">Your personal alignment tool</div>
+
+        <label class="field-label">Email</label>
+        <input class="input" type="email" placeholder="your@email.com" />
+
+        <label class="field-label">Password</label>
+        <input class="input" type="password" placeholder="••••••••" />
+
+        <button class="btn-primary">Sign In</button>
+
+        <div class="divider">
+          <div class="divider-line"></div>
+          <div class="divider-text">New here?</div>
+          <div class="divider-line"></div>
+        </div>
+
+        <button class="request-btn">✦ Request an Invite</button>
+      </div>
+    </div>
+    <div style="height: 20px;"></div>
+  </div>
+</div>
+
+<!-- SCREEN B: Waitlist Form -->
+<div class="screen-wrap">
+  <div class="screen-label">Screen B — Request Form</div>
+  <div class="phone">
+    <div class="status-bar">
+      <div class="status-time">9:41</div>
+      <div class="status-icons">
+        <div class="signal"></div>
+        <div class="battery"><div class="battery-fill"></div></div>
+      </div>
+    </div>
+    <div class="form-header">
+      <div class="btn-back">←</div>
+      <div>
+        <div class="form-title">Request Access</div>
+        <div class="form-sub">Invite-only · We'll reach out personally</div>
+      </div>
+    </div>
+    <div class="content" style="padding-top: 18px;">
+      <div class="name-row">
+        <div>
+          <label class="field-label">First Name</label>
+          <input class="input" placeholder="Jesse" />
+        </div>
+        <div>
+          <label class="field-label">Last Name</label>
+          <input class="input" placeholder="Martinez" />
+        </div>
+      </div>
+
+      <label class="field-label">Email Address</label>
+      <input class="input focus" type="email" placeholder="jesse@example.com" />
+
+      <label class="field-label">How did you hear about Affirm?</label>
+      <select class="select">
+        <option>— Select one —</option>
+        <option selected>Friend</option>
+        <option>Social Media</option>
+      </select>
+
+      <!-- Conditional field — changes label based on selection, required -->
+      <div class="conditional-field">
+        <div class="conditional-label">Friend's Name <span style="color:#f87171;">*</span></div>
+        <input class="conditional-input" placeholder="Who referred you?" value="James Whitfield" />
+      </div>
+
+      <button class="btn-primary">Submit Request</button>
+      <a href="#" class="btn-link">Already have access? Sign in</a>
+
+      <!-- State 2: Social Media selected -->
+      <div style="margin-top: 28px; padding-top: 20px; border-top: 1px dashed #E8E0D4;">
+        <div style="font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #A89884; margin-bottom: 10px;">↓ When "Social Media" is selected:</div>
+        <label class="field-label">How did you hear about Affirm?</label>
+        <div class="select" style="color: #2D2420;">Social Media</div>
+        <div class="conditional-field" style="margin-top: 10px;">
+          <div class="conditional-label">Social Media Platform <span style="color:#f87171;">*</span></div>
+          <input class="conditional-input" placeholder="e.g. Instagram, Facebook..." />
+        </div>
+      </div>
+    </div>
+    <div style="height: 8px;"></div>
+  </div>
+</div>
+
+<!-- SCREEN C: Success -->
+<div class="screen-wrap">
+  <div class="screen-label">Screen C — Confirmation</div>
+  <div class="phone">
+    <div class="status-bar">
+      <div class="status-time">9:41</div>
+      <div class="status-icons">
+        <div class="signal"></div>
+        <div class="battery"><div class="battery-fill"></div></div>
+      </div>
+    </div>
+    <div class="success-wrap">
+      <div class="success-icon">✦</div>
+      <div class="success-title">You're on the list</div>
+      <div class="success-body">Affirm is invite-only. We'll reach out personally when a spot opens — usually within a few days.</div>
+
+      <div class="success-note">
+        <strong style="color: #5C7A5C;">What to expect:</strong><br/>
+        You'll receive an email from us with a personal invite link. Once you're in, a short 5–10 minute conversation will personalize the app entirely to your inner work.
+      </div>
+
+      <button class="btn-primary" style="width: 100%; margin-bottom: 10px;">Back to Sign In</button>
+      <button style="width: 100%; padding: 13px; font-size: 13px; font-weight: 600; background: white; color: #5C7A5C; border: 1.5px solid #5C7A5C; border-radius: 14px; cursor: pointer; min-height: 48px; margin-bottom: 10px;">Learn About Getting Started →</button>
+      <button style="width: 100%; padding: 13px; font-size: 13px; font-weight: 600; background: white; color: #8A7B6B; border: 1.5px solid #E8E0D4; border-radius: 14px; cursor: pointer; min-height: 48px;">Learn About Affirm →</button>
+    </div>
+    <div style="height: 20px;"></div>
+  </div>
+</div>
+
+</body>
+</html>

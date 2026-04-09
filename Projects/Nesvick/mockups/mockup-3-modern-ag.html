@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nesvick Podcast — Mockup 3: Modern Ag</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+    :root {
+      --earth: #3d2b1f;
+      --wheat: #d4a843;
+      --wheat-light: #f5e6c0;
+      --field: #4a7c59;
+      --field-light: #e8f5ec;
+      --soil: #5c3d2e;
+      --bg: #fafaf8;
+      --surface: #ffffff;
+      --border: #e8e4dc;
+      --text: #1c1917;
+      --text-muted: #78716c;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Header */
+    header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 0 40px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .logo-icon {
+      width: 38px;
+      height: 38px;
+      background: var(--earth);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .logo-icon::before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 40%;
+      background: var(--field);
+      opacity: 0.6;
+    }
+    .logo-icon-text {
+      font-size: 13px;
+      font-weight: 700;
+      color: #fff;
+      position: relative;
+      z-index: 1;
+      letter-spacing: -0.5px;
+    }
+    .logo-words {}
+    .logo-words .name {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--earth);
+      line-height: 1;
+    }
+    .logo-words .sub {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+    .header-pill {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--field-light);
+      color: var(--field);
+      border-radius: 20px;
+      padding: 5px 12px;
+      font-size: 12px;
+      font-weight: 500;
+    }
+    .header-pill .mic { font-size: 13px; }
+
+    /* Hero band */
+    .hero-band {
+      background: linear-gradient(135deg, var(--earth) 0%, #5c3d2e 50%, #3a5c40 100%);
+      padding: 36px 40px 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-band::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        repeating-linear-gradient(
+          90deg,
+          transparent,
+          transparent 60px,
+          rgba(255,255,255,0.02) 60px,
+          rgba(255,255,255,0.02) 61px
+        ),
+        repeating-linear-gradient(
+          180deg,
+          transparent,
+          transparent 60px,
+          rgba(255,255,255,0.02) 60px,
+          rgba(255,255,255,0.02) 61px
+        );
+    }
+    .hero-inner {
+      position: relative;
+      max-width: 720px;
+      margin: 0 auto;
+    }
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(212,168,67,0.15);
+      border: 1px solid rgba(212,168,67,0.3);
+      border-radius: 4px;
+      padding: 4px 10px;
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--wheat);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+    .hero-eyebrow .dot {
+      width: 5px;
+      height: 5px;
+      background: var(--wheat);
+      border-radius: 50%;
+      animation: pulse 2s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.6; transform: scale(0.8); }
+    }
+    .hero-title {
+      font-size: 30px;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.2;
+      margin-bottom: 10px;
+      max-width: 560px;
+    }
+    .hero-meta {
+      font-size: 13px;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 28px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .hero-meta span { display: flex; align-items: center; gap: 4px; }
+
+    /* Player card floats down */
+    .player-card-wrap {
+      max-width: 720px;
+      margin: 0 auto;
+      transform: translateY(32px);
+    }
+    .player-card {
+      background: var(--surface);
+      border-radius: 12px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.12), 0 2px 8px rgba(0,0,0,0.06);
+      overflow: hidden;
+    }
+    .player-card-inner {
+      padding: 24px;
+    }
+
+    /* Waveform viz */
+    .waveform-wrap {
+      margin-bottom: 16px;
+    }
+    .waveform {
+      height: 52px;
+      display: flex;
+      align-items: center;
+      gap: 2px;
+      cursor: pointer;
+    }
+    .wf-bar {
+      flex: 1;
+      border-radius: 2px;
+      background: #e8e4dc;
+      transition: background 0.05s;
+      min-height: 4px;
+    }
+    .wf-bar.played { background: #d4a843; }
+    .wf-bar.cursor { background: #3d2b1f; }
+
+    .progress-labels {
+      display: flex;
+      justify-content: space-between;
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: 6px;
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* Controls */
+    .controls-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px 0 4px;
+      border-top: 1px solid var(--border);
+    }
+    .ctrl-ghost {
+      width: 36px;
+      height: 36px;
+      background: none;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-muted);
+      font-size: 13px;
+      transition: all 0.15s;
+    }
+    .ctrl-ghost:hover {
+      border-color: var(--wheat);
+      color: var(--wheat);
+      background: var(--wheat-light);
+    }
+    .ctrl-play {
+      width: 52px;
+      height: 52px;
+      background: linear-gradient(135deg, var(--field), #3a6b4a);
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 12px rgba(74,124,89,0.3);
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .ctrl-play:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 16px rgba(74,124,89,0.4);
+    }
+    .ctrl-play svg { width: 20px; height: 20px; fill: #fff; }
+    .ctrl-spacer { flex: 1; }
+    .ctrl-speed {
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--text-muted);
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 5px 10px;
+      cursor: pointer;
+    }
+
+    /* Main content area below hero */
+    main {
+      flex: 1;
+      padding: 60px 40px 48px;
+      display: flex;
+      justify-content: center;
+    }
+    .content-layout {
+      width: 100%;
+      max-width: 720px;
+      display: grid;
+      grid-template-columns: 1fr 240px;
+      gap: 32px;
+    }
+
+    /* Episode description */
+    .episode-body {}
+    .section-eyebrow {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--wheat);
+      margin-bottom: 10px;
+    }
+    .episode-summary {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.75;
+      margin-bottom: 24px;
+    }
+
+    /* Highlights */
+    .highlights {}
+    .highlight-item {
+      display: flex;
+      gap: 12px;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border);
+      align-items: flex-start;
+    }
+    .highlight-item:last-child { border-bottom: none; }
+    .highlight-icon {
+      width: 28px;
+      height: 28px;
+      background: var(--field-light);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      flex-shrink: 0;
+    }
+    .highlight-text { font-size: 13px; color: var(--text); line-height: 1.4; }
+    .highlight-text strong { color: var(--earth); }
+
+    /* Sidebar */
+    .sidebar {}
+    .sidebar-block {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px;
+      margin-bottom: 16px;
+    }
+    .sidebar-block-title {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    /* Hosts */
+    .host-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 0;
+    }
+    .host-row + .host-row { border-top: 1px solid var(--bg); }
+    .host-av {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 600;
+      flex-shrink: 0;
+    }
+    .host-av.z { background: var(--wheat-light); color: var(--soil); }
+    .host-av.r { background: var(--field-light); color: var(--field); }
+    .host-details {}
+    .host-hn { font-size: 13px; font-weight: 600; color: var(--text); }
+    .host-hr { font-size: 11px; color: var(--text-muted); }
+
+    /* Share CTA */
+    .share-block {
+      background: linear-gradient(135deg, var(--earth), var(--soil));
+      border-radius: 10px;
+      padding: 16px;
+      color: #fff;
+    }
+    .share-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 4px;
+    }
+    .share-sub {
+      font-size: 11px;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 12px;
+    }
+    .share-url-box {
+      background: rgba(0,0,0,0.3);
+      border-radius: 6px;
+      padding: 7px 10px;
+      font-size: 10px;
+      color: rgba(255,255,255,0.5);
+      word-break: break-all;
+      margin-bottom: 10px;
+      font-family: monospace;
+    }
+    .btn-copy {
+      width: 100%;
+      background: var(--wheat);
+      color: var(--earth);
+      border: none;
+      border-radius: 6px;
+      padding: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    /* Footer */
+    footer {
+      background: var(--earth);
+      padding: 16px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 11px;
+      color: rgba(255,255,255,0.35);
+    }
+    footer a { color: rgba(255,255,255,0.55); text-decoration: none; }
+    footer a:hover { color: rgba(255,255,255,0.8); }
+    .footer-links { display: flex; gap: 20px; }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="logo">
+      <div class="logo-icon">
+        <span class="logo-icon-text">NTG</span>
+      </div>
+      <div class="logo-words">
+        <div class="name">Nesvick Trading Group</div>
+        <div class="sub">Market Intelligence Podcast</div>
+      </div>
+    </div>
+    <div class="header-pill">
+      <span class="mic">🎙</span>
+      Daily Grain
+    </div>
+  </header>
+
+  <!-- Hero band with player -->
+  <div class="hero-band">
+    <div class="hero-inner">
+      <div class="hero-eyebrow">
+        <span class="dot"></span>
+        Wed, March 25, 2026 · Vol. 47
+      </div>
+      <h1 class="hero-title">Corn Rebounds on Export Demand — Wheat Holds as Dollar Softens</h1>
+      <div class="hero-meta">
+        <span>🕐 5 min 12 sec</span>
+        <span>·</span>
+        <span>📊 Corn · Soybeans · Wheat · WASDE Preview</span>
+      </div>
+
+      <div class="player-card-wrap">
+        <div class="player-card">
+          <div class="player-card-inner">
+            <!-- Waveform -->
+            <div class="waveform-wrap">
+              <div class="waveform" id="waveform"></div>
+              <div class="progress-labels">
+                <span>1:23</span>
+                <span>5:12</span>
+              </div>
+            </div>
+            <!-- Controls -->
+            <div class="controls-row">
+              <button class="ctrl-ghost" title="Rewind 15s">↺<span style="font-size:9px;">15</span></button>
+              <button class="ctrl-play" onclick="togglePlay(this)">
+                <svg id="playIcon" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+              </button>
+              <button class="ctrl-ghost" title="Forward 15s"><span style="font-size:9px;">15</span>↻</button>
+              <div class="ctrl-spacer"></div>
+              <button class="ctrl-speed">1× Speed</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main content -->
+  <main>
+    <div class="content-layout">
+      <div class="episode-body">
+        <div class="section-eyebrow">Today's Briefing</div>
+        <p class="episode-summary">
+          Corn futures found support on Wednesday following stronger-than-expected USDA weekly export sales. Soybean basis remains under pressure at Delta delivery points while nearby wheat contracts hold firm as the U.S. dollar retreats mid-week. Zachary and Riley discuss positioning ahead of Thursday's WASDE report and what recent weather patterns mean for early planting progress.
+        </p>
+
+        <div class="section-eyebrow">Key Topics</div>
+        <div class="highlights">
+          <div class="highlight-item">
+            <div class="highlight-icon">🌽</div>
+            <div class="highlight-text"><strong>Corn Futures</strong> — USDA export data drives front-month recovery; Dec spread narrows</div>
+          </div>
+          <div class="highlight-item">
+            <div class="highlight-icon">🫘</div>
+            <div class="highlight-text"><strong>Soybean Basis</strong> — Delta delivery softness continues; Gulf bids mixed</div>
+          </div>
+          <div class="highlight-item">
+            <div class="highlight-icon">🌾</div>
+            <div class="highlight-text"><strong>HRW Wheat</strong> — Holds as dollar index retreats; export competition eases</div>
+          </div>
+          <div class="highlight-item">
+            <div class="highlight-icon">📋</div>
+            <div class="highlight-text"><strong>WASDE Preview</strong> — Thursday report expectations and pre-report positioning strategy</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sidebar">
+        <div class="sidebar-block">
+          <div class="sidebar-block-title">Your Hosts</div>
+          <div class="host-row">
+            <div class="host-av z">ZD</div>
+            <div class="host-details">
+              <div class="host-hn">Zachary Davis</div>
+              <div class="host-hr">Senior Market Analyst</div>
+            </div>
+          </div>
+          <div class="host-row">
+            <div class="host-av r">RC</div>
+            <div class="host-details">
+              <div class="host-hn">Riley Chen</div>
+              <div class="host-hr">Commodity Desk, NTG</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="share-block">
+          <div class="share-title">Share this episode</div>
+          <div class="share-sub">Send this link to a colleague</div>
+          <div class="share-url-box">nesvick.podcast.stablemischief.ai/share/k9x2m...</div>
+          <button class="btn-copy">Copy Link</button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <span>© 2026 <a href="#">Nesvick Trading Group, LLC</a> · NFA Member · CFTC Registered IB Since 2005</span>
+    <div class="footer-links">
+      <a href="#">nesvick.com</a>
+      <a href="#">Disclaimer</a>
+      <a href="#">Privacy</a>
+    </div>
+  </footer>
+
+  <script>
+    // Waveform
+    const wf = document.getElementById('waveform');
+    const n = 90, played = 0.28;
+    for (let i = 0; i < n; i++) {
+      const b = document.createElement('div');
+      b.className = 'wf-bar';
+      const p = i / n;
+      b.style.height = (8 + Math.abs(Math.sin(i * 0.35 + 1)) * 28 + Math.random() * 12) + 'px';
+      if (p < played - 0.012) b.classList.add('played');
+      if (Math.abs(p - played) <= 0.012) b.classList.add('cursor');
+      wf.appendChild(b);
+    }
+
+    let playing = false;
+    function togglePlay(btn) {
+      playing = !playing;
+      btn.querySelector('svg').innerHTML = playing
+        ? '<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>'
+        : '<path d="M8 5v14l11-7z"/>';
+    }
+  </script>
+</body>
+</html>
