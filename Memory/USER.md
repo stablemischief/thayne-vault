@@ -19,23 +19,69 @@
 - **Slack User ID:** `U07UR2VPDH7` / DM channel: `D0ALVV5AB1Q`
 - **Affirm account:** james@stablemischief.ai / Affirm2026!
 
-## Discord (Thayne Brain Server)
-- **Server name:** Thayne-Brain
-- **Guild ID:** 1490527019363078185
-- **Application ID:** 1490521539026751630
-- **Bot token:** Saved in James's notes (NOT in repo — goes in .env)
-- **Channel IDs:** (partial — add others as confirmed)
-  - `#stable-investment`: `1490548756939014184`
+## Slack Workspace
 
-### Channel Routing
-- Email alerts → `#whitfieldjames-email`
-- Farm general/bees → `#sprout-and-spindle`
-- Garden/greenhouse → `#sproutspindle-garden`
-- Sheep (Evie & 11) → `#sproutspindle-sheep`
-- Chickens/flock → `#sproutspindle-chickens`
-- GitHub/Archon/PRs → `#stable-mischief`
-- Morning brief/calendar → `#morning-briefs`
-- Wellness nudges → `#focus`
+**Primary interface** — all Thayne alerts and chat go here. Discord is unloaded.
+
+### Slack Channel IDs
+
+| Channel | ID |
+|---------|-----|
+| `#thayne-gen` | (DM/general chat with Thayne) |
+| `#thayne-alerts` | C0ASTEQHQ48 |
+| `#email-whitfieldjames` | C0AR7BR5L74 |
+| `#email-stablemischief` | C0ARZ76C84A |
+| `#morning-briefs` | (existing) |
+| `#focus` | (existing) |
+| `#development` | (existing) |
+| `#wellness-general` | C0ARAVCHHL4 |
+| `#wellness-oura` | C0ASTD7HZFS |
+| `#wellness-diet` | C0ARVNZ3H8V |
+| `#wellness-exercise` | C0ASTDLNZMW |
+| `#food` | C0AS2P8H0AG |
+| `#affirm` | (existing) |
+| `#experiments` | (existing) |
+| `#skattbók` | (existing) |
+| `#biz-dev` | (existing) |
+| `#project-podcast` | (existing — Nesvick) |
+| `#nesvick-general` | (existing) |
+| `#project-ag-fin` | (existing — Agrellus) |
+| `#project-aghi` | (existing — Agrellus) |
+| `#agrellus-general` | (existing) |
+| `#farm-general` | (existing) |
+| `#garden` | (existing) |
+| `#sheep` | (existing) |
+| `#bees` | (existing) |
+| `#chickens` | (existing) |
+
+### Slack Alert Routing
+
+| Alert Type | Channel |
+|-----------|---------|
+| Thayne proactive alerts (catch-all) | `#thayne-alerts` |
+| Email — james@whitfieldjames.com | `#email-whitfieldjames` |
+| Email — james@stablemischief.ai | `#email-stablemischief` |
+| Calendar / morning brief | `#morning-briefs` |
+| GitHub PRs — Nesvick | `#project-podcast` |
+| GitHub PRs — Agrellus (AgFin) | `#project-ag-fin` |
+| GitHub PRs — Agrellus (AGHI) | `#project-aghi` |
+| GitHub PRs — Affirm | `#affirm` |
+| GitHub PRs — Skattbók | `#skattbók` |
+| GitHub PRs — experiments/misc repos | `#experiments` |
+| Farm general / multi-category | `#farm-general` |
+| Sheep | `#sheep` |
+| Bees | `#bees` |
+| Garden | `#garden` |
+| Chickens | `#chickens` |
+| Wellness nudges / habits | `#wellness-general` |
+| Oura Ring feedback | `#wellness-oura` |
+| Diet tracking | `#wellness-diet` |
+| Exercise | `#wellness-exercise` |
+| Food / meal tracking | `#food` |
+
+## Discord (Archived — Unloaded 2026-04-09)
+- **Server name:** Thayne-Brain (Discord bot unloaded — Slack is primary)
+- **Guild ID:** 1490527019363078185
 
 ## Work Style
 - **Orchestration role:** Uses Archon (remote coding agent) for code changes — not direct editing
@@ -52,8 +98,8 @@
 - **Obsidian vault:** `/Users/james/Library/Mobile Documents/iCloud~md~obsidian/Documents/StableBrain`
 
 ## Notification Surface
-- **Primary:** Slack (transitioning from Discord as of 2026-04-06)
-- **Previous:** Discord (Thayne Brain server) — still operational, heartbeat webhooks still routing there until Slack integration configured
+- **Primary:** Slack (fully migrated as of 2026-04-09)
+- **Previous:** Discord — unloaded
 - **Backup:** macOS osascript (desktop toast)
 
 ## Drafting Criteria
