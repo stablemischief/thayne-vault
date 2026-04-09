@@ -9,14 +9,14 @@ _Keep this concise — it loads into every session. Max ~300 lines. No transcrip
 
 ## Key Contacts & Emails
 - **Jessie Whitfield** (wife) — jessfogg@gmail.com
-- **Kaya Laine Whitfield** (oldest daughter) — kayalaine@gmail.com
+- **Kaya Laine Whitfield** (oldest daughter; DOB 26May2004) — kayalaine@gmail.com
 - **Mitch Dornich** (business partner) — mitch@stablemischief.ai
 - **Tristan Cuevas** (pro bono dev/learner) — tristan.cuevas.development@gmail.com
   - Works on AgFin. VPS: `ssh tristan@82.29.153.201`
 - **Chris Johnson** (Agrellus CEO) — exits of $4B + $1B, introduced James to institutional fundraising
 - **Jesse** (Affirm alpha tester) — jesterlm13@gmail.com — met James at Joe Dispenza Nashville weeklong Sept 2025
-- **Emmalene Whitfield** (daughter) — family
-- **Oaken Whitfield** (son) — family; plays soccer
+- **Emmalene Whitfield** (daughter; DOB 15April2016) — family
+- **Oaken Whitfield** (son; DOB 13Mar2021) — family; plays soccer
 - **Greg Stoner** — met James 2026-04-06 @ Waldo's Chicken & Beer (Nashville). Role/context TBD.
 - **Nashville Ag Club** — James attended Meet & Greet 2026-04-06. Networking group, likely relevant to Agrellus/AgFin.
 
