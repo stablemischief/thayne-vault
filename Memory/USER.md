@@ -27,32 +27,35 @@
 
 | Channel | ID |
 |---------|-----|
-| `#thayne-gen` | (DM/general chat with Thayne) |
+| `#thayne-gen` | C0AR6V4SW10 |
 | `#thayne-alerts` | C0ASTEQHQ48 |
 | `#email-whitfieldjames` | C0AR7BR5L74 |
 | `#email-stablemischief` | C0ARZ76C84A |
-| `#morning-briefs` | (existing) |
-| `#focus` | (existing) |
-| `#development` | (existing) |
+| `#morning-briefs` | C0AR59TKQEA |
+| `#focus` | C0AR7BXR6N6 |
+| `#development` | C0ARB044KAQ |
 | `#wellness-general` | C0ARAVCHHL4 |
 | `#wellness-oura` | C0ASTD7HZFS |
 | `#wellness-diet` | C0ARVNZ3H8V |
 | `#wellness-exercise` | C0ASTDLNZMW |
 | `#food` | C0AS2P8H0AG |
-| `#affirm` | (existing) |
-| `#experiments` | (existing) |
-| `#skattbók` | (existing) |
-| `#biz-dev` | (existing) |
-| `#project-podcast` | (existing — Nesvick) |
-| `#nesvick-general` | (existing) |
-| `#project-ag-fin` | (existing — Agrellus) |
-| `#project-aghi` | (existing — Agrellus) |
-| `#agrellus-general` | (existing) |
-| `#farm-general` | (existing) |
-| `#garden` | (existing) |
-| `#sheep` | (existing) |
-| `#bees` | (existing) |
-| `#chickens` | (existing) |
+| `#affirm` | C0AR8SF4GKF |
+| `#experiments` | C0AR5SZ3F0B |
+| `#skattbók` | C0ARFSR4WCU |
+| `#biz-investment` | C0AR7CNSBSN |
+| `#biz-admin` | C0AQRUP0EPR |
+| `#biz-dev` | C0AQRULEBFH |
+| `#biz-strategy` | C0AR5AQ6D70 |
+| `#project-podcast` | C0AS1KFPY9W |
+| `#nesvick-general` | C0AR59ENX3Q |
+| `#project-ag-fin` | C0AQRT9A5B9 |
+| `#project-aghi` | C0AR59AE19C |
+| `#agrellus-general` | C0AR53847M4 |
+| `#farm-general` | C0ARADEV7P0 |
+| `#garden` | C0AR4SUEVEJ |
+| `#sheep` | C0ARAGV8TL4 |
+| `#bees` | C0ARKS37NKB |
+| `#chickens` | C0ARAGW3KHS |
 
 ### Slack Alert Routing
 
