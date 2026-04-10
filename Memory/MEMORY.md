@@ -248,9 +248,10 @@ Thayne is the PRIMARY 2nd brain agent. Runs on Claude Agent SDK / Claude Code. B
 - Phase 1 Foundation → Phase 9 Deployment (launchd). Full system live.
 - To activate background agents: `bash .claude/scripts/setup_launchd.sh`
 
-## Known Open Gaps (as of 2026-04-06)
-- **Gmail auth broken** — `google_token.json` missing. Fix: `uv run python .claude/scripts/setup_auth.py` (browser flow, one-time).
+## Known Open Gaps (as of 2026-04-09)
 - **adw-orchestrator not in GitHub integration** — Agrellus repo not monitored by heartbeat. PR/issue alerts won't fire for Agrellus.
+- **Slack bot file_shared** — `slack_bot.py` doesn't handle `file_shared` or thread-attached file events. Needs Archon brief. James explicitly rejected path-workaround; full fix required (event handler + download + pass-through).
+- **Investment deck deferred** — James uploaded file to Slack 2026-04-09; session reset before it was answered. Pick up immediately next session. Likely skills: `investment-pitch`, `brand-voice`, `pptx-generator`, `excalidraw-diagram`, `bmad-analyst`.
 
 ## Skills
 - 35 skills total: 22 from Thane, 11 from Cole's reference repo, 2 Thayne-specific (direct-integrations, obsidian-vault-structure)
@@ -258,3 +259,11 @@ Thayne is the PRIMARY 2nd brain agent. Runs on Claude Agent SDK / Claude Code. B
 ## Security Notes
 - `shared.py` THAYNE_BLOCKED_PATTERNS blocks: git push, git push --force, git merge, gh pr merge, coolify, heroku — enforces SOPs in-process
 - `.venv` symlinks break on SMB mounts — venv lives at `~/.venvs/thayne-brain` (local filesystem only)
+
+## System Hardening (2026-04-09)
+- **Lock contention root cause:** `CLAUDE_CODE_ENTRYPOINT=cli` in `engine.py` caused SDK subprocesses to share `~/.claude/` SQLite state with interactive sessions → deadlocks. Removed 2026-04-09.
+- **Session continuity:** Resets at 8 turns or 50% budget ($1.00). Last 6 exchange pairs buffered in-memory, serialized to `.claude/data/state/prior-context-slack-{channel_id}.json` on reset, injected into next session.
+- **Vault git repo:** `thayne-vault/` is now a private repo (`stablemischief/thayne-vault`). Auto-syncs every 2 min via `com.thayne-brain.vault-sync` launchd service.
+- **Gmail OAuth fixed 2026-04-09** — `run_local_server(port=0)` fix; james@whitfieldjames.com authorized.
+- **Archon-check** now runs daily at 9am CST (was weekly Monday).
+- **All launchd plists** updated to `/Users/jw-dev/` paths, uv at `/opt/homebrew/bin/uv` — reloaded and verified 2026-04-09.
