@@ -239,18 +239,9 @@ Thane's skills (reference, not Thayne's): `~/Developer/Apps/thane/skills/`
 Thayne is the PRIMARY 2nd brain agent. Runs on Claude Agent SDK / Claude Code. Built April 2026 using Cole Medin's framework.
 
 ## Key Differences from Thane
-- **Primary interface: Slack** (transitioning from Discord as of 2026-04-06 — James confirmed)
-- Discord (Thayne Brain server, Guild ID: 1490527019363078185) still configured for heartbeat/alerts
-- Thayne vault at ~/Developer/Apps/thayne-brain/thayne-vault/
+- **Primary interface: Slack** (fully migrated 2026-04-09 — Discord bot unloaded)
+- Thayne vault at ~/Developer/Apps/Thayne-Brain/thayne-vault/
 - Thayne is NOT Thane — separate sessions, separate memory, parallel operations
-
-## Discord Bot
-- Application: "Thayne Brain"
-- Application ID: 1490521539026751630
-- Guild ID: 1490527019363078185
-- Bot token: in James's notes (NOT in repo)
-- Status: Bot joined server ✅. Permissions fix: remove + re-invite with int 117880 (invite URL in 2026-04-05 log)
-- **Message Content Intent must be enabled** in Discord Developer Portal for bot to read message content
 
 ## Build Status
 - **All 9 phases complete as of 2026-04-05** ✅
