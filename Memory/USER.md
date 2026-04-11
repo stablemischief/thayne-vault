@@ -98,7 +98,7 @@
 - **Thayne vault:** `~/Developer/Apps/thayne-brain/thayne-vault/`
 - **Thane workspace (sibling):** `~/Developer/Apps/thane/`
 - **Local repos:** `~/Developer/GitHub/<repo-name>/`
-- **Obsidian vault:** `/Users/james/Library/Mobile Documents/iCloud~md~obsidian/Documents/StableBrain`
+- **Obsidian vault:** `/Users/jw-dev/Library/Mobile Documents/iCloud~md~obsidian/Documents/StableBrain`
 
 ## Notification Surface
 - **Primary:** Slack (fully migrated as of 2026-04-09)
