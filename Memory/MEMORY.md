@@ -217,7 +217,9 @@ Live: https://nesvick.podcast.stablemischief.ai
 - Evie: ~April lambing. 11: ~May lambing. Both pregnant, monitor closely.
 
 ## Garden / Greenhouse
-- Greenhouse seedlings: cucumbers (Beit Alpha + Cool Customer), cucamelons, tomatoes (Cherry + Homestead), broccoli
+- **Seedlings moved to greenhouse 2026-04-09/10** — cucumbers, cucamelons, peppers, tomatoes, broccoli transferred from grow lights to greenhouse. Not yet transplanted to ground.
+- **Seedling condition (Apr 10):** Cucamelons (cotyledon stage, multiple per cell) and cucumbers (multi true-leaf, leggy) both showing pale yellow-lime color + stretched stems. Diagnosis: nitrogen deficiency (seed-starting mix depleted) + insufficient light under grow lights. Not dying — hungry and stretched. Tomato, pepper, broccoli not yet assessed.
+- **10-day window (Apr 10-23):** No frost risk, lows 54-69°F, highs low-to-mid 80s. Good transplant window. Watch Apr 20-23 for scattered storms and temp dip.
 - Carrot + beet bed (right of greenhouse): planted March 21, straw mulch applied, grain sprouts germinating from straw (pull them, real seeds still viable)
 - Broccoli: 30 seedlings, should be transplanted outdoors (cool-season, NOT greenhouse)
 - Spring ramp-up underway
@@ -248,10 +250,14 @@ Thayne is the PRIMARY 2nd brain agent. Runs on Claude Agent SDK / Claude Code. B
 - Phase 1 Foundation → Phase 9 Deployment (launchd). Full system live.
 - To activate background agents: `bash .claude/scripts/setup_launchd.sh`
 
-## Known Open Gaps (as of 2026-04-09)
+## Known Open Gaps (as of 2026-04-10)
 - **adw-orchestrator not in GitHub integration** — Agrellus repo not monitored by heartbeat. PR/issue alerts won't fire for Agrellus.
 - **Slack bot file_shared** — `slack_bot.py` doesn't handle `file_shared` or thread-attached file events. Needs Archon brief. James explicitly rejected path-workaround; full fix required (event handler + download + pass-through).
-- **Investment deck deferred** — James uploaded file to Slack 2026-04-09; session reset before it was answered. Pick up immediately next session. Likely skills: `investment-pitch`, `brand-voice`, `pptx-generator`, `excalidraw-diagram`, `bmad-analyst`.
+- **Investment deck deferred** — James uploaded file to Slack 2026-04-09; session reset before it was answered. Likely skills: `investment-pitch`, `brand-voice`, `pptx-generator`, `excalidraw-diagram`, `bmad-analyst`.
+- **Memory index empty** — SQLite/vector DB has 0 records; `memory_search.py` non-functional. Fix: `UV_PROJECT_ENVIRONMENT=$HOME/.venvs/thayne-brain uv run python .claude/scripts/memory_index.py --rebuild`. Not yet run as of 2026-04-10.
+- **`config.py` CHAT_MAX_TURNS = 25** — overrides engine default of 15 set in PR #2. James needs to update `config.py` or add `CHAT_MAX_TURNS=15` to `.env`.
+- **Project Phoenix** — James mentioned this as his favorite current project (2026-04-10). No details provided yet. Ask what it is next session and whether to create a MEMORY.md entry.
+- **Oura integration wiring pending** — Integration built 2026-04-10, token in `.env`. Still need to wire into heartbeat and morning brief.
 
 ## Skills
 - 35 skills total: 22 from Thane, 11 from Cole's reference repo, 2 Thayne-specific (direct-integrations, obsidian-vault-structure)
@@ -267,3 +273,8 @@ Thayne is the PRIMARY 2nd brain agent. Runs on Claude Agent SDK / Claude Code. B
 - **Gmail OAuth fixed 2026-04-09** — `run_local_server(port=0)` fix; james@whitfieldjames.com authorized.
 - **Archon-check** now runs daily at 9am CST (was weekly Monday).
 - **All launchd plists** updated to `/Users/jw-dev/` paths, uv at `/opt/homebrew/bin/uv` — reloaded and verified 2026-04-09.
+
+## System Updates (2026-04-10)
+- **PR #2 merged (thayne-brain)** — Archon patched: Slack image upload (with dedup), removed module-level `CLAUDE_INVOKED_BY` that was blocking all hooks inside Agent SDK sessions, reduced `max_turns` default 25→15 for response latency.
+- **Oura integration built** — `integrations/oura.py`, `query.py` (oura subcommands), `registry.py` updated. Token delivered via SSH to `.env` (never via chat). Next: wire into heartbeat + morning brief.
+- **Mac Mini Tailscale IP:** `100.104.66.125` — James uses this to SSH from iPad (Terminus app). Credential pattern: SSH in → `echo '...' >> .claude/scripts/.env`. Never paste tokens into Slack.
