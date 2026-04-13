@@ -251,14 +251,14 @@ Thayne is the PRIMARY 2nd brain agent. Runs on Claude Agent SDK / Claude Code. B
 - Phase 1 Foundation → Phase 9 Deployment (launchd). Full system live.
 - To activate background agents: `bash .claude/scripts/setup_launchd.sh`
 
-## Known Open Gaps (as of 2026-04-10)
+## Known Open Gaps (as of 2026-04-13)
 - **adw-orchestrator not in GitHub integration** — Agrellus repo not monitored by heartbeat. PR/issue alerts won't fire for Agrellus.
 - **Slack bot file_shared** — `slack_bot.py` doesn't handle `file_shared` or thread-attached file events. Needs Archon brief. James explicitly rejected path-workaround; full fix required (event handler + download + pass-through).
 - **Investment deck deferred** — James uploaded file to Slack 2026-04-09; session reset before it was answered. Likely skills: `investment-pitch`, `brand-voice`, `pptx-generator`, `excalidraw-diagram`, `bmad-analyst`.
-- **Memory index empty** — SQLite/vector DB has 0 records; `memory_search.py` non-functional. Fix: `UV_PROJECT_ENVIRONMENT=$HOME/.venvs/thayne-brain uv run python .claude/scripts/memory_index.py --rebuild`. Not yet run as of 2026-04-10.
-- **`config.py` CHAT_MAX_TURNS = 25** — overrides engine default of 15 set in PR #2. James needs to update `config.py` or add `CHAT_MAX_TURNS=15` to `.env`.
 - **Project Phoenix** — James mentioned this as his favorite current project (2026-04-10). No details provided yet. Ask what it is next session and whether to create a MEMORY.md entry.
 - **Oura integration wiring pending** — Integration built 2026-04-10, token in `.env`. Still need to wire into heartbeat and morning brief.
+- **Memory index not auto-rebuilding** — index was manually rebuilt 2026-04-11 (386 chunks/51 files). No scheduled rebuild yet — new daily logs won't be indexed until next manual rebuild. Should automate as weekly cron.
+- **pytest harness missing** — no automated tests for heartbeat routing, slack_notifications contract, or prompt↔alias↔channel map invariant. Filed as follow-up after PR #7.
 
 ## Skills
 - 35 skills total: 22 from Thane, 11 from Cole's reference repo, 2 Thayne-specific (direct-integrations, obsidian-vault-structure)
@@ -279,6 +279,18 @@ Thayne is the PRIMARY 2nd brain agent. Runs on Claude Agent SDK / Claude Code. B
 - **PR #2 merged (thayne-brain)** — Archon patched: Slack image upload (with dedup), removed module-level `CLAUDE_INVOKED_BY` that was blocking all hooks inside Agent SDK sessions, reduced `max_turns` default 25→15 for response latency.
 - **Oura integration built** — `integrations/oura.py`, `query.py` (oura subcommands), `registry.py` updated. Token delivered via SSH to `.env` (never via chat). Next: wire into heartbeat + morning brief.
 - **Mac Mini Tailscale IP:** `100.104.66.125` — James uses this to SSH from iPad (Terminus app). Credential pattern: SSH in → `echo '...' >> .claude/scripts/.env`. Never paste tokens into Slack.
+
+## System Updates (2026-04-13)
+- **PR #7 merged** — Discord-to-Slack migration complete. heartbeat.py now routes all notifications via Slack chat.postMessage. Discord code fully removed (733 lines). 8 missing channels added to SLACK_CHANNEL_MAP.
+- **Memory index rebuilt** — first-ever build: 386 chunks across 51 vault files. Semantic search now functional.
+- **Heartbeat verified working** — `heartbeat.py --force` confirmed 3 Slack messages delivered (#bees, #morning-briefs, #focus). All 4 launchd agents reloaded.
+- **claude-agent-sdk upgraded** — 0.1.56 → 0.1.58.
+- **Channel isolation rules added** — CLAUDE.md now explicit: never surface content from another channel, redirect cross-channel topics by name only.
+- **VS Code session close rules added** — CLAUDE.md now requires: update relevant vault file AND update MEMORY.md after every VS Code session with a decision or plan change. Both required, no "or".
+- **.archon/ gitignored** — Archon worktree artifacts removed from tracking, won't pollute repo going forward.
+- **vault_sync_runs.log gitignored** — runtime log was accumulating 1400+ lines per day in git changes.
+- **CHAT_MAX_TURNS fixed** — was 25 in .env overriding code default of 15. James manually corrected to 15.
+- **Issues #1, #3, #4 closed** — all resolved by PR #1 and PR #2.
 
 ## System Updates (2026-04-12)
 - **Heartbeat spam bug fixed** — `apply_heartbeat_fix.py` patched `heartbeat.py` with 3 changes: (1) removed `has_farm_tasks`/`has_attention` from quiet-mode override, (2) narrowed habit nudge to 3–5pm only, (3) per-channel cooldown gate in state file (farm: 24h, morning-briefs: 6h, focus: 20h, email: 2h, alerts: 1h, else: 24h). **Still needs verification:** run `heartbeat.py --test` from `.claude/scripts/` dir.
