@@ -279,3 +279,7 @@ Thayne is the PRIMARY 2nd brain agent. Runs on Claude Agent SDK / Claude Code. B
 - **PR #2 merged (thayne-brain)** — Archon patched: Slack image upload (with dedup), removed module-level `CLAUDE_INVOKED_BY` that was blocking all hooks inside Agent SDK sessions, reduced `max_turns` default 25→15 for response latency.
 - **Oura integration built** — `integrations/oura.py`, `query.py` (oura subcommands), `registry.py` updated. Token delivered via SSH to `.env` (never via chat). Next: wire into heartbeat + morning brief.
 - **Mac Mini Tailscale IP:** `100.104.66.125` — James uses this to SSH from iPad (Terminus app). Credential pattern: SSH in → `echo '...' >> .claude/scripts/.env`. Never paste tokens into Slack.
+
+## System Updates (2026-04-12)
+- **Heartbeat spam bug fixed** — `apply_heartbeat_fix.py` patched `heartbeat.py` with 3 changes: (1) removed `has_farm_tasks`/`has_attention` from quiet-mode override, (2) narrowed habit nudge to 3–5pm only, (3) per-channel cooldown gate in state file (farm: 24h, morning-briefs: 6h, focus: 20h, email: 2h, alerts: 1h, else: 24h). **Still needs verification:** run `heartbeat.py --test` from `.claude/scripts/` dir.
+- **Operational lesson (uv):** `uv run` must be invoked from `.claude/scripts/` (where `pyproject.toml` lives), not from project root. Venv at `~/.venvs/thayne-brain` was intact — false "package missing" error was a wrong cwd, not a broken venv. Never suggest venv recreation without first confirming working directory.

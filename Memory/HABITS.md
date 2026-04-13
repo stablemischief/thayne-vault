@@ -28,6 +28,20 @@ _Advisor mode: track + suggest, no auto-check for personal pillars (James self-r
 
 _(Reflection archives yesterday's checklist here each morning)_
 
+### 2026-04-12
+
+## Today's Pillars
+
+- [ ] **Morning meditation** — Joe Dispenza practice before 9 AM [self-report via Affirm]
+- [ ] **Intentional fast** — No eating before 1 PM [self-report]
+- [ ] **Farm check-in** — At least one active farm task logged [auto: farm-calendar]
+- [ ] **Code shipped** — At least one meaningful Archon run or commit merged [auto: GitHub]
+- [ ] **Family moment** — Intentional time with Jessie, Emmalene, Oaken, or Kaya [self-report]
+
+---
+
+
+
 ### 2026-04-11
 
 ## Today's Pillars
