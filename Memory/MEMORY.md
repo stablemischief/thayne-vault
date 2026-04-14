@@ -204,9 +204,8 @@ Live: https://nesvick.podcast.stablemischief.ai
 - **Sheep:** 2 Icelandic ewes — Evie (EWE-01, 5yr, experienced, pregnant ~April lambing) and 11 (EWE-02, 2yr, first-time mother, pregnant ~May lambing). Arrived March 13, 2026.
 - **Bees:** 2 colonies + 2 original walkaway nucs + 2 new nucs from Mark Menz (arrived 2026-04-13, mild/strong). Colony 1: queenless, purchased "mite biter" queen from Mark (bred, mated, ready to lay) — ALL queen cells must be removed before Mark returns Thu ~Apr 17 to install her. Colony 2: surprisingly strong turnaround. Split 1: queen mated and laying. Split 2: queen not spotted but eggs present. Supply source: Peter Zook's Cypress Beekeeping Shop, Franklin, KY.
 
-## Upcoming Farm Tasks (as of 2026-04-11)
-- **2026-04-13:** Mark Menz nuc delivery + deep-dive hive inspection (James to log post-visit update)
-- **2026-04-15:** Nuc arrival from Mark Menz (originally scheduled — may be same visit as Apr 13)
+## Upcoming Farm Tasks (as of 2026-04-13)
+- **~2026-04-17 (Thu):** Mark Menz returning to install new "mite biter" queen in Colony 1. Must remove ALL queen cells from Colony 1 before he arrives. ⚠️ Critical.
 - **2026-04-19 to 2026-04-26:** CDT Vaccine Dose 2 for Evie & 11 (5mL each — CRITICAL WINDOW)
 - **TBD:** Baseline FAMACHA score + fecal egg count for both ewes
 - **TBD:** Establish large animal vet — critical before lambing
