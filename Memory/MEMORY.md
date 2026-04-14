@@ -19,7 +19,7 @@ _Keep this concise — it loads into every session. Max ~300 lines. No transcrip
 - **Oaken Whitfield** (son; DOB 13Mar2021) — family; plays soccer
 - **Greg Stoner** — met James 2026-04-06 @ Waldo's Chicken & Beer (Nashville). Role/context TBD.
 - **Nashville Ag Club** — James attended Meet & Greet 2026-04-06. Networking group, likely relevant to Agrellus/AgFin.
-- **Wade Burt** — James's friend. 68yo, 6'3", 295 lbs (up 30 lbs in 6 months, cause unknown). High cortisol suspected by concierge physician. Diagnostic email sent 2026-04-11 (8 Qs: cortisol confirmation, weight distribution, meds, sleep apnea, labs, stress, alcohol, resistance training). Awaiting reply. Build cortisol health manual once Wade responds — use `health-intelligence` skill. Rule out Cushing's/hypothyroidism before lifestyle protocol.
+- **Wade Burt** — James's friend. 68yo, 6'3", 295 lbs (up 30 lbs in 6 months). Meds: Metoprolol, Indapamide, Atorvastatin, Tadalafil, Potassium Citrate. 1,500 cal/day, 10k+ steps/day, 7-8hr sleep, 4:30am auto-wake. Protocol drafted 2026-04-13 (HPA axis / cortisol dysregulation). Key decisions: carb-forward AM / fat-forward PM (35P/40F/20-25C%), C8 MCT + grass-fed butter, 8hr eating window (10am–6pm ease-in), L-Theanine 200mg bed. ⚠️ Potassium flag: already on Potassium Citrate + Indapamide — no cream of tartar, run additions past Dr. Beyer. TCM referral: East West Herbal Nashville (eastwestherbal.com). James asked for full revised manual — pending his explicit go-ahead.
 
 ## Email Accounts
 - james@whitfieldjames.com — Gmail API + modify access via service account (PRIMARY)
@@ -202,7 +202,7 @@ Live: https://nesvick.podcast.stablemischief.ai
 ## Livestock Summary
 - **Chickens:** 6 laying hens, 2 roosters, ~19 chicks (moved to coop brooder ~March 6)
 - **Sheep:** 2 Icelandic ewes — Evie (EWE-01, 5yr, experienced, pregnant ~April lambing) and 11 (EWE-02, 2yr, first-time mother, pregnant ~May lambing). Arrived March 13, 2026.
-- **Bees:** 2 existing colonies + 2 walkaway nucs (split from Colony 2 on 2026-04-03 — each nuc got frames with queen cells, honey, larvae, bees). Both nucs active as of Apr 10. Mark Menz delivering new nucs + doing deep-dive colony inspection 2026-04-13. Supply source: Peter Zook's Cypress Beekeeping Shop, Franklin, KY (Amish supply house).
+- **Bees:** 2 colonies + 2 original walkaway nucs + 2 new nucs from Mark Menz (arrived 2026-04-13, mild/strong). Colony 1: queenless, purchased "mite biter" queen from Mark (bred, mated, ready to lay) — ALL queen cells must be removed before Mark returns Thu ~Apr 17 to install her. Colony 2: surprisingly strong turnaround. Split 1: queen mated and laying. Split 2: queen not spotted but eggs present. Supply source: Peter Zook's Cypress Beekeeping Shop, Franklin, KY.
 
 ## Upcoming Farm Tasks (as of 2026-04-11)
 - **2026-04-13:** Mark Menz nuc delivery + deep-dive hive inspection (James to log post-visit update)
