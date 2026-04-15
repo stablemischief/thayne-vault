@@ -16,7 +16,7 @@ Format: `YYYY-MM-DD | Category | Task | Notes`
 |---|---|---|---|---|
 | 2026-04-19 | 🐑 Sheep Health | CDT Vaccine Dose 2 | Evie & 11 | 5mL each; complete primary series |
 | 2026-04-26 | 🐑 Sheep Health | CDT Dose 2 DEADLINE | Evie & 11 | Must be done by this date at latest |
-| 2026-04-12 | 🐝 Bees | Nuc arrival prep — get equipment staged | Apiary | Nucs now arriving ~April 15 from Mark Menz |
+| 2026-04-12 | 🐝 Bees | Nuc arrival prep — get equipment staged | Apiary | ✅ Nucs arrived April 13 from Oak |
 | 2026-04-16 | 🐝 Bees | Colony 1 — remove all queen cells before Thursday | Apiary | Must be done before Mark arrives with new queen |
 | 2026-04-17 | 🐝 Bees | New queen installation — Mark Menz coming out | Apiary | "Mite biter" queen, already bred and ready to lay; Mark helping install |
 | TBD | 🐑 Sheep Health | Baseline FAMACHA score | Evie & 11 | Do first check if not done yet |
