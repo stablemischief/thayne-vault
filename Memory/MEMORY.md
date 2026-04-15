@@ -20,6 +20,7 @@ _Keep this concise — it loads into every session. Max ~300 lines. No transcrip
 - **Greg Stoner** — met James 2026-04-06 @ Waldo's Chicken & Beer (Nashville). Role/context TBD.
 - **Nashville Ag Club** — James attended Meet & Greet 2026-04-06. Networking group, likely relevant to Agrellus/AgFin.
 - **Wade Burt** — James's friend. 68yo, 6'3", 295 lbs (up 30 lbs in 6 months). Meds: Metoprolol, Indapamide, Atorvastatin, Tadalafil, Potassium Citrate. 1,500 cal/day, 10k+ steps/day, 7-8hr sleep, 4:30am auto-wake. Protocol drafted 2026-04-13 (HPA axis / cortisol dysregulation). Key decisions: carb-forward AM / fat-forward PM (35P/40F/20-25C%), C8 MCT + grass-fed butter, 8hr eating window (10am–6pm ease-in), L-Theanine 200mg bed. ⚠️ Potassium flag: already on Potassium Citrate + Indapamide — no cream of tartar, run additions past Dr. Beyer. TCM referral: East West Herbal Nashville (eastwestherbal.com). James asked for full revised manual — pending his explicit go-ahead.
+  - **Nebivolol vs. Metoprolol research (2026-04-14):** Corrected claim — beta-blocker weight gain is ~1–3 kg in trials, not "10–15% RMR reduction" (latter not established in primary data). Verified PMIDs: 22353614 (Ayers 2012 RCT, metoprolol worsened insulin sensitivity, nebivolol did not), 19740674 (Münzel & Gori JACC 2009, nebivolol NO/eNOS mechanism), 15477392 (GEMINI — carvedilol metabolically neutral vs. metoprolol), 29133356 (ACC/AHA 2017 — beta-blockers not first-line), 15823385 (Lindholm — beta-blockers 16% more stroke risk). Wade's mother-in-law is a physician — she caught fabricated citations in the original report. Corrected report ready; James decides when/if to send.
 
 ## Email Accounts
 - james@whitfieldjames.com — Gmail API + modify access via service account (PRIMARY)
@@ -119,6 +120,26 @@ Scale: 1,395 fields, 9 doc types, 6-phase pipeline, 91 tests. Built in <120 days
 - LM dry/irr acres: Farm Plan (applicant-entered) is authoritative source per V5, not FSA doc extraction.
 - GridView Design Standard: #2c4a3e header, #c05c00 amber values, 2-column card grid, no zebra striping.
 
+
+---
+
+# 💰 FUNDRAISING: Stable Mischief / AgFin Investment Deck
+
+## Status (as of 2026-04-14)
+- **Raise target:** $10M flat, AgFin-only (Deck 1, 8-slide structure)
+- **Pivot framing locked:** "compliance-grade document intelligence platform for agricultural lending"
+- **Deck outline:** `Thayne-brain/Docs/agfin-deck-outline-v1.md` (committed)
+- **Source doc:** `Thayne-brain/Docs/Stable_Investment-Thane-Discussion.txt`
+
+## Confirmed Numbers
+- Mark Branch validated: 40-hour processing estimate + $1,000–$1,200 labor cost per application ✅ (cleared to use in deck)
+
+## Open Framing Gap — Investment Milestone
+- VC advisor asked "what is your investment milestone?" — James had no answer (2026-04-14). This is the core gap.
+- **Milestone = the specific proof point that removes the biggest investor risk and justifies the next raise at a higher valuation.**
+- Smaller-raise approach being considered (12–18 month runway) vs. Chris Johnson's "raise big once" advice.
+- Milestone candidates on the table: revenue (X ARR), distribution (N associations live), SOC 2 compliance unlock, IP filing, volume proof (applications processed).
+- **Next step:** Finalize milestone definition → size the raise → revise Ask + Use of Funds slides.
 
 ---
 
@@ -253,7 +274,7 @@ Thayne is the PRIMARY 2nd brain agent. Runs on Claude Agent SDK / Claude Code. B
 ## Known Open Gaps (as of 2026-04-13)
 - **adw-orchestrator not in GitHub integration** — Agrellus repo not monitored by heartbeat. PR/issue alerts won't fire for Agrellus.
 - **Slack bot file_shared** — `slack_bot.py` doesn't handle `file_shared` or thread-attached file events. Needs Archon brief. James explicitly rejected path-workaround; full fix required (event handler + download + pass-through).
-- **Investment deck deferred** — James uploaded file to Slack 2026-04-09; session reset before it was answered. Likely skills: `investment-pitch`, `brand-voice`, `pptx-generator`, `excalidraw-diagram`, `bmad-analyst`.
+- **Investment deck in progress** — Deck outline committed (`agfin-deck-outline-v1.md`). Core gap: investment milestone undefined. Next step: finalize milestone → revise Ask + Use of Funds. Skills: `investment-pitch`, `brand-voice`, `pptx-generator`, `excalidraw-diagram`, `bmad-analyst`. See Fundraising section above.
 - **Project Phoenix** — James mentioned this as his favorite current project (2026-04-10). No details provided yet. Ask what it is next session and whether to create a MEMORY.md entry.
 - **Oura integration wiring pending** — Integration built 2026-04-10, token in `.env`. Still need to wire into heartbeat and morning brief.
 - **Memory index not auto-rebuilding** — index was manually rebuilt 2026-04-11 (386 chunks/51 files). No scheduled rebuild yet — new daily logs won't be indexed until next manual rebuild. Should automate as weekly cron.
@@ -292,5 +313,5 @@ Thayne is the PRIMARY 2nd brain agent. Runs on Claude Agent SDK / Claude Code. B
 - **Issues #1, #3, #4 closed** — all resolved by PR #1 and PR #2.
 
 ## System Updates (2026-04-12)
-- **Heartbeat spam bug fixed** — `apply_heartbeat_fix.py` patched `heartbeat.py` with 3 changes: (1) removed `has_farm_tasks`/`has_attention` from quiet-mode override, (2) narrowed habit nudge to 3–5pm only, (3) per-channel cooldown gate in state file (farm: 24h, morning-briefs: 6h, focus: 20h, email: 2h, alerts: 1h, else: 24h). **Still needs verification:** run `heartbeat.py --test` from `.claude/scripts/` dir.
+- **Heartbeat spam bug fixed** — `apply_heartbeat_fix.py` patched `heartbeat.py` with 3 changes: (1) removed `has_farm_tasks`/`has_attention` from quiet-mode override, (2) narrowed habit nudge to 3–5pm only, (3) per-channel cooldown gate in state file (farm: 24h, morning-briefs: 6h, focus: 20h, email: 2h, alerts: 1h, else: 24h). ✅ **Confirmed applied 2026-04-14.**
 - **Operational lesson (uv):** `uv run` must be invoked from `.claude/scripts/` (where `pyproject.toml` lives), not from project root. Venv at `~/.venvs/thayne-brain` was intact — false "package missing" error was a wrong cwd, not a broken venv. Never suggest venv recreation without first confirming working directory.
