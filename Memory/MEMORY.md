@@ -315,3 +315,8 @@ Thayne is the PRIMARY 2nd brain agent. Runs on Claude Agent SDK / Claude Code. B
 ## System Updates (2026-04-12)
 - **Heartbeat spam bug fixed** — `apply_heartbeat_fix.py` patched `heartbeat.py` with 3 changes: (1) removed `has_farm_tasks`/`has_attention` from quiet-mode override, (2) narrowed habit nudge to 3–5pm only, (3) per-channel cooldown gate in state file (farm: 24h, morning-briefs: 6h, focus: 20h, email: 2h, alerts: 1h, else: 24h). ✅ **Confirmed applied 2026-04-14.**
 - **Operational lesson (uv):** `uv run` must be invoked from `.claude/scripts/` (where `pyproject.toml` lives), not from project root. Venv at `~/.venvs/thayne-brain` was intact — false "package missing" error was a wrong cwd, not a broken venv. Never suggest venv recreation without first confirming working directory.
+
+## System Events (2026-04-15)
+- **401 auth outage:** Heartbeat Claude API calls failed with 401 "Invalid authentication credentials" from ~10:14–14:46 CST (8+ consecutive heartbeats). Self-resolved at 15:16 with no intervention. Root cause unknown — first recorded occurrence. Watch for recurrence.
+- **Gmail triage gaps:** Multiple heartbeats flagged promotional emails slipping through auto-label filter (hotel deals, CHD event invites, news blasts, TikTok notifications). Triage logic likely needs broader marketing category coverage.
+- **Flush error (isolated):** One `memory_flush.py` failure at 20:47 (exit code 1). Single occurrence — not yet a pattern.
