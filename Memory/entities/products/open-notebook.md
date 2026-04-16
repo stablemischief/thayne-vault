@@ -1,25 +1,42 @@
-# Open Notebook (Product — Stable Mischief)
+# Open Notebook / Stable Notebook (Product — Stable Mischief)
+
+⚠️ **Naming note:** Currently called "Open Notebook" but based on the upstream open-source project `lfnovo/open-notebook`. The Stable Mischief version needs to be renamed (e.g., "Stable Notebook") and extracted from the `adw-orchestrator` monorepo into its own standalone repo.
 
 ## What It Is
-AI-powered podcast generation platform. Takes a source document (e.g., newsletter, morning comments) and produces a daily multi-host spoken audio episode. First deployed for Nesvick Trading Group.
+Open-source, privacy-focused alternative to Google NotebookLM. AI-powered research + podcast platform. Users upload content (PDFs, audio, video, web pages), get intelligent notes, semantic search, AI chat, and professional podcast generation — fully self-hosted, multi-provider AI.
+
+Stable Mischief's version adds: daily automated podcast generation from newsletter/commentary content, Nesvick-specific host personas, transcript review agent, strict turn count length control.
+
+## Stack
+- Frontend: React/Next.js (port 3000), Shadcn/ui + Tailwind
+- API: FastAPI (port 5055), LangGraph workflow orchestration
+- DB: SurrealDB (graph database, port 8000)
+- AI: multi-provider via Esperanto (Anthropic, etc.)
+- Deployment: Docker Compose + Coolify (VPS)
 
 ## Current Deployment
-- **Nesvick instance:** `open-notebook-nesvick` — daily 5-min podcast from NTG Morning Comments. Two hosts: Zachary Davis + Riley Chen. Live: https://nesvick.podcast.stablemischief.ai
-- See [[entities/clients/nesvick]] for Nesvick-specific detail.
+- **Nesvick instance:** daily 5-min podcast from NTG Morning Comments, hosts Zachary Davis + Riley Chen
+- Live: https://nesvick.podcast.stablemischief.ai | VPS: `187.124.231.206`
+- See [[entities/clients/nesvick]] for client detail
 
-## Product Roadmap
-- **Backport phase upcoming:** Retroactively apply Nesvick-specific improvements (turn count control, transcript reviewer agent, sentence-opening conjunction rule) back to the generalized platform
-- **Generalization goal:** Make improvements available to other clients wanting the same podcast-from-newsletter functionality
-- **Target clients:** Organizations with regular written content (newsletters, reports, commentary) who want audio distribution
+## Repo Situation ⚠️
+- Current location: `/Users/jw-dev/Developer/GitHub/adw-orchestrator/apps/open-notebook`
+- **adw-orchestrator is no longer used** — open-notebook needs to be extracted to its own repo
+- GitHub: confirm target org/name before extracting (e.g., `Stable-Mischief-AI/stable-notebook`)
 
 ## Critical Technical Decisions (Do Not Revisit)
-- **Turn count = the ONLY reliable length lever** — word count instructions in templates are unreliable
+- **Turn count = the ONLY reliable length lever** — word count instructions are unreliable
 - **enforce_transcript_length() must be deleted** — cuts from the end, destroys content
-- Never edit podcast_creator library files directly — override via client code
+- Never edit upstream `podcast_creator` library files directly — override via our code
 
 ## Status
-- Nesvick instance: all PRs merged, production stable ✅
-- Generalization / backport: **pending** — upcoming work item
+- Nesvick instance: production stable, all PRs merged ✅
+- **Backport / generalization: pending** — apply Nesvick improvements back to base platform
+- **Repo extraction: pending** — pull out of adw-orchestrator into standalone repo
+- **Rename: pending** — away from "Open Notebook" to Stable-branded name
 
-## Repo
-- `open-notebook-nesvick` (GitHub) — confirm org before Archon dispatch
+## Open Work
+- [ ] Extract repo from `adw-orchestrator/apps/open-notebook` → standalone
+- [ ] Rename to Stable Notebook (or chosen name)
+- [ ] Backport Nesvick improvements to generalized platform
+- [ ] Define client packaging model for additional podcast clients
