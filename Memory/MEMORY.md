@@ -2,13 +2,23 @@
 
 _Index only. Read linked pages for detail. Use `memory_search.py` for daily-log content._
 
-## Entities
-- [[entities/agrellus]] — AgFin client, REC phase, investment deck, Chris Johnson
-- [[entities/affirm]] — Joe Dispenza alignment PWA
-- [[entities/nesvick]] — Daily 5-min podcast for Nesvick Trading Group
-- [[entities/kowerk]] — Stable Mischief product; ON HOLD since 2026-04-06
-- [[entities/contacts]] — Family, partners, network, Wade protocol
-- [[entities/sprout-spindle]] — Chickens, Icelandic ewes, bees, garden
+## Clients
+- [[entities/clients/agrellus]] — AgFin compliance platform; REC phase; investment deck; Chris Johnson
+- [[entities/clients/nesvick]] — Daily 5-min NTG podcast; all PRs merged; VPS 187.124.231.206
+
+## Products
+- [[entities/products/affirm]] — Joe Dispenza alignment PWA; invite-only; 6 open issues
+- [[entities/products/open-notebook]] — AI podcast platform; Nesvick deployed; generalization upcoming
+- [[entities/products/kowerk]] — Business-first AI tool; ON HOLD since 2026-04-06
+- [[entities/products/skattbok]] — Personal finance tool; updates pending; rebranding + packaging planned
+
+## Business
+- [[entities/business/stable-mischief]] — Biz-dev, strategy, admin, investments; partner Mitch Dornich
+
+## Personal
+- [[entities/personal/sprout-spindle]] — Chickens, Icelandic ewes (CDT Dose 2: Apr 19-26 ⚠️), bees, garden
+- [[entities/personal/wellness]] — Oura (wiring pending), 5 pillars, habit nudge
+- [[entities/personal/contacts]] — Family, partners, network, Wade Burt protocol
 
 ## Topics
 - [[topics/archon-workflows]] — Workflow decision table + 8-section brief standard
