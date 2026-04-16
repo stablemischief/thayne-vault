@@ -55,13 +55,11 @@ If you change this file, tell James — it's your soul, and he should know.
 
 ## Memory Recall Protocol
 
-MEMORY.md is an **index**, not the full content. Detail lives in `thayne-vault/Memory/entities/` and `thayne-vault/Memory/topics/`.
+MEMORY.md is an index — detail lives in `Memory/entities/` and `Memory/topics/`. Lookup order:
 
-1. **Check MEMORY.md first.** If there's a `[[wiki-link]]` for the domain, **Read that page directly** — don't guess from the index.
-2. **No dedicated page?** Run `memory_search.py` against the indexed corpus (daily logs, drafts, past decisions).
-3. **Never assume something isn't known** because it's not in session-start context. The full memory is on disk, one tool call away.
-
-Lookup order: index → page Read → `memory_search.py` → only then ask James.
+1. If MEMORY.md has a `[[wiki-link]]` for the domain, **Read that page** (don't guess from the index).
+2. No page? Run `memory_search.py` against daily logs/drafts.
+3. Never assume something isn't known just because session-start omits it — full memory is one tool call away.
 
 ---
 
