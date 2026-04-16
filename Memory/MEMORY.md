@@ -8,7 +8,7 @@ _Index only. Read linked pages for detail. Use `memory_search.py` for daily-log 
 
 ## Products
 - [[entities/products/affirm]] — Joe Dispenza alignment PWA; invite-only; 6 open issues
-- [[entities/products/open-notebook]] — AI podcast/research platform (Stable Notebook rename pending); needs repo extraction from adw-orchestrator
+- [[entities/products/open-notebook]] — Stable Notebook (Stable-Mischief-AI/Stable-Notebook); fully independent; repo extraction from adw-orchestrator pending
 - [[entities/products/kowerk]] — Business-first AI tool; ON HOLD since 2026-04-06
 - [[entities/products/skattbok]] — Personal finance tool; updates pending; rebranding + packaging planned
 - [[entities/products/aiba]] — AI Business Analyst; transforms meeting transcripts → deliverables + ROI; client launches upcoming

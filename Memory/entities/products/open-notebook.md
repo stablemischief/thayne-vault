@@ -1,6 +1,8 @@
 # Open Notebook / Stable Notebook (Product — Stable Mischief)
 
-⚠️ **Naming note:** Currently called "Open Notebook" but based on the upstream open-source project `lfnovo/open-notebook`. The Stable Mischief version needs to be renamed (e.g., "Stable Notebook") and extracted from the `adw-orchestrator` monorepo into its own standalone repo.
+**Official name: Stable Notebook** (`Stable-Mischief-AI/Stable-Notebook` on GitHub). Fully independent — not a fork. Started from the `lfnovo/open-notebook` OSS project but completely detached. No upstream connection.
+
+⚠️ **Repo extraction pending:** Currently lives at `/Users/jw-dev/Developer/GitHub/adw-orchestrator/apps/open-notebook` inside the no-longer-used adw-orchestrator monorepo. Needs to be extracted to its own local directory (removing the local install as part of the move).
 
 ## What It Is
 Open-source, privacy-focused alternative to Google NotebookLM. AI-powered research + podcast platform. Users upload content (PDFs, audio, video, web pages), get intelligent notes, semantic search, AI chat, and professional podcast generation — fully self-hosted, multi-provider AI.
