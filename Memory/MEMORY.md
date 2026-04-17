@@ -27,7 +27,7 @@ _Index only. Read linked pages for detail. Use `memory_search.py` for daily-log 
 - [[topics/thayne-system]] — Build status, gaps, hardening, system updates
 
 ## Active Items
-_(none — promote here after 3 mentions, then migrate to a page)_
+- **Heartbeat alerting latency** — Apr 16 17:31 heartbeat flagged "Peter call started 30 min ago"; calendar event wasn't pre-surfaced in time. Worth revisiting pre-call lead-time alerting.
 
 ## Recent Decisions (last 30 days)
 - **2026-04-16** — Phase 10a: MEMORY.md → index + entity/topic pages; added core-memories.md, SOUL recall protocol, heartbeat memory-index sync.
