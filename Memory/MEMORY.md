@@ -17,7 +17,7 @@ _Index only. Read linked pages for detail. Use `memory_search.py` for daily-log 
 - [[entities/business/stable-mischief]] — Biz-dev, strategy, admin, investments; partner Mitch Dornich
 
 ## Personal
-- [[entities/personal/sprout-spindle]] — Chickens, Icelandic ewes (CDT Dose 2: Apr 19-26 ⚠️), bees, garden. Corn: two 45' rows going in ~Apr 18–25; interseeding crimson clover + cowpeas. Seedlings (cucumbers, cucamelons, peppers, tomatoes, broccoli) in greenhouse with N deficiency + leggy growth; Garrett Juice @ 1oz/gal bottom-watering is current intervention. Lavender planned for south edge of greenhouse — plant 18–24" beyond drip line, raised bed 4–6" for drainage.
+- [[entities/personal/sprout-spindle]] — Chickens, Icelandic ewes (CDT Dose 2: Apr 19-26 ⚠️), bees, garden. Corn: two 45' rows going in ~Apr 18–25; interseeding crimson clover + cowpeas. Seedlings (cucumbers, cucamelons, peppers, tomatoes, broccoli) in greenhouse with N deficiency + leggy growth; Garrett Juice @ 1oz/gal bottom-watering is current intervention. Lavender planned for south edge of greenhouse — plant 18–24" beyond drip line, raised bed 4–6" for drainage. **Lambing 2026-04-19:** Ewe 11 = 5yr experienced mom (twins: ram lamb + ewe lamb); Evie = first-time mom (single ewe lamb). Note: initial roster had ages/experience swapped — corrected.
 - [[entities/personal/wellness]] — Oura (wiring pending), 5 pillars, habit nudge
 - [[entities/personal/contacts]] — Family, partners, network, Wade Burt protocol
 
