@@ -17,7 +17,7 @@ _Index only. Read linked pages for detail. Use `memory_search.py` for daily-log 
 - [[entities/business/stable-mischief]] — Biz-dev, strategy, admin, investments; partner Mitch Dornich
 
 ## Personal
-- [[entities/personal/sprout-spindle]] — Chickens, Icelandic ewes (CDT Dose 2: Apr 19-26 ⚠️), bees, garden
+- [[entities/personal/sprout-spindle]] — Chickens, Icelandic ewes (CDT Dose 2: Apr 19-26 ⚠️), bees, garden. Corn: two 45' rows going in ~Apr 18–25; interseeding crimson clover + cowpeas. Seedlings (cucumbers, cucamelons, peppers, tomatoes, broccoli) in greenhouse with N deficiency + leggy growth; Garrett Juice @ 1oz/gal bottom-watering is current intervention. Lavender planned for south edge of greenhouse — plant 18–24" beyond drip line, raised bed 4–6" for drainage.
 - [[entities/personal/wellness]] — Oura (wiring pending), 5 pillars, habit nudge
 - [[entities/personal/contacts]] — Family, partners, network, Wade Burt protocol
 
@@ -28,6 +28,9 @@ _Index only. Read linked pages for detail. Use `memory_search.py` for daily-log 
 
 ## Active Items
 - **Heartbeat alerting latency** — Apr 16 17:31 heartbeat flagged "Peter call started 30 min ago"; calendar event wasn't pre-surfaced in time. Worth revisiting pre-call lead-time alerting.
+- **Barn camera (Apr 18)** — James uses Blink ecosystem. Plan: power Blink Sync Module 2 in barn via small solar system. Decision pending: Voltaic Systems "Always On" USB Kit (~$79–99) vs. DIY panel + SLA battery. Wi-Fi via roof-mounted repeater at house.
+- **Drip Depot fittings (Apr 18)** — Bag of fittings with PPC codes (3212-10-1, 3213-30-1, 3211-30-1) unidentified. Action: pull order confirmation from Gmail. Irrigation purpose (beds vs. greenhouse) also unconfirmed.
+- **Greenhouse mycorrhizal fungi (Apr 18)** — James referenced a prior discussion about introducing mycorrhizal fungi into greenhouse regeneration area (said "Maisel fungi"). Context was lost. James needs to brief Thayne on what was discussed and already done.
 
 ## Recent Decisions (last 30 days)
 - **2026-04-16** — Phase 10a: MEMORY.md → index + entity/topic pages; added core-memories.md, SOUL recall protocol, heartbeat memory-index sync.
