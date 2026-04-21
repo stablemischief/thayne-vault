@@ -130,7 +130,8 @@ James and Mitch ran a three-agent parallel audit (Developer + Product/Lender + Q
 
 | Resource | Path |
 |---|---|
-| Repo (local) | `/Users/jw-dev/Developer/GitHub/adw-orchestrator/apps/agrellus-crop-finance-mvp` |
+| Repo (GitHub) | `mdornich/agrellus-crop-finance-mvp` (https://github.com/mdornich/agrellus-crop-finance-mvp.git) |
+| Repo (local) | `~/Developer/GitHub/agrellus-crop-finance-mvp` |
 | V5 spec | `docs/specs/02-stage-1-data-point-inventory-v5.md` (v6 also added Apr 8) |
 | Calculation engine | `api-backend/app/services/calculation_engine.py` |
 | Audit synthesis | `jw-planning/Working/implementation-plans/synthesis-three-agent-audit-2026-03-31.md` |

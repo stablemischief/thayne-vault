@@ -20,8 +20,8 @@ Scale: 1,395 fields, 9 doc types, 6-phase pipeline, 91 tests. Built in <120 days
 - Mark Branch — client contact for field/spec questions
 
 ## Repo
-- Repo: `mdornich/agrellus-crop-finance-mvp` (GitHub) — Mitch's repo, NOT Stable-Mischief-AI/adw-orchestrator
-- Local: `/Users/jw-dev/Developer/GitHub/adw-orchestrator/apps/agrellus-crop-finance-mvp`
+- Repo: `mdornich/agrellus-crop-finance-mvp` (https://github.com/mdornich/agrellus-crop-finance-mvp.git) — Mitch's repo, standalone (NOT under adw-orchestrator monorepo)
+- Local: `~/Developer/GitHub/agrellus-crop-finance-mvp`
 - V5 spec: `docs/specs/02-stage-1-data-point-inventory-v5.md` (v6 added 2026-04-08)
 
 ## Architectural Decisions (Stable — Do Not Revisit)
