@@ -3,7 +3,7 @@
 ## Livestock Summary
 - **Chickens:** 6 laying hens, 2 roosters, ~19 chicks (moved to coop brooder ~March 6)
 - **Sheep:** 2 Icelandic ewes — Evie (EWE-01, 5yr, experienced, pregnant ~April lambing) and 11 (EWE-02, 2yr, first-time mother, pregnant ~May lambing). Arrived March 13, 2026.
-- **Bees:** 2 colonies + 2 original walkaway nucs + 2 new nucs from Mark Menz (arrived 2026-04-13, mild/strong). Colony 1: queenless, purchased "mite biter" queen from Mark (bred, mated, ready to lay) — ALL queen cells must be removed before Mark returns Thu ~Apr 17 to install her. Colony 2: surprisingly strong turnaround. Split 1: queen mated and laying. Split 2: queen not spotted but eggs present. Supply source: Peter Zook's Cypress Beekeeping Shop, Franklin, KY.
+- **Bees:** 7 colonies total. Colony 1 (overwintered, new virgin queen from hatched queen cell), Colony 2 (overwintered, thriving), Split 1 + Split 2 (from Colony 1, queens mated and returned), Split 3 (mite biter queen from Mark Menz, frames from C1+C2), Nuc 1 + Nuc 2 (from Mark, arrived Apr 13, strong mild bees). Supply source: Peter Zook's Cypress Beekeeping Shop, Franklin, KY. **TN Dept of Agriculture Apiary Registration Case ID: 44371c27** (submitted 2026-04-22).
 
 ## Upcoming Farm Tasks (as of 2026-04-13)
 - **~2026-04-17 (Thu):** Mark Menz returning to install new "mite biter" queen in Colony 1. Must remove ALL queen cells from Colony 1 before he arrives. ⚠️ Critical.
