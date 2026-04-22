@@ -18,7 +18,7 @@ _Index only. Read linked pages for detail. Use `memory_search.py` for daily-log 
 
 ## Personal
 - [[entities/personal/sprout-spindle]] — Chickens, Icelandic ewes (CDT Dose 2: Apr 19-26 ⚠️ unconfirmed), bees, garden. Corn: two 45' rows going in ~Apr 18–25; interseeding crimson clover + cowpeas. Seedlings (cucumbers, cucamelons, peppers, tomatoes, broccoli) in greenhouse with N deficiency + leggy growth; Garrett Juice @ 1oz/gal bottom-watering is current intervention. Lavender planned for south edge of greenhouse — plant 18–24" beyond drip line, raised bed 4–6" for drainage. **Lambing 2026-04-19 (Easter):** Ewe 11 = 5yr experienced mom (twins: ram lamb + ewe lamb); Evie = first-time mom (single ewe lamb). All 3 lambs confirmed nursing mid-morning. Supplies on hand: NurseMate Colostrum powder, Producer's Pride Colostrum Gel (single-dose, IgGs + probiotics), Premier1 Quick Start (mix w/ milk replacer — NOT water), Lamb & Kid Milk replacer. BO-SE = vet Rx required (TSC won't carry). CPC Sheep 15 Licks mineral tub: safe for free-choice overnight barn access.
-- [[entities/personal/wellness]] — Oura (wiring pending), 5 pillars, habit nudge. **James is on TRT** (0.5mg 2x/week, has prescribing doc). Peptide research stack to discuss w/ TRT doc: Tesamorelin (Rx, visceral fat), BPC-157+TB-500 (muscle recovery), PTD-DBM+GHK-Cu (hair regrowth — NOT fat loss). PTD-DBM fat loss claims debunked (Korean study was hair follicle adipocytes).
+- [[entities/personal/wellness]] — Oura (wiring pending), 5 pillars, habit nudge. **James is on TRT** (0.5mg 2x/week, has prescribing doc). Peptide research stack to discuss w/ TRT doc: Tesamorelin (Rx, visceral fat), BPC-157+TB-500 (muscle recovery), PTD-DBM+GHK-Cu (hair regrowth — NOT fat loss). PTD-DBM fat loss claims debunked (Korean study was hair follicle adipocytes). Peptide sourcing: prefer doc's compounding pharmacy; research vendors = Limitless Life Nootropics, Peptide Sciences, Amino Asylum — always demand current COA w/ third-party testing ≥98% purity.
 - [[entities/personal/contacts]] — Family, partners, network, Wade Burt protocol
 
 ## Topics
@@ -35,6 +35,7 @@ _Index only. Read linked pages for detail. Use `memory_search.py` for daily-log 
 - **Mac Whisper config (Apr 20)** — Parakeet V3 model + Claude Haiku 4-5 as AI-Service (switched from GPT-4o). Dictation dictionary has no effect on Parakeet (CTC architecture). Proper-noun corrections go in AI cleanup prompt instead. Cleanup prompt finalized with spelling list.
 - **TN franchise/excise tax (Apr 20)** — James asked about small business exemption threshold. Unresolved — directed to tntap.tn.gov. Needs follow-up with web access.
 - **Wade report citations corrected (Apr 20)** — Münzel & Gori JACC 2009 PMID→19815121; SENIORS Trial 2005 PMID→15642700 (EHJ, not Lancet). Lesson: always verify PMIDs via WebFetch before including.
+- **WebSearch/WebFetch global permissions (Apr 21)** — James said he added to `~/.claude/settings.json` for Slack bot. Needs verification next interactive session.
 
 ## Recent Decisions (last 30 days)
 - **2026-04-16** — Phase 10a: MEMORY.md → index + entity/topic pages; added core-memories.md, SOUL recall protocol, heartbeat memory-index sync.
