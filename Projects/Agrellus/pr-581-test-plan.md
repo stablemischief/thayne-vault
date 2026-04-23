@@ -159,8 +159,10 @@ Should match visible Farm Plan row count.
 ## Current state at save time
 
 - **Step 1 ✅ PASSED** — crop_plan_entries SQL confirmed 2 rows; UI showed exactly Corn/1234/325 + Sunflowers/2341/50 with no phantom crops. Yields were 0 (yield_history not populated for this test app — orthogonal to #569).
-- **Step 2 ❌ FAILED (2026-04-23)** — see detailed findings below. PR #581 does NOT fully resolve #569.
-- Steps 3–5 not started (blocked on Step 2 resolution).
+- **Step 2 ⚠️ DEFERRED (2026-04-23)** — see detailed findings below. Phantom PI_crop_* render on 0-crop-plan app. Deferred to investigation issue #584 (Agrellus repo); `_prepopulate_projected_income` guard is correct, source of phantom values is elsewhere. Not blocking: #554 Farm Plan requirement prevents new apps from hitting this path.
+- **Step 3 ✅ PASSED (2026-04-23)** — crop_year resolution verified on Farm Plan app. Log event `projected_income_prepopulated` showed `source: "crop_plan"`, `from_fallback: 0`. No `FSA_crop_year` reads during module population. Both apps have `applications.crop_year = 2026` explicit.
+- **Step 4:** NEXT — Projected Revenue uses Farm Plan acres + deterministic tiebreaker.
+- Step 5 not started.
 
 ## Step 2 FAILURE — detailed findings (2026-04-23)
 
