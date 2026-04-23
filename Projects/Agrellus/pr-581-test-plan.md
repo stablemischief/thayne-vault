@@ -4,7 +4,7 @@ pr: https://github.com/mdornich/agrellus-crop-finance-mvp/pull/581
 issue: 569
 branch: archon/task-fix-issue-569
 base: staging
-status: Testing Step 1
+status: Step 2 FAILED — PR #581 incomplete fix for #569
 test_app_farm_plan: 2deb511c-798b-459d-8571-b20870c7649f
 test_app_legacy_fsa: 7b41db45-1067-41f9-b41e-f4bfd1ae1df0
 analyst_id: c19dff92-ac25-4896-a698-d8a3cbaa8eaa
@@ -159,8 +159,43 @@ Should match visible Farm Plan row count.
 ## Current state at save time
 
 - **Step 1 ✅ PASSED** — crop_plan_entries SQL confirmed 2 rows; UI showed exactly Corn/1234/325 + Sunflowers/2341/50 with no phantom crops. Yields were 0 (yield_history not populated for this test app — orthogonal to #569).
-- **Step 2:** NEXT — legacy FSA-only app empty-state verification. This is the most load-bearing step in the plan.
-- Steps 3–5 not started.
+- **Step 2 ❌ FAILED (2026-04-23)** — see detailed findings below. PR #581 does NOT fully resolve #569.
+- Steps 3–5 not started (blocked on Step 2 resolution).
+
+## Step 2 FAILURE — detailed findings (2026-04-23)
+
+**Test app:** `7b41db45-1067-41f9-b41e-f4bfd1ae1df0` (legacy FSA-only, confirmed `crop_plan_entries` count = 0)
+
+**Expected:** Projected Income module shows empty state — no crop rows.
+
+**Actual:** Projected Income module renders a full table with ~9 crop rows (Corn, Corn Dent, Cotton, Cotton Upland, Rice, Rice Long Grain, Soybeans, Wheat, Wheat Soft Red Winter) with dry/irr acres populated. Rows are non-expandable (no per-farm detail available).
+
+**DB state verified:**
+- `crop_plan_entries`: 0 rows ✅ (as expected for legacy app)
+- `land_tracts`: 1 row — farm 3303 / tract 1101 / Humphreys / 80 dry + 120 irr / source=`LEGACY_FSA`
+- `tract_crops`: 9 rows — all under that single 3303/1101 tract
+- `extraction_results.FSA_crop_*`: all `extracted_value_normalized` = null
+
+**Smoking gun — API response from `/api/v1/applications/gap-analysis/7b41db45.../modules/projected_income`:**
+
+Every `PI_crop_N_dry_acres`, `PI_crop_N_irr_acres`, `PI_crop_N_total_acres` returns:
+```json
+"fieldSource": "calculated",
+"sourceDocumentName": "james_thornton_fsa578_farm_3303.pdf",
+"fieldSourceType": "calculated"
+```
+
+Meaning: **acres are being calculated at request time from FSA-578 PDFs** on an app with zero `crop_plan_entries`. This is the exact fallback path #569 was supposed to eliminate.
+
+`PI_crop_N_farm_number` is populated from extraction_results directly (value `"2502"`, sourced from `james_thornton_fsa578_farm_2502.pdf`) — a separate FSA-578 path.
+
+**Backend log confirms scope:** `gap_field_service.load_extracted_fields_grouped_complete` reports `"projected_income": [["farm", 1], ..., ["farm", 12]]` — 12 farms loaded into the projected_income owner group even though only 1 farm has a `land_tract` row.
+
+**What PR #581 missed:** The 9 kill sites removed were FSA reads at the calculation-service level (`gap_field_service._build_fsa_farm_details`, `projected_revenue_service`, `calculation_engine`, `gap_analysis_service`). But `gap_field_service` still has a code path that **calculates `PI_crop_N_*_acres` from FSA-578 document extractions** when `crop_plan_entries` is empty. Likely in a `_prepopulate_projected_income`-style method or a per-field resolver that walks FSA-578 extractions directly.
+
+**Next step for fix:** Grep `gap_field_service.py` for any remaining reads of `FSA_crop_*`, `fsa578`, `farm_number`, or computed-field resolvers that fall back to extraction_results when `crop_plan_entries` returns empty. The fix should be: if `crop_plan_entries` for this application has 0 rows, `PI_crop_*` must be null/gap — NOT computed from FSA-578.
+
+**Disposition decision (pending James):** Block merge on #581 and send back to Archon for a scoped fix, OR merge #581 as-is and file a follow-up. Recommendation: block — the PR's stated acceptance criterion was "legacy FSA-only app shows empty projected income," and it demonstrably doesn't.
 
 ## If session crashes, to resume
 
