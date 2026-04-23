@@ -4,7 +4,7 @@ pr: https://github.com/mdornich/agrellus-crop-finance-mvp/pull/581
 issue: 569
 branch: archon/task-fix-issue-569
 base: staging
-status: Testing complete — 4/5 PASSED, Step 2 deferred to investigation #584
+status: MERGED 2026-04-23 — 4/5 PASSED, Step 2 deferred to investigation #584
 test_app_farm_plan: 2deb511c-798b-459d-8571-b20870c7649f
 test_app_legacy_fsa: 7b41db45-1067-41f9-b41e-f4bfd1ae1df0
 analyst_id: c19dff92-ac25-4896-a698-d8a3cbaa8eaa
