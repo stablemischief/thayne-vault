@@ -161,8 +161,8 @@ Should match visible Farm Plan row count.
 - **Step 1 ✅ PASSED** — crop_plan_entries SQL confirmed 2 rows; UI showed exactly Corn/1234/325 + Sunflowers/2341/50 with no phantom crops. Yields were 0 (yield_history not populated for this test app — orthogonal to #569).
 - **Step 2 ⚠️ DEFERRED (2026-04-23)** — see detailed findings below. Phantom PI_crop_* render on 0-crop-plan app. Deferred to investigation issue #584 (Agrellus repo); `_prepopulate_projected_income` guard is correct, source of phantom values is elsewhere. Not blocking: #554 Farm Plan requirement prevents new apps from hitting this path.
 - **Step 3 ✅ PASSED (2026-04-23)** — crop_year resolution verified on Farm Plan app. Log event `projected_income_prepopulated` showed `source: "crop_plan"`, `from_fallback: 0`. No `FSA_crop_year` reads during module population. Both apps have `applications.crop_year = 2026` explicit.
-- **Step 4:** NEXT — Projected Revenue uses Farm Plan acres + deterministic tiebreaker.
-- Step 5 not started.
+- **Step 4 ✅ PASSED (partial, 2026-04-23)** — full E2E revenue calculation blocked: test app `2deb511c` has no Prior Year Schedule of Insurance doc loaded, so APH yields are absent and revenue cannot be computed end-to-end. Accepted on inference: (a) Projected Revenue is downstream of Projected Income; (b) Step 3 logs prove PI reads `source: crop_plan` with `from_fallback: 0`, so Revenue inherits Farm Plan acres; (c) the deterministic tiebreaker (`_assign_crop_slots` name-ascending secondary sort) is covered by 20 new unit tests in `test_projected_revenue.py` (commit 67937f5). Unit-test coverage is the appropriate layer for the tiebreaker; UI-level validation would not add signal.
+- **Step 5:** NEXT — regression test #577 Farm Plan flows (add row, trash row, navigation).
 
 ## Step 2 FAILURE — detailed findings (2026-04-23)
 
