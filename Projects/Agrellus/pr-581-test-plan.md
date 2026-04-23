@@ -57,7 +57,7 @@ The second commit was **uncommitted in the Archon worktree** after the workflow 
 
 ## Full 5-Step Test Plan
 
-### Step 1 — Farm Plan app populates Projected Income from CropPlanEntry (IN PROGRESS)
+### Step 1 — Farm Plan app populates Projected Income from CropPlanEntry ✅ PASSED (2026-04-23)
 
 **Action:**
 1. Open app `2deb511c...` → Projected Income module
@@ -158,9 +158,9 @@ Should match visible Farm Plan row count.
 
 ## Current state at save time
 
-- **Step 1:** JUST STARTED. Testing approach pivoted from bad SQL (module_fields / extraction_results.application_id errors) to upstream crop_plan_entries check + UI + backend log verification.
-- James is about to run the Step 1 SQL (crop_plan_entries count) and report back.
-- Steps 2–5 not started.
+- **Step 1 ✅ PASSED** — crop_plan_entries SQL confirmed 2 rows; UI showed exactly Corn/1234/325 + Sunflowers/2341/50 with no phantom crops. Yields were 0 (yield_history not populated for this test app — orthogonal to #569).
+- **Step 2:** NEXT — legacy FSA-only app empty-state verification. This is the most load-bearing step in the plan.
+- Steps 3–5 not started.
 
 ## If session crashes, to resume
 
