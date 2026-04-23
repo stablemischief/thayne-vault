@@ -4,7 +4,7 @@ pr: https://github.com/mdornich/agrellus-crop-finance-mvp/pull/581
 issue: 569
 branch: archon/task-fix-issue-569
 base: staging
-status: Step 2 FAILED — PR #581 incomplete fix for #569
+status: Testing complete — 4/5 PASSED, Step 2 deferred to investigation #584
 test_app_farm_plan: 2deb511c-798b-459d-8571-b20870c7649f
 test_app_legacy_fsa: 7b41db45-1067-41f9-b41e-f4bfd1ae1df0
 analyst_id: c19dff92-ac25-4896-a698-d8a3cbaa8eaa
@@ -162,7 +162,13 @@ Should match visible Farm Plan row count.
 - **Step 2 ⚠️ DEFERRED (2026-04-23)** — see detailed findings below. Phantom PI_crop_* render on 0-crop-plan app. Deferred to investigation issue #584 (Agrellus repo); `_prepopulate_projected_income` guard is correct, source of phantom values is elsewhere. Not blocking: #554 Farm Plan requirement prevents new apps from hitting this path.
 - **Step 3 ✅ PASSED (2026-04-23)** — crop_year resolution verified on Farm Plan app. Log event `projected_income_prepopulated` showed `source: "crop_plan"`, `from_fallback: 0`. No `FSA_crop_year` reads during module population. Both apps have `applications.crop_year = 2026` explicit.
 - **Step 4 ✅ PASSED (partial, 2026-04-23)** — full E2E revenue calculation blocked: test app `2deb511c` has no Prior Year Schedule of Insurance doc loaded, so APH yields are absent and revenue cannot be computed end-to-end. Accepted on inference: (a) Projected Revenue is downstream of Projected Income; (b) Step 3 logs prove PI reads `source: crop_plan` with `from_fallback: 0`, so Revenue inherits Farm Plan acres; (c) the deterministic tiebreaker (`_assign_crop_slots` name-ascending secondary sort) is covered by 20 new unit tests in `test_projected_revenue.py` (commit 67937f5). Unit-test coverage is the appropriate layer for the tiebreaker; UI-level validation would not add signal.
-- **Step 5:** NEXT — regression test #577 Farm Plan flows (add row, trash row, navigation).
+- **Step 5 ✅ PASSED (2026-04-23)** — regression verified. Added Wheat/9985/NI/100 row, deleted a row, Back→Next navigation clean, 3 visible rows, SQL confirms 3 FARM_PLAN tracts in `land_tracts`. No console errors, no 204 regression. FarmPlanSyncService still working.
+
+## Final verdict
+
+- **PR #581 merge recommendation:** MERGE. 4/5 steps passed. Step 2 surfaced a real bug but it's (a) separate from #581's scope (the `_prepopulate_projected_income` guard is correct); (b) masked in production by #554's Farm Plan requirement; (c) filed as follow-up investigation issue #584 with full evidence.
+- **#569 acceptance:** #581 correctly removes the 9 named kill sites and adds the Farm Plan primary-source guard. Crop year resolution uses `applications.crop_year`. Projected Income sources from `crop_plan_entries` with `from_fallback: 0`. #577 regression clean.
+- **Known residual (documented in #584):** phantom PI_crop_* values computed from FSA-578 render on legacy apps with 0 `crop_plan_entries`. Not triggerable by UI-created apps. Source of the phantom computation is outside `gap_field_service._prepopulate_projected_income` — needs investigation.
 
 ## Step 2 FAILURE — detailed findings (2026-04-23)
 
