@@ -84,8 +84,8 @@ Horizontal hive accepting standard deep Langstroth frames. Under $50 in material
 - **Long walls at 72-5/16"** — a single 12' 2×12 won't yield two long walls. You'll need **two 8' boards** (or one 12' + scraps).
 - **Plywood top at 76-1/2"** — exceeds a 4'×8' sheet length (96"). Still fits, but you'll need to orient the cut carefully along the 8' dimension. Alternatively, do a two-piece top with an overlap joint.
 - **Bottom at 73-11/16"** — same consideration, but fits within 96".
-- **Floor sag risk** — at 6+ feet, add a center cross-brace or use 3/4" plywood for the bottom.
-- **Weight** — fully loaded could exceed 250 lbs. Ensure stand/legs can handle it. Consider a center leg pair or continuous rail support.
+- **No center cross-brace needed** — frame weight hangs on the rabbet frame rests in the 2×12 long walls, NOT on the bottom panel. The bottom just closes the box. Load path: frames → rabbet → long walls → legs. 2×12s handle 51 frames easily.
+- **Legs: upgrade to 4×4 posts with notched tops** — at 6+ feet and 250+ lbs, 2×4 legs with deck screws are insufficient. Notch the top of each 4×4: remove a 1-1/2" × ~2" pocket so the 2×12 wall sits INTO the leg. Bottom 1-1/2" bears vertically in compression; top 1-1/2" cheek rides up the outside wall for lateral stability. Attach cheek with through-bolt or lag screw (not just deck screws). Consider **six legs** (add center pair) to eliminate wobble on uneven ground.
 - **Entrances** — scale from 3 to 5 entrances, maintaining the 6" wide × 1/2" tall spec with 2" end offset. Space remaining entrances evenly.
 
 ---
@@ -122,10 +122,14 @@ Cut all plywood pieces per cut list above.
 Insert bottom piece and attach with **1-1/8" deck screws**. Do NOT use glue — keep removable for future maintenance.
 
 ### Step 9: Cut Legs
-Cut 2×4 with 45° angle cuts. Keep 1-1/2" (narrow) side facing up. Measure 30-1/2" on both ends, make angle cuts. Four legs per hive.
+**31-frame (original):** Cut 2×4 with 45° angle cuts. Keep 1-1/2" (narrow) side facing up. Measure 30-1/2" on both ends, make angle cuts. Four legs per hive.
+
+**51-frame (James's mod):** Use 4×4 posts, 30-1/2" long. Notch the top of each: remove a 1-1/2" wide × ~2" deep pocket so the 2×12 wall drops into the notch. The inner 1-1/2" bears load in compression; the outer 1-1/2" cheek extends up along the outside wall for lateral attachment. Cut 6 legs (add a center pair for stability at 72" length).
 
 ### Step 10: Attach Legs
-Turn hive on side. Mark 2" from top edge on end wall. Position leg and attach with **two 3-1/2" screws + one 2-1/2" screw**. Repeat all four corners.
+**31-frame (original):** Turn hive on side. Mark 2" from top edge on end wall. Position leg and attach with **two 3-1/2" screws + one 2-1/2" screw**. Repeat all four corners.
+
+**51-frame (James's mod):** Drop wall into notch. Attach cheek to outer wall face with **lag screw or through-bolt** for shear strength. Four corner legs on end walls + two center legs on long walls at midpoint (~36" from each end).
 
 ### Step 11: Make Landing Boards
 Tilt table saw to 15°, rip landing board strips to ~1-11/16" with angled edge. Cut into six 7-1/2" pieces. (Alternative: use larger scrap boards up to 10" × 3-1/2".)
