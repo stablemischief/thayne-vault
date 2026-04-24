@@ -93,21 +93,41 @@ PR #586 wires per-row `PATCH /crop-plan/entries/{id}` on field blur with a 400ms
 
 **Goal:** Confirm existing per-row CREATE (#554) still works — baseline for the rest.
 
+**SQL — before:**
+```sql
+SELECT id, county, farm_number, crop, practice, dry_acres, irrigated_acres, row_order
+FROM crop_plan_entries
+WHERE application_id = '70108db3-6007-4bb6-bc4e-84bb327626be'
+ORDER BY row_order;
+```
+Expected: **0 rows** (fresh app).
+
 **Steps:**
-1. Start a new intake → advance to Step 3 (Farm Plan)
+1. Open the app (id `70108db3-...`) → advance to Step 3 (Farm Plan)
 2. Click "Add Crop Row"
-3. Fill in: Crop=Corn, Farm#=1234, Practice=IR, Acres=300
+3. Fill in: County=`<your-county>`, Crop=`Corn`, Farm#=`1234`, Practice=`IRR`, Dry Acres=`0`, Irrigated Acres=`300`  *(or whatever the UI asks — the point is to have a distinctive row we can track)*
 4. Tab out of the row (focus leaves all fields)
 5. DevTools → Network: observe `POST /crop-plan/entries` fires
 
-**Expected:**
-- Network shows a single POST with 201 response
-- Row gets an `id` field populated in React state (you can't see this directly, but next step confirms it)
-- Save-status indicator briefly shows `Saving…` → `Saved ✓` (fades)
+**SQL — after:**
+```sql
+SELECT id, county, farm_number, crop, practice, dry_acres, irrigated_acres, row_order, created_at, updated_at
+FROM crop_plan_entries
+WHERE application_id = '70108db3-6007-4bb6-bc4e-84bb327626be'
+ORDER BY row_order;
+```
+Expected: **1 row** matching what you entered. **Copy the `id` UUID** — you'll use it for Step 2's SQL.
 
-**Pass criteria:** POST returns 201, row persists after refresh.
+**Expected network:**
+- Single `POST /crop-plan/entries` with 201 response
+- Row gets an `id` populated in React state (implicit — Step 2 confirms)
+- Save-status indicator briefly shows `Saving…` → `Saved ✓` (fades ~2s)
+
+**Pass criteria:** POST returns 201, row visible in DB, save-status behaves.
 
 - [ ] Pass / Fail: ___ Notes: ___
+
+**Captured row id from SQL:** `_____________________________________`
 
 ---
 
@@ -115,21 +135,38 @@ PR #586 wires per-row `PATCH /crop-plan/entries/{id}` on field blur with a 400ms
 
 **Goal:** The core promise of #580 — edit an existing row, blur, edit persists.
 
+**SQL — before:**
+```sql
+SELECT irrigated_acres, updated_at
+FROM crop_plan_entries
+WHERE id = '<row-id-from-step-1>';
+```
+Expected: `irrigated_acres = 300`.
+
 **Steps:**
-1. In the row from Step 1, change Acres: 300 → 325
+1. In the row from Step 1, change Irrigated Acres: 300 → 325
 2. Click somewhere outside the row (blur)
-3. DevTools → Network: observe `PATCH /crop-plan/entries/{id}` fires within 400ms
-4. Wait for PATCH to return
+3. DevTools → Network: observe `PATCH /crop-plan/entries/{id}` fires within ~400ms
+4. Wait for PATCH to return (200)
 5. **Refresh the browser (Cmd+R)**
-6. Advance back to Step 3
+6. Advance back to Step 3 of the wizard
 
-**Expected:**
-- PATCH fires with body containing updated acres
-- PATCH returns 200
-- Save-status shows `Saving…` → `Saved ✓`
-- After refresh, row shows Acres=325 (not 300)
+**SQL — after:**
+```sql
+SELECT irrigated_acres, updated_at
+FROM crop_plan_entries
+WHERE id = '<row-id-from-step-1>';
+```
+Expected: `irrigated_acres = 325`; `updated_at` newer than before.
 
-**Pass criteria:** PATCH fires, returns 200, value persists after refresh.
+**Network expected:**
+- `PATCH /crop-plan/entries/<id>` with body containing new acres
+- 200 response
+- Save-status: `Saving…` → `Saved ✓`
+
+**UI expected after refresh:** row shows 325 (not 300).
+
+**Pass criteria:** PATCH 200, DB updated, value persists after refresh.
 
 - [ ] Pass / Fail: ___ Notes: ___
 
