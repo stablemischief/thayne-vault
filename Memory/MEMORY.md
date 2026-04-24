@@ -45,6 +45,7 @@ _Index only. Read linked pages for detail. Use `memory_search.py` for daily-log 
 - **Lesson: Verify health log data (Apr 23)** — Thayne miscounted sheep and got CDT booster timing wrong. Always check sheep-health-log.md for dates/counts rather than generating from memory. Also: "budget" language confused James — say "session cost cap" not "budget."
 
 ## Recent Decisions (last 30 days)
+- **2026-04-24** — Agrellus batch-upload modal layout fully fixed. PR #582 (Archon) landed Defect C + partial A/B via Tailwind tweaks. Defect B needed structural fix: PR #597 converted row from flex → CSS grid (`minmax(0,1fr)` + `minmax(0,10rem)`). Lesson: inside shadcn DialogContent, prefer CSS grid over flex+`min-w-0` gymnastics for row layouts. Detail: `Projects/Agrellus/2026-04-23-batch-upload-modal-layout.md`.
 - **2026-04-23** — OpenClaw explicitly off the table (James: "dangerous technology"). PR #581 merged (Agrellus FSA-578 fallback removal); investigation #584 filed for phantom PI_crop values. 5-agent memory analysis initiative planned (not dispatched).
 - **2026-04-16** — Phase 10a: MEMORY.md → index + entity/topic pages; added core-memories.md, SOUL recall protocol, heartbeat memory-index sync.
 - **2026-04-14** — Investment deck: $10M flat AgFin-only; milestone definition is the open gap.
