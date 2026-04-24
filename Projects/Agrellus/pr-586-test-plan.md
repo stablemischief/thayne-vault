@@ -4,9 +4,31 @@ pr: https://github.com/mdornich/agrellus-crop-finance-mvp/pull/586
 issue: 580
 branch: archon/task-fix-issue-580
 base: staging
-status: READY TO TEST
+status: IN PROGRESS — Step 1
+test_app_id: 70108db3-6007-4bb6-bc4e-84bb327626be
 created: 2026-04-24
 ---
+
+## Schema quick-reference (baked in for this session)
+
+**`crop_plan_entries`** — source of truth, primary table for most SQL
+- PK: `id` (UUID)
+- FK: `application_id`
+- Fields: `county`, `farm_number`, `crop`, `practice`, `dry_acres`, `irrigated_acres`, `row_order`
+- Unique constraint: `(application_id, county, farm_number, crop, practice)`
+- Practice codes: **`IRR`** (irrigated) or **`NI`** (non-irrigated)
+- Yield projection fields: `dry_yield_avg`, `irr_yield_avg`, `insurance_level_dry`, `insurance_level_irr`, `commodity_price`, `total_acres`, `total_yield`, `avg_yield`
+
+**`land_tracts`** — projection, rebuilt by `FarmPlanSyncService`
+- PK: `tract_id` (NOT `id`)
+- FK: `application_id`, `farm_id`, `document_id`
+- Fields: `farm_number`, `tract_number`, `county`, `total_cropland_acres`, `dryland_acres`, `irrigated_acres`, `fallow_acres`, `source`, `data_source`
+- `source` routing key: `FARM_PLAN` / `LEASE_AGREEMENT` / `LEGACY_FSA` — FarmPlanSync only touches `FARM_PLAN` rows
+
+**`tract_crops`** — crop-level projection under each tract
+- PK: `tract_crop_id`
+- FK: `tract_id` → `land_tracts.tract_id`
+- Fields: `crop_type` (NOT `crop`), `acres`, `practice`
 
 # PR #586 Test Plan — Crop Plan Per-Row Auto-Save (#580)
 
