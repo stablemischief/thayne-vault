@@ -41,7 +41,7 @@ Horizontal hive accepting standard deep Langstroth frames. Under $50 in material
 | Part | Dimension | Qty |
 |---|---|---|
 | Long walls | 44-13/16" | 2 |
-| Short walls | 21-3/8" | 2 |
+| Short walls | ~~21-3/8"~~ **20-15/16"** | 2 | *Plans say 21-3/8" but James's frames fell through. 20-15/16" fits standard deep frames correctly.* |
 
 ### Plywood (from 4'×8' sheet — yields 2 hives)
 | Part | Dimension | Qty |
