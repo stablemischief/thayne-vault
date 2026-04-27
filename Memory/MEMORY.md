@@ -3,7 +3,7 @@
 _Index only. Read linked pages for detail. Use `memory_search.py` for daily-log content._
 
 ## Clients
-- [[entities/clients/agrellus]] — AgFin compliance platform; REC phase; investment deck; Chris Johnson
+- [[entities/clients/agrellus]] — AgFin compliance platform; REC phase; investment deck; Chris Johnson (departed Agrellus ~Apr 26, now helping SM fundraise)
 - [[entities/clients/nesvick]] — Daily 5-min NTG podcast; all PRs merged; VPS 187.124.231.206
 
 ## Products
