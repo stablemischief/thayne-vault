@@ -3,206 +3,345 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Agrellus — Step 4: Other Farm Related Income (Issue #578 Mockup)</title>
+  <title>Agrellus — Step 4: Other Farm Related Income (Issue #578 Mockup, v2)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    // Match production Tailwind config colors (extracted from codebase)
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'agrellus-green': '#30714C',
+            'agrellus-green-dark': '#2c4a3e',
+            'agrellus-yellow': '#DDC66F',
+            'agrellus-soft': '#F0FDF4',
+            'agrellus-light-mint': '#dcfce7',
+            'border-default': '#E3E3E3',
+            'text-strong': '#061623',
+            'text-body': '#374151',
+            'text-muted': '#6B7280',
+            'page-bg': '#f4f4f0',
+          },
+        },
+      },
+    };
+  </script>
   <style>
     body {
-      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
       background: #f4f4f0;
       color: #374151;
       min-height: 100vh;
     }
+    .font-mono { font-family: 'JetBrains Mono', monospace; }
 
-    /* Brand tokens — match production CropPlanForm */
-    .brand-header { background: #2c4a3e; }
-    .brand-text { color: #2c4a3e; }
-    .brand-amber { color: #c05c00; }
-
-    /* Wizard step indicator pill */
-    .step-pill {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 24px;
-      height: 24px;
-      border-radius: 9999px;
-      font-size: 12px;
-      font-weight: 600;
-    }
-    .step-done { background: #16a34a; color: white; }
-    .step-active { background: #2c4a3e; color: white; }
-    .step-pending { background: #e5e7eb; color: #6b7280; }
-
-    /* Match the row hover from CropPlanForm */
-    .row-hover:hover { background-color: rgba(0, 0, 0, 0.03); }
-
-    /* Status indicator dot */
-    .saved-pulse {
-      animation: pulse-fade 2s ease-out forwards;
-    }
-    @keyframes pulse-fade {
-      0% { opacity: 1; }
-      80% { opacity: 1; }
-      100% { opacity: 0; }
-    }
-
-    /* Card-style focus ring on inputs (match shadcn Input component) */
+    /* Match shadcn Input focus ring */
     .input-base {
       width: 100%;
       height: 36px;
       padding: 0 12px;
-      border: 1px solid #e5e7eb;
+      border: 1px solid #E3E3E3;
       border-radius: 6px;
       font-size: 14px;
       background: white;
-      color: #111827;
+      color: #061623;
+      transition: border-color 0.15s, box-shadow 0.15s;
     }
     .input-base:focus {
       outline: none;
-      border-color: #2c4a3e;
-      box-shadow: 0 0 0 2px rgba(44, 74, 62, 0.15);
+      border-color: #30714C;
+      box-shadow: 0 0 0 2px rgba(48, 113, 76, 0.15);
+    }
+
+    /* Status pill — matches ApplicationBanner */
+    .status-pill {
+      padding: 2px 8px;
+      border-radius: 9999px;
+      font-size: 10px;
+      font-weight: 500;
+      background: rgba(6, 22, 35, 0.10);
+      border: 1px solid rgba(6, 22, 35, 0.20);
+      color: #061623;
+    }
+
+    /* Card style — matches shadcn Card */
+    .agrellus-card {
+      background: white;
+      border: 1px solid #E3E3E3;
+      border-radius: 8px;
+      box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
     }
 
     /* Empty state hint */
     .empty-hint {
       background: #f9fafb;
       border: 1px dashed #d1d5db;
-      color: #6b7280;
+      color: #6B7280;
+    }
+
+    /* Saved-status fade */
+    @keyframes pulse-fade {
+      0% { opacity: 1; }
+      80% { opacity: 1; }
+      100% { opacity: 0; }
+    }
+    .saved-pulse { animation: pulse-fade 2s ease-out forwards; }
+
+    /* Match the workflow stepper hover */
+    .workflow-step:hover { background: #F0FDF4; }
+
+    /* Match production progress bar (1.5px) */
+    .progress-bar {
+      height: 6px;
+      background: #E3E3E3;
+      border-radius: 9999px;
+      overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%;
+      background: #30714C;
+      transition: width 0.3s ease;
     }
   </style>
 </head>
-<body>
-  <!-- Top app bar (mocked) -->
-  <header class="bg-white border-b border-gray-200 px-6 py-3 flex items-center gap-4">
-    <div class="flex items-center gap-2 font-bold brand-text">
-      <span>🌾 Agrellus</span>
+<body class="flex flex-col min-h-screen">
+
+  <!-- ╔═════════════════════════════════════════════════════════════════════╗ -->
+  <!-- ║ LAYER 1 — GlobalHeader (h-12 = 48px, bg #30714C)                    ║ -->
+  <!-- ╚═════════════════════════════════════════════════════════════════════╝ -->
+  <header class="h-12 flex-shrink-0 flex items-center justify-between px-4 bg-agrellus-green">
+    <div class="flex items-center gap-3">
+      <!-- Wheat icon in #DDC66F -->
+      <svg class="w-5 h-5" style="color: #DDC66F;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M2 22 16 8"/><path d="M3.47 12.53l5.04-5.04"/><path d="M5 17v-2a4 4 0 0 1 4-4h0"/><path d="M22 5h-4a4 4 0 0 0-4 4v0"/><path d="M14 5l-1 1"/><path d="M9 21l1-1"/><path d="M3 17l1-1"/><path d="M21 9l-1 1"/>
+      </svg>
+      <span class="text-white font-bold text-sm tracking-wider">AGRELLUS</span>
+      <div class="hidden sm:block w-px h-5 bg-white/30"></div>
+      <span class="hidden sm:block text-white/70 text-xs">Crop Finance Platform</span>
     </div>
-    <div class="text-sm text-gray-400">/</div>
-    <div class="text-sm text-gray-600 font-medium">New Application</div>
-    <span class="ml-2 text-xs px-2 py-0.5 bg-gray-100 text-gray-700 rounded">DRAFT_ANALYST_ENTRY</span>
-    <div class="ml-auto flex items-center gap-3 text-sm text-gray-500">
-      <span>Farmer: Robert D Harmon Jr.</span>
-      <span class="text-gray-300">·</span>
-      <span>App: APP-MOCKUP-578</span>
+    <div class="flex items-center gap-3">
+      <!-- Search -->
+      <div class="hidden md:flex items-center gap-2 bg-white/10 rounded-md px-3 py-1.5">
+        <svg class="w-3.5 h-3.5 text-white/50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+        <input type="text" placeholder="Search applications..." class="bg-transparent text-white text-xs placeholder:text-white/40 outline-none w-32" disabled>
+      </div>
+      <!-- Theme toggle -->
+      <button class="p-1.5 rounded-md hover:bg-white/10">
+        <svg class="w-4 h-4 text-white/80" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+      </button>
+      <!-- Bell -->
+      <button class="relative p-1.5 rounded-md hover:bg-white/10">
+        <svg class="w-4 h-4 text-white/80" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
+        <span class="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
+      </button>
+      <!-- Feedback button placeholder -->
+      <button class="p-1.5 rounded-md hover:bg-white/10">
+        <svg class="w-4 h-4 text-white/80" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      </button>
+      <!-- User avatar (orange J) -->
+      <div class="w-7 h-7 rounded-full bg-orange-500 flex items-center justify-center text-white text-xs font-semibold">J</div>
     </div>
   </header>
 
-  <main class="max-w-5xl mx-auto px-6 py-8">
-
-    <!-- Wizard Stepper -->
-    <div class="flex items-center justify-center gap-3 mb-8 text-sm">
-      <div class="flex items-center gap-2">
-        <span class="step-pill step-done">✓</span>
-        <span class="text-gray-700">Applicant Identity</span>
-      </div>
-      <div class="text-gray-300">—</div>
-      <div class="flex items-center gap-2">
-        <span class="step-pill step-done">✓</span>
-        <span class="text-gray-700">Organization Structure</span>
-      </div>
-      <div class="text-gray-300">—</div>
-      <div class="flex items-center gap-2">
-        <span class="step-pill step-done">✓</span>
-        <span class="text-gray-700">Farm Plan</span>
-      </div>
-      <div class="text-gray-300">—</div>
-      <div class="flex items-center gap-2">
-        <span class="step-pill step-active">4</span>
-        <span class="font-semibold text-gray-900">Other Farm Income</span>
-      </div>
-      <div class="text-gray-300">—</div>
-      <div class="flex items-center gap-2">
-        <span class="step-pill step-pending">5</span>
-        <span class="text-gray-500">Debt Verification</span>
-      </div>
-      <div class="text-gray-300">—</div>
-      <div class="flex items-center gap-2">
-        <span class="step-pill step-pending">6</span>
-        <span class="text-gray-500">Attestation</span>
-      </div>
+  <!-- ╔═════════════════════════════════════════════════════════════════════╗ -->
+  <!-- ║ LAYER 2 — ApplicationBanner (bg #F0FDF4)                            ║ -->
+  <!-- ╚═════════════════════════════════════════════════════════════════════╝ -->
+  <div class="flex-shrink-0 bg-agrellus-soft border-b border-agrellus-green/15 px-4 lg:px-6 py-1.5">
+    <div class="flex items-center justify-center gap-3 text-sm text-text-strong">
+      <span class="truncate"><span class="font-semibold">Farmer:</span> Robert D Harmon Jr.</span>
+      <span class="opacity-40">·</span>
+      <span class="truncate hidden sm:inline"><span class="font-semibold">Farms:</span> 6 Lubbock</span>
+      <span class="opacity-40">·</span>
+      <span class="text-xs font-mono"><span class="font-semibold">App:</span> APP-MOCKUP578</span>
+      <span class="status-pill">Draft</span>
     </div>
+  </div>
 
-    <!-- Step 4 Card -->
-    <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-
-      <!-- Card header -->
-      <div class="flex items-start justify-between mb-1">
-        <div>
-          <h2 class="text-xl font-semibold text-gray-900">Other Farm Related Income</h2>
+  <!-- ╔═════════════════════════════════════════════════════════════════════╗ -->
+  <!-- ║ LAYER 3 — WorkflowStepper (white bg, h-14)                          ║ -->
+  <!-- ╚═════════════════════════════════════════════════════════════════════╝ -->
+  <div class="flex-shrink-0 flex items-center justify-between px-4 lg:px-6 h-14 bg-white border-b border-default">
+    <div class="flex items-center gap-0">
+      <!-- Dashboard link -->
+      <a class="flex items-center gap-1.5 px-2.5 py-1.5 rounded-full text-xs font-medium text-text-muted hover:bg-gray-100 hover:text-agrellus-green transition-colors whitespace-nowrap workflow-step">
+        <svg class="w-3.5 h-3.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+        <span class="hidden sm:inline">Dashboard</span>
+      </a>
+      <div class="w-px h-5 bg-default mx-1 lg:mx-2"></div>
+      <!-- Create (active) -->
+      <a class="flex items-center gap-1 px-1.5 py-1 rounded-full text-xs font-medium whitespace-nowrap bg-agrellus-soft">
+        <div class="w-5 h-5 rounded-full border-2 border-agrellus-green flex items-center justify-center">
+          <div class="w-2 h-2 rounded-full bg-agrellus-green"></div>
         </div>
-        <!-- Save status indicator (placeholder; would animate in real component) -->
-        <div id="save-status" class="text-xs text-gray-500 hidden">
-          <span id="save-status-text"></span>
+        <span class="text-agrellus-green font-semibold">Create</span>
+      </a>
+      <!-- Collect (upcoming) -->
+      <a class="flex items-center gap-1 px-1.5 py-1 rounded-full text-xs font-medium whitespace-nowrap workflow-step">
+        <div class="w-5 h-5 rounded-full border border-gray-300 flex items-center justify-center text-[10px] text-text-muted">2</div>
+        <span class="hidden lg:inline text-text-muted">Collect</span>
+      </a>
+      <!-- Review -->
+      <a class="flex items-center gap-1 px-1.5 py-1 rounded-full text-xs font-medium whitespace-nowrap workflow-step">
+        <div class="w-5 h-5 rounded-full border border-gray-300 flex items-center justify-center text-[10px] text-text-muted">3</div>
+        <span class="hidden lg:inline text-text-muted">Review</span>
+      </a>
+      <!-- Modules -->
+      <a class="flex items-center gap-1 px-1.5 py-1 rounded-full text-xs font-medium whitespace-nowrap workflow-step">
+        <div class="w-5 h-5 rounded-full border border-gray-300 flex items-center justify-center text-[10px] text-text-muted">4</div>
+        <span class="hidden lg:inline text-text-muted">Modules</span>
+      </a>
+      <!-- AI Audit -->
+      <a class="flex items-center gap-1 px-1.5 py-1 rounded-full text-xs font-medium whitespace-nowrap workflow-step">
+        <div class="w-5 h-5 rounded-full border border-gray-300 flex items-center justify-center text-[10px] text-text-muted">5</div>
+        <span class="hidden lg:inline text-text-muted">AI Audit</span>
+      </a>
+      <!-- Audit -->
+      <a class="flex items-center gap-1 px-1.5 py-1 rounded-full text-xs font-medium whitespace-nowrap workflow-step">
+        <div class="w-5 h-5 rounded-full border border-gray-300 flex items-center justify-center text-[10px] text-text-muted">6</div>
+        <span class="hidden lg:inline text-text-muted">Audit</span>
+      </a>
+      <!-- Certify -->
+      <a class="flex items-center gap-1 px-1.5 py-1 rounded-full text-xs font-medium whitespace-nowrap workflow-step">
+        <div class="w-5 h-5 rounded-full border border-gray-300 flex items-center justify-center text-[10px] text-text-muted">7</div>
+        <span class="hidden lg:inline text-text-muted">Certify</span>
+      </a>
+    </div>
+    <a class="flex items-center gap-1.5 px-2.5 py-1.5 rounded-full text-xs font-medium text-text-muted hover:bg-gray-100 transition-colors">
+      <svg class="w-3.5 h-3.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+      <span class="hidden sm:inline">Audit Log</span>
+    </a>
+  </div>
+
+  <!-- ╔═════════════════════════════════════════════════════════════════════╗ -->
+  <!-- ║ LAYER 4 — Wizard Form Container (max-w-2xl mx-auto)                 ║ -->
+  <!-- ╚═════════════════════════════════════════════════════════════════════╝ -->
+  <main class="flex-1 px-4 py-8">
+    <div class="max-w-2xl mx-auto space-y-6">
+
+      <!-- IntakeWizard internal stepper (6 steps) -->
+      <div class="space-y-3">
+        <div class="flex items-center justify-between text-sm">
+          <!-- Step 1 done -->
+          <div class="flex items-center gap-2 text-text-muted">
+            <div class="flex items-center justify-center w-6 h-6 rounded-full text-xs bg-green-600 text-white">
+              <svg class="w-3 h-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
+            <span class="hidden sm:inline">Applicant Identity</span>
+          </div>
+          <!-- Step 2 done -->
+          <div class="flex items-center gap-2 text-text-muted">
+            <div class="flex items-center justify-center w-6 h-6 rounded-full text-xs bg-green-600 text-white">
+              <svg class="w-3 h-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
+            <span class="hidden sm:inline">Organization Structure</span>
+          </div>
+          <!-- Step 3 done -->
+          <div class="flex items-center gap-2 text-text-muted">
+            <div class="flex items-center justify-center w-6 h-6 rounded-full text-xs bg-green-600 text-white">
+              <svg class="w-3 h-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
+            <span class="hidden sm:inline">Farm Plan</span>
+          </div>
+          <!-- Step 4 active -->
+          <div class="flex items-center gap-2 text-text-strong font-medium">
+            <div class="flex items-center justify-center w-6 h-6 rounded-full text-xs bg-agrellus-green text-white">4</div>
+            <span class="hidden sm:inline">Other Farm Income</span>
+          </div>
+          <!-- Step 5 pending -->
+          <div class="flex items-center gap-2 text-text-muted/50">
+            <div class="flex items-center justify-center w-6 h-6 rounded-full text-xs bg-gray-200 text-gray-500">5</div>
+            <span class="hidden sm:inline">Debt Verification</span>
+          </div>
+          <!-- Step 6 pending -->
+          <div class="flex items-center gap-2 text-text-muted/50">
+            <div class="flex items-center justify-center w-6 h-6 rounded-full text-xs bg-gray-200 text-gray-500">6</div>
+            <span class="hidden sm:inline">Attestation</span>
+          </div>
+        </div>
+        <!-- Progress bar -->
+        <div class="progress-bar">
+          <div class="progress-fill" style="width: 66.66%;"></div>
         </div>
       </div>
 
-      <!-- Question text -->
-      <p class="text-sm text-gray-600 mb-5">
-        Do you have any other farm related income (e.g. USDA Payments, Rebates, Custom Hire Income, etc.)?
-        Add a row for each source. Leave empty to skip.
-      </p>
-
-      <!-- Empty state hint (shows only when no rows) -->
-      <div id="empty-hint" class="empty-hint rounded-md p-6 text-center text-sm">
-        No income sources entered. Click <strong>+ Add Row</strong> below if applicable, or click <strong>Next</strong> to skip this step.
-      </div>
-
-      <!-- Rows container -->
-      <div id="rows-container" class="space-y-0">
-        <!-- Column headers — visible only when rows exist -->
-        <div id="column-headers" class="hidden grid grid-cols-[2fr_1fr_auto] gap-2 text-xs font-medium text-white brand-header rounded-t-lg py-2 px-3">
-          <span>Description</span>
-          <span>Amount ($)</span>
-          <span class="w-9"></span>
+      <!-- Form Card -->
+      <div class="agrellus-card">
+        <div class="px-6 pt-6 pb-3 border-b border-default">
+          <div class="flex items-start justify-between">
+            <h2 class="text-xl leading-none font-semibold text-text-strong">Other Farm Related Income</h2>
+            <div id="save-status" class="text-xs text-gray-500 hidden">
+              <span id="save-status-text"></span>
+            </div>
+          </div>
         </div>
-        <!-- Rows render here -->
+        <div class="px-6 py-5">
+
+          <!-- Question -->
+          <p class="text-sm text-text-body mb-5">
+            Do you have any other farm related income (e.g. USDA Payments, Rebates, Custom Hire Income, etc.)?
+            Add a row for each source. Leave empty to skip.
+          </p>
+
+          <!-- Empty state -->
+          <div id="empty-hint" class="empty-hint rounded-md p-6 text-center text-sm">
+            No income sources entered. Click <strong>+ Add Row</strong> below if applicable, or click <strong>Next</strong> to skip this step.
+          </div>
+
+          <!-- Rows -->
+          <div id="rows-container" class="space-y-0">
+            <!-- Column headers — match CropPlanForm bg-[#2c4a3e] -->
+            <div id="column-headers" class="hidden grid grid-cols-[2fr_1fr_auto] gap-2 text-xs font-medium text-white bg-agrellus-green-dark rounded-t-lg py-2 px-3">
+              <span>Description</span>
+              <span>Amount ($)</span>
+              <span class="w-9"></span>
+            </div>
+          </div>
+
+          <!-- Add Row button — match CropPlanForm pattern -->
+          <button id="add-row-btn" type="button"
+            class="w-full mt-3 py-2 border border-dashed border-gray-300 rounded-md text-sm text-text-body hover:bg-gray-50 hover:border-gray-400 transition flex items-center justify-center gap-2"
+          >
+            <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+            <span>Add Row</span>
+          </button>
+
+          <!-- Footer summary -->
+          <div id="footer-summary" class="text-sm text-text-muted mt-3 hidden">
+            <span id="footer-count">0 income sources</span>
+            <span class="text-gray-300 mx-2">|</span>
+            <span id="footer-total">$0.00 total</span>
+          </div>
+
+        </div>
       </div>
 
-      <!-- Add Row button -->
-      <button
-        id="add-row-btn"
-        type="button"
-        class="w-full mt-3 py-2 border border-dashed border-gray-300 rounded-md text-sm text-gray-700 hover:bg-gray-50 hover:border-gray-400 transition flex items-center justify-center gap-2"
-      >
-        <span>+</span>
-        <span>Add Row</span>
-      </button>
-
-      <!-- Footer: row count + total -->
-      <div id="footer-summary" class="text-sm text-gray-500 mt-3 hidden">
-        <span id="footer-count">0 income sources</span>
-        <span class="text-gray-300 mx-2">|</span>
-        <span id="footer-total">$0.00 total</span>
+      <!-- Back / Next nav (matches IntakeWizard pattern) -->
+      <div class="flex items-center justify-between mt-2">
+        <button class="px-4 py-2 text-sm font-medium text-text-strong bg-white border border-default rounded-md hover:bg-gray-50 transition flex items-center gap-1.5">
+          <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+          Back
+        </button>
+        <button id="next-btn"
+          class="px-6 py-2 text-sm font-medium text-white rounded-md hover:opacity-90 transition flex items-center gap-1.5 bg-agrellus-green"
+        >
+          Next
+          <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
       </div>
+
+      <!-- Mockup-only debug panel -->
+      <details class="text-xs">
+        <summary class="cursor-pointer text-text-muted hover:text-text-body">Show payload preview (mockup-only debug)</summary>
+        <pre id="payload-preview" class="mt-2 p-3 bg-gray-100 rounded text-text-strong overflow-x-auto font-mono"></pre>
+      </details>
 
     </div>
-
-    <!-- Back / Next nav -->
-    <div class="flex items-center justify-between mt-6">
-      <button class="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50">
-        ← Back
-      </button>
-      <button
-        id="next-btn"
-        class="px-6 py-2 text-sm font-medium text-white rounded-md hover:opacity-90"
-        style="background: #2c4a3e;"
-      >
-        Next →
-      </button>
-    </div>
-
-    <!-- Mockup-only debug panel (hide in real impl) -->
-    <details class="mt-8 text-xs">
-      <summary class="cursor-pointer text-gray-500 hover:text-gray-700">Show payload preview (mockup-only debug)</summary>
-      <pre id="payload-preview" class="mt-2 p-3 bg-gray-100 rounded text-gray-800 overflow-x-auto"></pre>
-    </details>
-
   </main>
 
   <script>
-    // -----------------------------------------------------------------------
-    // Predefined options — order MUST match the production spec from #578
-    // -----------------------------------------------------------------------
     const PREDEFINED_OPTIONS = [
       { key: "usda_program_payments", label: "USDA Program Payments" },
       { key: "rebates", label: "Rebates" },
@@ -212,20 +351,14 @@
       { key: "custom_hire_income", label: "Custom Hire Income" },
     ];
 
-    // State: list of entries
-    // Each entry shape: { predefined_key: string|null, custom_label: string|null, amount: number|"" }
     let entries = [];
 
-    // -----------------------------------------------------------------------
-    // Render
-    // -----------------------------------------------------------------------
     function render() {
       const container = document.getElementById("rows-container");
       const columnHeaders = document.getElementById("column-headers");
       const emptyHint = document.getElementById("empty-hint");
       const footerSummary = document.getElementById("footer-summary");
 
-      // Clear all row divs (keep column headers element)
       Array.from(container.querySelectorAll(".income-row")).forEach((el) => el.remove());
 
       if (entries.length === 0) {
@@ -240,51 +373,40 @@
 
       entries.forEach((entry, index) => {
         const row = document.createElement("div");
-        row.className = "income-row grid grid-cols-[2fr_1fr_auto] gap-2 items-center px-3 py-2 border-b border-gray-100 row-hover";
+        row.className = "income-row grid grid-cols-[2fr_1fr_auto] gap-2 items-center px-3 py-2 border-b border-gray-100 hover:bg-gray-50";
         row.dataset.index = index;
 
-        // ---- Description cell ----
+        // Description cell
         const descCell = document.createElement("div");
-
         if (entry.predefined_key === null && entry.custom_label !== null) {
-          // "Other" mode — render text input
+          // "Other" mode — text input with badge
           const wrap = document.createElement("div");
           wrap.className = "flex items-center gap-2";
-
           const otherTag = document.createElement("span");
           otherTag.className = "text-xs px-2 py-0.5 bg-amber-100 text-amber-800 rounded font-medium whitespace-nowrap";
           otherTag.textContent = "Other";
-
           const input = document.createElement("input");
           input.type = "text";
           input.className = "input-base flex-1";
           input.placeholder = "Describe the income source…";
           input.value = entry.custom_label;
-          input.addEventListener("input", (e) => {
-            entries[index].custom_label = e.target.value;
-            updatePayloadPreview();
-          });
-
+          input.addEventListener("input", (e) => { entries[index].custom_label = e.target.value; updatePayloadPreview(); });
           wrap.appendChild(otherTag);
           wrap.appendChild(input);
           descCell.appendChild(wrap);
         } else {
-          // Dropdown mode — render select
+          // Dropdown mode
           const select = document.createElement("select");
           select.className = "input-base appearance-none bg-white pr-8";
           select.style.backgroundImage = "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2'><polyline points='6 9 12 15 18 9'/></svg>\")";
           select.style.backgroundRepeat = "no-repeat";
           select.style.backgroundPosition = "right 10px center";
-
-          // Default placeholder
           const placeholder = document.createElement("option");
           placeholder.value = "";
           placeholder.textContent = "Select source…";
           placeholder.disabled = true;
           placeholder.selected = entry.predefined_key === null;
           select.appendChild(placeholder);
-
-          // Predefined options
           PREDEFINED_OPTIONS.forEach((opt) => {
             const o = document.createElement("option");
             o.value = opt.key;
@@ -292,34 +414,22 @@
             if (entry.predefined_key === opt.key) o.selected = true;
             select.appendChild(o);
           });
-
-          // "Other" option
           const otherOpt = document.createElement("option");
           otherOpt.value = "__other__";
           otherOpt.textContent = "Other (specify…)";
           select.appendChild(otherOpt);
-
           select.addEventListener("change", (e) => {
             const val = e.target.value;
-            if (val === "__other__") {
-              entries[index].predefined_key = null;
-              entries[index].custom_label = "";
-            } else if (val === "") {
-              entries[index].predefined_key = null;
-              entries[index].custom_label = null;
-            } else {
-              entries[index].predefined_key = val;
-              entries[index].custom_label = null;
-            }
+            if (val === "__other__") { entries[index].predefined_key = null; entries[index].custom_label = ""; }
+            else if (val === "") { entries[index].predefined_key = null; entries[index].custom_label = null; }
+            else { entries[index].predefined_key = val; entries[index].custom_label = null; }
             render();
           });
-
           descCell.appendChild(select);
         }
-
         row.appendChild(descCell);
 
-        // ---- Amount cell ----
+        // Amount cell
         const amountCell = document.createElement("div");
         const amountWrap = document.createElement("div");
         amountWrap.className = "relative";
@@ -344,18 +454,14 @@
         amountCell.appendChild(amountWrap);
         row.appendChild(amountCell);
 
-        // ---- Trash cell ----
+        // Trash cell
         const trashCell = document.createElement("div");
         const trashBtn = document.createElement("button");
         trashBtn.type = "button";
         trashBtn.className = "h-9 w-9 flex items-center justify-center rounded text-gray-400 hover:bg-red-50 hover:text-red-600 transition";
         trashBtn.title = "Remove row";
         trashBtn.innerHTML = "<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='3 6 5 6 21 6'/><path d='M19 6l-2 14a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2L5 6'/><path d='M10 11v6'/><path d='M14 11v6'/><path d='M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2'/></svg>";
-        trashBtn.addEventListener("click", () => {
-          entries.splice(index, 1);
-          render();
-          flashSavedStatus();
-        });
+        trashBtn.addEventListener("click", () => { entries.splice(index, 1); render(); flashSavedStatus(); });
         trashCell.appendChild(trashBtn);
         row.appendChild(trashCell);
 
@@ -366,23 +472,14 @@
       updatePayloadPreview();
     }
 
-    // -----------------------------------------------------------------------
-    // Footer summary
-    // -----------------------------------------------------------------------
     function updateFooter() {
-      const total = entries.reduce((sum, e) => {
-        const a = typeof e.amount === "number" ? e.amount : 0;
-        return sum + a;
-      }, 0);
+      const total = entries.reduce((sum, e) => sum + (typeof e.amount === "number" ? e.amount : 0), 0);
       document.getElementById("footer-count").textContent =
         entries.length === 1 ? "1 income source" : `${entries.length} income sources`;
       document.getElementById("footer-total").textContent =
         `$${total.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })} total`;
     }
 
-    // -----------------------------------------------------------------------
-    // Payload preview (mockup-only)
-    // -----------------------------------------------------------------------
     function updatePayloadPreview() {
       const payload = {
         other_farm_income: entries.map((e) => ({
@@ -394,9 +491,6 @@
       document.getElementById("payload-preview").textContent = JSON.stringify(payload, null, 2);
     }
 
-    // -----------------------------------------------------------------------
-    // Save status flash (visual only)
-    // -----------------------------------------------------------------------
     function flashSavedStatus() {
       const el = document.getElementById("save-status");
       const txt = document.getElementById("save-status-text");
@@ -409,22 +503,14 @@
       setTimeout(() => el.classList.add("hidden"), 2000);
     }
 
-    // -----------------------------------------------------------------------
-    // Wire up Add Row button
-    // -----------------------------------------------------------------------
     document.getElementById("add-row-btn").addEventListener("click", () => {
       entries.push({ predefined_key: null, custom_label: null, amount: "" });
       render();
     });
 
-    // -----------------------------------------------------------------------
-    // Wire up Next button (mock validation)
-    // -----------------------------------------------------------------------
     document.getElementById("next-btn").addEventListener("click", () => {
-      // Validate: every row needs a description AND amount > 0
       const incomplete = entries.some((e) => {
-        const hasDesc =
-          e.predefined_key !== null || (typeof e.custom_label === "string" && e.custom_label.trim().length > 0);
+        const hasDesc = e.predefined_key !== null || (typeof e.custom_label === "string" && e.custom_label.trim().length > 0);
         const hasAmount = typeof e.amount === "number" && e.amount > 0;
         return !hasDesc || !hasAmount;
       });
@@ -438,7 +524,6 @@
       alert(summary);
     });
 
-    // Initial render
     render();
   </script>
 </body>
