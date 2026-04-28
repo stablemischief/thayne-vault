@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agrellus — Step 4: Other Farm Related Income (Issue #578 Mockup)</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background: #f4f4f0;
+      color: #374151;
+      min-height: 100vh;
+    }
+
+    /* Brand tokens — match production CropPlanForm */
+    .brand-header { background: #2c4a3e; }
+    .brand-text { color: #2c4a3e; }
+    .brand-amber { color: #c05c00; }
+
+    /* Wizard step indicator pill */
+    .step-pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 24px;
+      height: 24px;
+      border-radius: 9999px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+    .step-done { background: #16a34a; color: white; }
+    .step-active { background: #2c4a3e; color: white; }
+    .step-pending { background: #e5e7eb; color: #6b7280; }
+
+    /* Match the row hover from CropPlanForm */
+    .row-hover:hover { background-color: rgba(0, 0, 0, 0.03); }
+
+    /* Status indicator dot */
+    .saved-pulse {
+      animation: pulse-fade 2s ease-out forwards;
+    }
+    @keyframes pulse-fade {
+      0% { opacity: 1; }
+      80% { opacity: 1; }
+      100% { opacity: 0; }
+    }
+
+    /* Card-style focus ring on inputs (match shadcn Input component) */
+    .input-base {
+      width: 100%;
+      height: 36px;
+      padding: 0 12px;
+      border: 1px solid #e5e7eb;
+      border-radius: 6px;
+      font-size: 14px;
+      background: white;
+      color: #111827;
+    }
+    .input-base:focus {
+      outline: none;
+      border-color: #2c4a3e;
+      box-shadow: 0 0 0 2px rgba(44, 74, 62, 0.15);
+    }
+
+    /* Empty state hint */
+    .empty-hint {
+      background: #f9fafb;
+      border: 1px dashed #d1d5db;
+      color: #6b7280;
+    }
+  </style>
+</head>
+<body>
+  <!-- Top app bar (mocked) -->
+  <header class="bg-white border-b border-gray-200 px-6 py-3 flex items-center gap-4">
+    <div class="flex items-center gap-2 font-bold brand-text">
+      <span>🌾 Agrellus</span>
+    </div>
+    <div class="text-sm text-gray-400">/</div>
+    <div class="text-sm text-gray-600 font-medium">New Application</div>
+    <span class="ml-2 text-xs px-2 py-0.5 bg-gray-100 text-gray-700 rounded">DRAFT_ANALYST_ENTRY</span>
+    <div class="ml-auto flex items-center gap-3 text-sm text-gray-500">
+      <span>Farmer: Robert D Harmon Jr.</span>
+      <span class="text-gray-300">·</span>
+      <span>App: APP-MOCKUP-578</span>
+    </div>
+  </header>
+
+  <main class="max-w-5xl mx-auto px-6 py-8">
+
+    <!-- Wizard Stepper -->
+    <div class="flex items-center justify-center gap-3 mb-8 text-sm">
+      <div class="flex items-center gap-2">
+        <span class="step-pill step-done">✓</span>
+        <span class="text-gray-700">Applicant Identity</span>
+      </div>
+      <div class="text-gray-300">—</div>
+      <div class="flex items-center gap-2">
+        <span class="step-pill step-done">✓</span>
+        <span class="text-gray-700">Organization Structure</span>
+      </div>
+      <div class="text-gray-300">—</div>
+      <div class="flex items-center gap-2">
+        <span class="step-pill step-done">✓</span>
+        <span class="text-gray-700">Farm Plan</span>
+      </div>
+      <div class="text-gray-300">—</div>
+      <div class="flex items-center gap-2">
+        <span class="step-pill step-active">4</span>
+        <span class="font-semibold text-gray-900">Other Farm Income</span>
+      </div>
+      <div class="text-gray-300">—</div>
+      <div class="flex items-center gap-2">
+        <span class="step-pill step-pending">5</span>
+        <span class="text-gray-500">Debt Verification</span>
+      </div>
+      <div class="text-gray-300">—</div>
+      <div class="flex items-center gap-2">
+        <span class="step-pill step-pending">6</span>
+        <span class="text-gray-500">Attestation</span>
+      </div>
+    </div>
+
+    <!-- Step 4 Card -->
+    <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+
+      <!-- Card header -->
+      <div class="flex items-start justify-between mb-1">
+        <div>
+          <h2 class="text-xl font-semibold text-gray-900">Other Farm Related Income</h2>
+        </div>
+        <!-- Save status indicator (placeholder; would animate in real component) -->
+        <div id="save-status" class="text-xs text-gray-500 hidden">
+          <span id="save-status-text"></span>
+        </div>
+      </div>
+
+      <!-- Question text -->
+      <p class="text-sm text-gray-600 mb-5">
+        Do you have any other farm related income (e.g. USDA Payments, Rebates, Custom Hire Income, etc.)?
+        Add a row for each source. Leave empty to skip.
+      </p>
+
+      <!-- Empty state hint (shows only when no rows) -->
+      <div id="empty-hint" class="empty-hint rounded-md p-6 text-center text-sm">
+        No income sources entered. Click <strong>+ Add Row</strong> below if applicable, or click <strong>Next</strong> to skip this step.
+      </div>
+
+      <!-- Rows container -->
+      <div id="rows-container" class="space-y-0">
+        <!-- Column headers — visible only when rows exist -->
+        <div id="column-headers" class="hidden grid grid-cols-[2fr_1fr_auto] gap-2 text-xs font-medium text-white brand-header rounded-t-lg py-2 px-3">
+          <span>Description</span>
+          <span>Amount ($)</span>
+          <span class="w-9"></span>
+        </div>
+        <!-- Rows render here -->
+      </div>
+
+      <!-- Add Row button -->
+      <button
+        id="add-row-btn"
+        type="button"
+        class="w-full mt-3 py-2 border border-dashed border-gray-300 rounded-md text-sm text-gray-700 hover:bg-gray-50 hover:border-gray-400 transition flex items-center justify-center gap-2"
+      >
+        <span>+</span>
+        <span>Add Row</span>
+      </button>
+
+      <!-- Footer: row count + total -->
+      <div id="footer-summary" class="text-sm text-gray-500 mt-3 hidden">
+        <span id="footer-count">0 income sources</span>
+        <span class="text-gray-300 mx-2">|</span>
+        <span id="footer-total">$0.00 total</span>
+      </div>
+
+    </div>
+
+    <!-- Back / Next nav -->
+    <div class="flex items-center justify-between mt-6">
+      <button class="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50">
+        ← Back
+      </button>
+      <button
+        id="next-btn"
+        class="px-6 py-2 text-sm font-medium text-white rounded-md hover:opacity-90"
+        style="background: #2c4a3e;"
+      >
+        Next →
+      </button>
+    </div>
+
+    <!-- Mockup-only debug panel (hide in real impl) -->
+    <details class="mt-8 text-xs">
+      <summary class="cursor-pointer text-gray-500 hover:text-gray-700">Show payload preview (mockup-only debug)</summary>
+      <pre id="payload-preview" class="mt-2 p-3 bg-gray-100 rounded text-gray-800 overflow-x-auto"></pre>
+    </details>
+
+  </main>
+
+  <script>
+    // -----------------------------------------------------------------------
+    // Predefined options — order MUST match the production spec from #578
+    // -----------------------------------------------------------------------
+    const PREDEFINED_OPTIONS = [
+      { key: "usda_program_payments", label: "USDA Program Payments" },
+      { key: "rebates", label: "Rebates" },
+      { key: "ldp_payments", label: "LDP Payments" },
+      { key: "custom_machine_hire", label: "Custom Machine Hire" },
+      { key: "custom_harvest_hire", label: "Custom Harvest Hire" },
+      { key: "custom_hire_income", label: "Custom Hire Income" },
+    ];
+
+    // State: list of entries
+    // Each entry shape: { predefined_key: string|null, custom_label: string|null, amount: number|"" }
+    let entries = [];
+
+    // -----------------------------------------------------------------------
+    // Render
+    // -----------------------------------------------------------------------
+    function render() {
+      const container = document.getElementById("rows-container");
+      const columnHeaders = document.getElementById("column-headers");
+      const emptyHint = document.getElementById("empty-hint");
+      const footerSummary = document.getElementById("footer-summary");
+
+      // Clear all row divs (keep column headers element)
+      Array.from(container.querySelectorAll(".income-row")).forEach((el) => el.remove());
+
+      if (entries.length === 0) {
+        columnHeaders.classList.add("hidden");
+        emptyHint.classList.remove("hidden");
+        footerSummary.classList.add("hidden");
+      } else {
+        columnHeaders.classList.remove("hidden");
+        emptyHint.classList.add("hidden");
+        footerSummary.classList.remove("hidden");
+      }
+
+      entries.forEach((entry, index) => {
+        const row = document.createElement("div");
+        row.className = "income-row grid grid-cols-[2fr_1fr_auto] gap-2 items-center px-3 py-2 border-b border-gray-100 row-hover";
+        row.dataset.index = index;
+
+        // ---- Description cell ----
+        const descCell = document.createElement("div");
+
+        if (entry.predefined_key === null && entry.custom_label !== null) {
+          // "Other" mode — render text input
+          const wrap = document.createElement("div");
+          wrap.className = "flex items-center gap-2";
+
+          const otherTag = document.createElement("span");
+          otherTag.className = "text-xs px-2 py-0.5 bg-amber-100 text-amber-800 rounded font-medium whitespace-nowrap";
+          otherTag.textContent = "Other";
+
+          const input = document.createElement("input");
+          input.type = "text";
+          input.className = "input-base flex-1";
+          input.placeholder = "Describe the income source…";
+          input.value = entry.custom_label;
+          input.addEventListener("input", (e) => {
+            entries[index].custom_label = e.target.value;
+            updatePayloadPreview();
+          });
+
+          wrap.appendChild(otherTag);
+          wrap.appendChild(input);
+          descCell.appendChild(wrap);
+        } else {
+          // Dropdown mode — render select
+          const select = document.createElement("select");
+          select.className = "input-base appearance-none bg-white pr-8";
+          select.style.backgroundImage = "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2'><polyline points='6 9 12 15 18 9'/></svg>\")";
+          select.style.backgroundRepeat = "no-repeat";
+          select.style.backgroundPosition = "right 10px center";
+
+          // Default placeholder
+          const placeholder = document.createElement("option");
+          placeholder.value = "";
+          placeholder.textContent = "Select source…";
+          placeholder.disabled = true;
+          placeholder.selected = entry.predefined_key === null;
+          select.appendChild(placeholder);
+
+          // Predefined options
+          PREDEFINED_OPTIONS.forEach((opt) => {
+            const o = document.createElement("option");
+            o.value = opt.key;
+            o.textContent = opt.label;
+            if (entry.predefined_key === opt.key) o.selected = true;
+            select.appendChild(o);
+          });
+
+          // "Other" option
+          const otherOpt = document.createElement("option");
+          otherOpt.value = "__other__";
+          otherOpt.textContent = "Other (specify…)";
+          select.appendChild(otherOpt);
+
+          select.addEventListener("change", (e) => {
+            const val = e.target.value;
+            if (val === "__other__") {
+              entries[index].predefined_key = null;
+              entries[index].custom_label = "";
+            } else if (val === "") {
+              entries[index].predefined_key = null;
+              entries[index].custom_label = null;
+            } else {
+              entries[index].predefined_key = val;
+              entries[index].custom_label = null;
+            }
+            render();
+          });
+
+          descCell.appendChild(select);
+        }
+
+        row.appendChild(descCell);
+
+        // ---- Amount cell ----
+        const amountCell = document.createElement("div");
+        const amountWrap = document.createElement("div");
+        amountWrap.className = "relative";
+        const dollar = document.createElement("span");
+        dollar.className = "absolute left-3 top-1/2 -translate-y-1/2 text-sm text-gray-500 pointer-events-none";
+        dollar.textContent = "$";
+        const amountInput = document.createElement("input");
+        amountInput.type = "number";
+        amountInput.min = "0";
+        amountInput.step = "0.01";
+        amountInput.className = "input-base pl-7";
+        amountInput.placeholder = "0.00";
+        amountInput.value = entry.amount === "" ? "" : entry.amount;
+        amountInput.addEventListener("input", (e) => {
+          const v = e.target.value;
+          entries[index].amount = v === "" ? "" : parseFloat(v);
+          updateFooter();
+          updatePayloadPreview();
+        });
+        amountWrap.appendChild(dollar);
+        amountWrap.appendChild(amountInput);
+        amountCell.appendChild(amountWrap);
+        row.appendChild(amountCell);
+
+        // ---- Trash cell ----
+        const trashCell = document.createElement("div");
+        const trashBtn = document.createElement("button");
+        trashBtn.type = "button";
+        trashBtn.className = "h-9 w-9 flex items-center justify-center rounded text-gray-400 hover:bg-red-50 hover:text-red-600 transition";
+        trashBtn.title = "Remove row";
+        trashBtn.innerHTML = "<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='3 6 5 6 21 6'/><path d='M19 6l-2 14a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2L5 6'/><path d='M10 11v6'/><path d='M14 11v6'/><path d='M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2'/></svg>";
+        trashBtn.addEventListener("click", () => {
+          entries.splice(index, 1);
+          render();
+          flashSavedStatus();
+        });
+        trashCell.appendChild(trashBtn);
+        row.appendChild(trashCell);
+
+        container.appendChild(row);
+      });
+
+      updateFooter();
+      updatePayloadPreview();
+    }
+
+    // -----------------------------------------------------------------------
+    // Footer summary
+    // -----------------------------------------------------------------------
+    function updateFooter() {
+      const total = entries.reduce((sum, e) => {
+        const a = typeof e.amount === "number" ? e.amount : 0;
+        return sum + a;
+      }, 0);
+      document.getElementById("footer-count").textContent =
+        entries.length === 1 ? "1 income source" : `${entries.length} income sources`;
+      document.getElementById("footer-total").textContent =
+        `$${total.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })} total`;
+    }
+
+    // -----------------------------------------------------------------------
+    // Payload preview (mockup-only)
+    // -----------------------------------------------------------------------
+    function updatePayloadPreview() {
+      const payload = {
+        other_farm_income: entries.map((e) => ({
+          predefined_key: e.predefined_key,
+          custom_label: e.custom_label,
+          amount: e.amount === "" ? null : e.amount,
+        })),
+      };
+      document.getElementById("payload-preview").textContent = JSON.stringify(payload, null, 2);
+    }
+
+    // -----------------------------------------------------------------------
+    // Save status flash (visual only)
+    // -----------------------------------------------------------------------
+    function flashSavedStatus() {
+      const el = document.getElementById("save-status");
+      const txt = document.getElementById("save-status-text");
+      el.classList.remove("hidden");
+      txt.textContent = "Saved ✓";
+      txt.style.color = "#16a34a";
+      el.classList.remove("saved-pulse");
+      void el.offsetWidth;
+      el.classList.add("saved-pulse");
+      setTimeout(() => el.classList.add("hidden"), 2000);
+    }
+
+    // -----------------------------------------------------------------------
+    // Wire up Add Row button
+    // -----------------------------------------------------------------------
+    document.getElementById("add-row-btn").addEventListener("click", () => {
+      entries.push({ predefined_key: null, custom_label: null, amount: "" });
+      render();
+    });
+
+    // -----------------------------------------------------------------------
+    // Wire up Next button (mock validation)
+    // -----------------------------------------------------------------------
+    document.getElementById("next-btn").addEventListener("click", () => {
+      // Validate: every row needs a description AND amount > 0
+      const incomplete = entries.some((e) => {
+        const hasDesc =
+          e.predefined_key !== null || (typeof e.custom_label === "string" && e.custom_label.trim().length > 0);
+        const hasAmount = typeof e.amount === "number" && e.amount > 0;
+        return !hasDesc || !hasAmount;
+      });
+      if (entries.length > 0 && incomplete) {
+        alert("Each row needs a description and an amount > 0. (Or remove the row.)");
+        return;
+      }
+      const summary = entries.length === 0
+        ? "No other farm income reported. Advancing to Step 5 — Debt Verification…"
+        : `Saving ${entries.length} income source(s) totalling $${entries.reduce((s, e) => s + (typeof e.amount === "number" ? e.amount : 0), 0).toLocaleString()}…\n\n(In production this would advance to Step 5 — Debt Verification)`;
+      alert(summary);
+    });
+
+    // Initial render
+    render();
+  </script>
+</body>
+</html>
