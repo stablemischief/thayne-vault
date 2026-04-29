@@ -12,8 +12,10 @@ Partner: Mitch Dornich (mitch@stablemischief.ai).
 - Tristan Cuevas — pro bono dev/learner working on AgFin (tristan.cuevas.development@gmail.com, VPS: ssh tristan@82.29.153.201)
 
 ## Strategy (`#biz-strategy`)
-- **Current focus:** AgFin caught up (~2 weeks behind as of 2026-04-06), then fundraising
-- **Fundraising:** $10M AgFin-only raise (Deck 1, 8-slide). Core open gap: investment milestone undefined. See [[entities/clients/agrellus]] Fundraising section.
+- **Positioning (Apr 28):** Stable Mischief = **"Fintech for Ag"** NOT "Ag-Tech." Rationale: 10–20x valuation multiples (vs 3–6x ag-tech), deeper investor pool (a16z fintech, Ribbit, QED), stronger moat (regulatory complexity + financial infra), bigger TAM ($1.2T+ ag financial flows). Agrellus is validation customer only — never named in investor materials.
+- **Fundraising:** Reframing from $10M AgFin-only to fintech positioning. Chris Johnson briefing doc in progress (facts-only, no AI hype, cited sources). Comp: Ocrolus ($500M+). Pricing: $100/app vs ~$1,200 manual. Use of funds: 24–30 month runway, include 2–4 non-provisional patent applications.
+- **Two expansion paths:** (1) Data extraction marketplace — pre-qualify applicants against lender criteria, 25–50 bps on funded loans, viable pre-SOC-2. (2) Full Farm Credit platform — funds distribution, insurance/lease/lien validation, portfolio risk monitoring; requires SOC 2 Type II.
+- **Narrative guardrails:** Drop 1.5M farmer count. Story is lending volume + application throughput. No "revolutionary/game-changing" language.
 - **Product bets:** Open Notebook generalization + Skattbók rebranding/packaging after AgFin stabilizes
 
 ## Admin / Ops (`#biz-admin`)

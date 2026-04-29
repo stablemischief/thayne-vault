@@ -7,12 +7,21 @@ Compliance-grade document intelligence platform for agricultural loan originatio
 Stack: Next.js, FastAPI, Supabase (Stable Mischief standards).
 Scale: 1,395 fields, 9 doc types, 6-phase pipeline, 91 tests. Built in <120 days by <5 people.
 
-## Current State (as of 2026-04-06 — confirmed by James)
-- AgFin is #1 priority — everything else holds until it's caught up (~2 weeks behind)
+## Current State (as of 2026-04-28)
+- AgFin is #1 priority — everything else holds until it's caught up
 - Remediation (REC) phase ongoing: 19 confirmed findings, architectural fixes in progress
-- Mitch has completed most issues and **all previously open PRs are now merged/closed** ✅
-- Active branch: `staging` (HEAD 79acc23)
+- **Issue #578 Step 4 (Other Farm Income) fully shipped** — Option C: single JSONB column, 6 PI_* columns dropped, IncomeGrid dynamic rendering. PRs #608–#611 all merged.
+- **Issue #613 filed** — per-step PATCH on Step 4 Next click (currently only persists on final Submit). Awaits validate-before-build.
+- **Step 2 persistence bug discovered** — multi-county adds don't persist to DB after initial app creation. Pre-existing, not yet filed. P2 follow-up.
+- **GitHub Actions billing failure** — CI jobs cancelled across repo. James needs to fix in Billing & Plans settings before any new PRs can merge with green checks.
+- Active branch: `staging`
 - Backup tag: `staging-backup-2026-04-01`
+
+## Process Lessons
+- **Verify migration is live BEFORE merging code PR** on shared-DB setups. Apr 28 outage: PR #610 merged but migration `8e9f0a1b2c3d` was never applied → 500 on `/applications/` for all users. Fixed by applying DDL via Supabase SQL Editor. Backup table `applications_pre_578_backup_20260428` (457 rows) — park ~7 days then drop.
+- **Hybrid mockup approach for Archon briefs** — commit interactive HTML mockup to repo as a file Archon can inspect + embed strategic spec blocks inline in issue (color tokens, JSON shape, copy strings) + reference existing production component as implementation pattern + strict shadcn-only AC. Avoids "Archon doesn't read the file" AND "Archon transliterates raw HTML" risks.
+- **Single focused mockup > 3 variants** when visual precedent already exists in codebase. Faster review, less ambiguity.
+- **Validate-before-build rule** — third consecutive day (Apr 28) with zero fix-test-fix loops on shipped PRs.
 
 ## Key People
 - Chris Johnson (Agrellus CEO) — final authority on product decisions
